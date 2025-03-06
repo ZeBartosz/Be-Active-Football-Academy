@@ -1,5 +1,9 @@
 export default function Home() {
-    return<>
-    <h1 className="text-3xl font-bold underline bg-yellow-200"> Hello</h1>
-    </>
+    return (
+        <>
+            <h1 className="bg-yellow-200 p-2 text-3xl font-bold underline">
+                Hello
+            </h1>
+        </>
+    );
 }
