@@ -50,9 +50,9 @@ final class AuthController extends Controller
             'password' => ['required', 'string', 'min:6', 'confirmed'],
         ]);
 
-        DB::transaction(function () use ($credentials) {
-            User::create($credentials);
-        });
+        $user = User::create($credentials);
+
+        Auth::login($user);
 
         return redirect('/login')->with('success', 'Account Created Successfully. Please log in.');
     }
