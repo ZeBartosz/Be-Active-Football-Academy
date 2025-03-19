@@ -5,22 +5,32 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 final class AuthController extends Controller
 {
-    public function login()
+    /**
+     * Redirect to login page
+     */
+    public function login(): RedirectResponse
     {
         return inertia('Auth/Login');
     }
 
-    public function register()
+    /**
+     * Redirect to register page
+     */
+    public function register(): RedirectResponse
     {
         return inertia('Auth/Register');
     }
 
-    public function authenticate(Request $request)
+    /**
+     * Login the user with valid credentials.
+     */
+    public function authenticate(Request $request): RedirectResponse
     {
 
         $credentials = $request->validate([
@@ -41,7 +51,10 @@ final class AuthController extends Controller
 
     }
 
-    public function store(Request $request)
+    /**
+     * Register a user with valid credentials
+     */
+    public function store(Request $request): RedirectResponse
     {
         $credentials = $request->validate([
             'first_name' => ['required', 'string', 'max:255'],
@@ -57,7 +70,10 @@ final class AuthController extends Controller
         return redirect('/')->with('success', 'Account Created Successfully. Please log in.');
     }
 
-    public function logout(Request $request)
+    /**
+     * Logout a User
+     */
+    public function logout(Request $request): RedirectResponse
     {
 
         Auth::logout();
