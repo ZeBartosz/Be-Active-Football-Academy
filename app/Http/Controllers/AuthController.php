@@ -54,7 +54,7 @@ final class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect('/login')->with('success', 'Account Created Successfully. Please log in.');
+        return redirect('/')->with('success', 'Account Created Successfully. Please log in.');
     }
 
     public function logout(Request $request)
