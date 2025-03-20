@@ -26,6 +26,8 @@ Route::middleware('auth')->group(function () {
     // Admin routes (only for authenticated admins)
     Route::middleware('admin')->group(function () {
         Route::get('/admin', [AdminController::class, 'index']);
+        Route::put('/admin/update/admin/{user}', [AdminController::class, 'updateAdmin']);
+        Route::put('/admin/update/coach/{user}', [AdminController::class, 'updateCoach']);
     });
 });
 
