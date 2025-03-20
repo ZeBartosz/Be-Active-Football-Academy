@@ -2,8 +2,6 @@ import { Link, usePage } from "@inertiajs/react";
 
 function TopNavBar() {
     const { authUser } = usePage().props;
-
-    console.log(authUser);
     return (
         <>
             <nav className="flex">
