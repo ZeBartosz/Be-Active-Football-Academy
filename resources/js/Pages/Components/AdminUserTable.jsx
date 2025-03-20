@@ -3,12 +3,19 @@ import { useForm, usePage } from "@inertiajs/react";
 function AdminUserTable({ users }) {
     const { authUser } = usePage().props;
 
-    const { put: putCoach } = useForm();
+    const { post: postCoach } = useForm();
+    const { delete: deleteCoach } = useForm();
+
     const { put: putAdmin } = useForm();
 
-    function toggleCoachStatus(user, e) {
+    function handleCoachPost(user, e) {
         e.preventDefault();
-        putCoach(`/admin/update/coach/${user.id}`);
+        postCoach(`/admin/create/coach/${user.id}`);
+    }
+
+    function handleCoachdelet(user, e) {
+        e.preventDefault();
+        deleteCoach(`/admin/delete/coach/${user.id}`);
     }
 
     // Function to toggle admin status
@@ -64,7 +71,7 @@ function AdminUserTable({ users }) {
                                         <button
                                             className="rounded-lg border bg-green-600 p-2"
                                             onClick={(e) =>
-                                                toggleCoachStatus(user, e)
+                                                handleCoachPost(user, e)
                                             }
                                         >
                                             False
@@ -74,7 +81,7 @@ function AdminUserTable({ users }) {
                                             disabled={authUser.id === user.id}
                                             className="rounded-lg border bg-red-600 p-2"
                                             onClick={(e) =>
-                                                toggleCoachStatus(user, e)
+                                                handleCoachdelet(user, e)
                                             }
                                         >
                                             True

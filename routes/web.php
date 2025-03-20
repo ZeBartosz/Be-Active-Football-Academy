@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CoachController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -26,8 +27,8 @@ Route::middleware('auth')->group(function () {
     // Admin routes (only for authenticated admins)
     Route::middleware('admin')->group(function () {
         Route::get('/admin', [AdminController::class, 'index']);
-        Route::put('/admin/update/admin/{user}', [AdminController::class, 'updateAdmin']);
-        Route::put('/admin/update/coach/{user}', [AdminController::class, 'updateCoach']);
+        Route::put('/admin/update/admin/{user}', [AdminController::class, 'toggleAdmin']);
+        Route::post('/admin/create/coach/{user}', [CoachController::class, 'store']);
+        Route::delete('/admin/delete/coach/{user}', [CoachController::class, 'destroy']);
     });
 });
-
