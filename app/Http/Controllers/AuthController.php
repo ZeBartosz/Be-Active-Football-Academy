@@ -14,7 +14,7 @@ final class AuthController extends Controller
     /**
      * Redirect to login page
      */
-    public function login(): RedirectResponse
+    public function login()
     {
         return inertia('Auth/Login');
     }
@@ -22,7 +22,7 @@ final class AuthController extends Controller
     /**
      * Redirect to register page
      */
-    public function register(): RedirectResponse
+    public function register()
     {
         return inertia('Auth/Register');
     }
@@ -30,7 +30,7 @@ final class AuthController extends Controller
     /**
      * Login the user with valid credentials.
      */
-    public function authenticate(Request $request): RedirectResponse
+    public function authenticate(Request $request)
     {
 
         $credentials = $request->validate([
@@ -54,7 +54,7 @@ final class AuthController extends Controller
     /**
      * Register a user with valid credentials
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
         $credentials = $request->validate([
             'first_name' => ['required', 'string', 'max:255'],
@@ -73,7 +73,7 @@ final class AuthController extends Controller
     /**
      * Logout a User
      */
-    public function logout(Request $request): RedirectResponse
+    public function logout(Request $request)
     {
 
         Auth::logout();
