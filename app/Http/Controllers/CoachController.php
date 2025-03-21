@@ -7,12 +7,15 @@ namespace App\Http\Controllers;
 use App\Models\Coach;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 
 final class CoachController extends Controller
 {
     public function store(User $user)
     {
+        Gate::authorize('admin');
+
         $user->update(['is_coach' => true]);
 
             $user->coach()->withTrashed()->first()?->restore() ?? $user->coach()->create([
@@ -27,6 +30,7 @@ final class CoachController extends Controller
 
     public function update(Request $request, Coach $coach)
     {
+        Gate::authorize('adminAndUser', $coach);
 
         $validated = $request->validate([
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:3000',
@@ -55,11 +59,15 @@ final class CoachController extends Controller
     {
         $coach = $user->coach;
 
+        Gate::authorize('adminAndUser', $coach);
+
         return inertia('Coach/EditCoach', ['coach' => $coach]);
     }
 
     public function destroy(User $user)
     {
+        Gate::authorize('admin');
+
         $user->update(['is_coach' => false]);
 
         $user->coach()->delete();
