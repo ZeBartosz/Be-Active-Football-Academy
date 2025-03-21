@@ -6,19 +6,22 @@ namespace App\Http\Controllers;
 
 use App\Models\Coach;
 use App\Models\User;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 final class CoachController extends Controller
 {
+    use AuthorizesRequests;
+
     public function store(User $user)
     {
-        Gate::authorize('admin');
+        $this->authorize('admin', Auth::user());
 
         $user->update(['is_coach' => true]);
 
-            $user->coach()->withTrashed()->first()?->restore() ?? $user->coach()->create([
+        $user->coach()->withTrashed()->first()?->restore() ?? $user->coach()->create([
             'about' => "Hello, My name is {$user->first_name} and I am a coach at BAFA",
             'avatar' => '/storage/qrCode/default_pfp.png',
         ]);
@@ -30,7 +33,7 @@ final class CoachController extends Controller
 
     public function update(Request $request, Coach $coach)
     {
-        Gate::authorize('adminAndUser', $coach);
+        $this->authorize('adminAndUser', $coach);
 
         $validated = $request->validate([
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:3000',
@@ -59,14 +62,14 @@ final class CoachController extends Controller
     {
         $coach = $user->coach;
 
-        Gate::authorize('adminAndUser', $coach);
+        $this->authorize('adminAndUser', $coach);
 
         return inertia('Coach/EditCoach', ['coach' => $coach]);
     }
 
     public function destroy(User $user)
     {
-        Gate::authorize('admin');
+        $this->authorize('admin', Auth::user());
 
         $user->update(['is_coach' => false]);
 
