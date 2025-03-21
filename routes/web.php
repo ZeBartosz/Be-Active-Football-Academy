@@ -23,8 +23,6 @@ Route::middleware('guest')->group(function () {
 // Routes for authenticated users
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
-    Route::post('/coach/update/{coach}', [CoachController::class, 'update']);
-    Route::get('/coach/edit/{user}', [CoachController::class, 'edit']);
 
     // Admin routes (only for authenticated admins)
     Route::middleware('admin')->group(function () {
@@ -32,5 +30,10 @@ Route::middleware('auth')->group(function () {
         Route::put('/admin/update/admin/{user}', [AdminController::class, 'toggleAdmin']);
         Route::post('/admin/create/coach/{user}', [CoachController::class, 'store']);
         Route::delete('/admin/delete/coach/{user}', [CoachController::class, 'destroy']);
+
+        Route::middleware('coach')->group(function () {
+            Route::post('/coach/update/{coach}', [CoachController::class, 'update']);
+            Route::get('/coach/edit/{user}', [CoachController::class, 'edit']);
+        });
     });
 });
