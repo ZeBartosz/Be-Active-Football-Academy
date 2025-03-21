@@ -24,6 +24,20 @@ function TopNavBar() {
                         ) : (
                             ""
                         )}
+                        {authUser.is_coach ? (
+                            <>
+                                <Link
+                                    className="pr-1"
+                                    href={`/coach/edit/${authUser.id}`}
+                                    method="get"
+                                    type="button"
+                                >
+                                    Edit coach
+                                </Link>
+                            </>
+                        ) : (
+                            ""
+                        )}
                         <Link
                             className="pr-1"
                             href="/logout"
