@@ -1,4 +1,4 @@
-import { useForm, usePage } from "@inertiajs/react";
+import { Link, useForm, usePage } from "@inertiajs/react";
 
 function AdminUserTable({ users }) {
     const { authUser } = usePage().props;
@@ -77,15 +77,27 @@ function AdminUserTable({ users }) {
                                             False
                                         </button>
                                     ) : (
-                                        <button
-                                            disabled={authUser.id === user.id}
-                                            className="rounded-lg border bg-red-600 p-2"
-                                            onClick={(e) =>
-                                                handleCoachdelet(user, e)
-                                            }
-                                        >
-                                            True
-                                        </button>
+                                        <>
+                                            <button
+                                                disabled={
+                                                    authUser.id === user.id
+                                                }
+                                                className="rounded-lg border bg-red-600 p-2"
+                                                onClick={(e) =>
+                                                    handleCoachdelet(user, e)
+                                                }
+                                            >
+                                                True
+                                            </button>
+                                            <Link
+                                                className="pr-1"
+                                                href={`/coach/edit/${user.id}`}
+                                                method="get"
+                                                type="button"
+                                            >
+                                                Edit
+                                            </Link>
+                                        </>
                                     )}
                                 </td>
                             </tr>

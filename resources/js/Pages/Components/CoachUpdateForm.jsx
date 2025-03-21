@@ -41,9 +41,7 @@ function CoachUpdateForm({ coach }) {
 
         post(`/coach/update/${coach.id}`);
     }
-
-    console.log(data);
-
+    
     return (
         <div>
             <h1>Coach Update Form</h1>
