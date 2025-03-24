@@ -21,9 +21,9 @@ final class CoachController extends Controller
 
         $user->update(['is_coach' => true]);
 
-        $user->coach()->withTrashed()->first()?->restore() ?? $user->coach()->create([
+            $user->coach()->withTrashed()->first()?->restore() ?? $user->coach()->create([
             'about' => "Hello, My name is {$user->first_name} and I am a coach at BAFA",
-            'avatar' => '/storage/qrCode/default_pfp.png',
+            'avatar' => '/storage/coaches/default_pfp.png',
         ]);
 
         return redirect()->back()->with('success',
