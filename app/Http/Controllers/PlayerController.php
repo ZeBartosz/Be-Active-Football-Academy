@@ -1,19 +1,34 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StorePlayerRequest;
-use App\Http\Requests\UpdatePlayerRequest;
 use App\Models\Player;
+use App\Models\Team;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Http\Request;
 
-class PlayerController extends Controller
+final class PlayerController extends Controller
 {
+
+    use AuthorizesRequests;
+
     /**
-     * Display a listing of the resource.
+     * Store a newly created resource in storage.
      */
-    public function index()
+    public function store(Request $request)
     {
-        //
+        $player = $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'team_id' => 'required|integer|exists:teams,id',
+            'user_id' => 'required|integer|exists:users,id',
+        ]);
+
+        Player::create($player);
+
+        return back()->with('success', 'Player created!');
     }
 
     /**
@@ -21,23 +36,9 @@ class PlayerController extends Controller
      */
     public function create()
     {
-        //
-    }
+        $teams = Team::all();
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StorePlayerRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Player $player)
-    {
-        //
+        return inertia('Player/CreatePlayer', ['teams' => $teams]);
     }
 
     /**
@@ -51,7 +52,7 @@ class PlayerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePlayerRequest $request, Player $player)
+    public function update(Request $request, Player $player)
     {
         //
     }

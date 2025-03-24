@@ -10,6 +10,14 @@ function TopNavBar() {
                         <Link className="pr-1" href="/">
                             <h1>{authUser.first_name}</h1>
                         </Link>
+                        <Link
+                            className="pr-1"
+                            href="/player"
+                            method="get"
+                            type="button"
+                        >
+                            Add player
+                        </Link>
                         {authUser.is_admin ? (
                             <>
                                 <Link
