@@ -5,62 +5,31 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTeamRequest;
 use App\Http\Requests\UpdateTeamRequest;
 use App\Models\Team;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TeamController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    use AuthorizesRequests;
+
+    public function store(Request $request)
     {
-        //
+        $this->authorize('admin', Auth::user());
+
+        $team = $request->validate([
+            'team_name' => 'required | string | max:255 | unique:teams',
+        ]);
+
+        Team::create($team);
+
+        return redirect('/admin')->with('success', "{$team['team_name']} created successfully}");
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
-    }
+        $this->authorize('admin', Auth::user());
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreTeamRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Team $team)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Team $team)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateTeamRequest $request, Team $team)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Team $team)
-    {
-        //
+        return inertia('Admin/Team/CreateTeam');
     }
 }
