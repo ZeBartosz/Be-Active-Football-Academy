@@ -1,6 +1,7 @@
 import UserTable from "../Components/AdminComp/UserTable.jsx";
 import { Link } from "@inertiajs/react";
-import CoachesTable from "../Components/AdminComp/CoachesTable.jsx";
+import CoachTable from "../Components/AdminComp/CoachTable.jsx";
+import TeamTable from "../Components/AdminComp/TeamTable.jsx";
 
 export default function Dashboard({ users, coaches, teams }) {
     return (
@@ -16,7 +17,8 @@ export default function Dashboard({ users, coaches, teams }) {
             </Link>
 
             <UserTable users={users} />
-            <CoachesTable coaches={coaches} />
+            <CoachTable coaches={coaches} />
+            <TeamTable teams={teams} />
         </>
     );
 }

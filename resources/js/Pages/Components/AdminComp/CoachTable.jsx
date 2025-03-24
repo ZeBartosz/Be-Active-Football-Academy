@@ -1,6 +1,6 @@
 import { Link } from "@inertiajs/react";
 
-function CoachesTable({ coaches }) {
+function CoachTable({ coaches }) {
     return (
         <>
             <h1>This is a coaches table</h1>
@@ -45,4 +45,4 @@ function CoachesTable({ coaches }) {
     );
 }
 
-export default CoachesTable;
+export default CoachTable;
