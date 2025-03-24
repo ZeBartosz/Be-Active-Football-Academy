@@ -1,6 +1,6 @@
-import { Link, useForm, usePage } from "@inertiajs/react";
+import { useForm, usePage } from "@inertiajs/react";
 
-function AdminUserTable({ users }) {
+function UserTable({ users }) {
     const { authUser } = usePage().props;
 
     const { post: postCoach } = useForm();
@@ -89,14 +89,6 @@ function AdminUserTable({ users }) {
                                             >
                                                 True
                                             </button>
-                                            <Link
-                                                className="pr-1"
-                                                href={`/coach/edit/${user.id}`}
-                                                method="get"
-                                                type="button"
-                                            >
-                                                Edit
-                                            </Link>
                                         </>
                                     )}
                                 </td>
@@ -109,4 +101,4 @@ function AdminUserTable({ users }) {
     );
 }
 
-export default AdminUserTable;
+export default UserTable;
