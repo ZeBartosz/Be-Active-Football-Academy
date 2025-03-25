@@ -24,6 +24,9 @@ final class PlayerController extends Controller
             'last_name' => 'required|string|max:255',
             'team_id' => 'required|integer|exists:teams,id',
             'user_id' => 'required|integer|exists:users,id',
+            'date_of_birth' => 'required|date|before:today',
+            'address' => 'required|string|max:500',
+            'post_code' => 'required|string|max:255',
         ]);
 
         Player::create($player);
