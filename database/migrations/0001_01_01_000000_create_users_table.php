@@ -18,6 +18,10 @@ return new class extends Migration {
             $table->string('last_name');
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('number');
+            $table->longText('address');
+            $table->string('post_code');
+            $table->date('date_of_birth');
             $table->boolean('is_admin')->default(false);
             $table->boolean('is_coach')->default(false);
             $table->rememberToken();

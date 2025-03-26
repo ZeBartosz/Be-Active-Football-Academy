@@ -34,6 +34,10 @@ function UserTable({ users }) {
                             <th>Name</th>
                             <th>Surname</th>
                             <th>Email</th>
+                            <th>Number</th>
+                            <th>DoB</th>
+                            <th>Address</th>
+                            <th>Post Code</th>
                             <th>Is_Admin</th>
                             <th>Is_Coach</th>
                         </tr>
@@ -44,6 +48,10 @@ function UserTable({ users }) {
                                 <td>{user.first_name}</td>
                                 <td>{user.last_name}</td>
                                 <td>{user.email}</td>
+                                <td>{user.number}</td>
+                                <td>{user.date_of_birth}</td>
+                                <td>{user.address}</td>
+                                <td>{user.post_code}</td>
                                 <td>
                                     {!user.is_admin ? (
                                         <button

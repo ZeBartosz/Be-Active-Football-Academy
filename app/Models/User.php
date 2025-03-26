@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -26,6 +27,10 @@ final class User extends Authenticatable
         'last_name',
         'email',
         'password',
+        'number',
+        'address',
+        'post_code',
+        'date_of_birth',
         'is_admin',
         'is_coach',
     ];
@@ -50,6 +55,11 @@ final class User extends Authenticatable
         return $this->hasMany(Player::class);
     }
 
+    public function getDateOfBirthAttribute($value)
+    {
+        return Carbon::parse($value)->format('d-m-Y');
+    }
+
     /**
      * Get the attributes that should be cast.
      *
@@ -62,6 +72,7 @@ final class User extends Authenticatable
             'password' => 'hashed',
             'is_admin' => 'boolean',
             'is_coach' => 'boolean',
+            'date_of_birth' => 'date',
         ];
     }
 }
