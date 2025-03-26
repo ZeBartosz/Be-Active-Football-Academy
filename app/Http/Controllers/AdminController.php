@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Models\Coach;
+use App\Models\Event;
 use App\Models\Player;
 use App\Models\Team;
 use App\Models\User;
@@ -26,9 +27,10 @@ final class AdminController extends Controller
                 'users.first_name as user_first_name', 'users.last_name as user_last_name', 'users.email as user_email',
                 'teams.team_name')
             ->get();
+        $events = Event::all();
 
         return inertia('Admin/Dashboard',
-            ['users' => $users, 'coaches' => $coaches, 'teams' => $teams, 'players' => $players]);
+            ['users' => $users, 'coaches' => $coaches, 'teams' => $teams, 'players' => $players, 'events' => $events]);
     }
 
     public function toggleAdmin(User $user)
