@@ -16,6 +16,14 @@ export default function Dashboard({ users, coaches, teams, players }) {
             >
                 Add Team
             </Link>
+            <Link
+                className="pr-1"
+                href="/admin/event"
+                method="get"
+                type="button"
+            >
+                Add Event
+            </Link>
 
             <UserTable users={users} />
             <PlayerTable players={players} />

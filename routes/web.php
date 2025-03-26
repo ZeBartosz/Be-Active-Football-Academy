@@ -5,6 +5,7 @@ declare(strict_types=1);
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CoachController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\TeamController;
 use Illuminate\Support\Facades\Route;
@@ -37,9 +38,14 @@ Route::middleware('auth')->group(function () {
     Route::middleware('admin')->group(function () {
         Route::get('/admin', [AdminController::class, 'index']);
         Route::put('/admin/update/admin/{user}', [AdminController::class, 'toggleAdmin']);
+
         Route::post('/admin/create/coach/{user}', [CoachController::class, 'store']);
         Route::delete('/admin/delete/coach/{user}', [CoachController::class, 'destroy']);
+
         Route::get('/admin/team', [TeamController::class, 'create'])->name('team');
         Route::post('/admin/team', [TeamController::class, 'store']);
+
+        Route::get('/admin/event', [EventController::class, 'create'])->name('event');
+        Route::post('/admin/event', [EventController::class, 'store']);
     });
 });
