@@ -1,7 +1,6 @@
 import { Link } from "@inertiajs/react";
 
 function PlayerTable({ players }) {
-    console.log(players);
     return (
         <>
             <h1>This is a Players table</h1>
