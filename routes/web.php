@@ -15,6 +15,8 @@ Route::get('/', function () {
     return inertia('Home');
 });
 
+Route::get('/FAQ', [FAQController::class, 'index']);
+
 // Routes for guests
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'login'])->name('login');
@@ -22,7 +24,6 @@ Route::middleware('guest')->group(function () {
 
     Route::get('/register', [AuthController::class, 'register'])->name('register');
     Route::post('/register', [AuthController::class, 'store']);
-    Route::get('/FAQ', [FAQController::class, 'index']);
 });
 
 // Routes for authenticated users
@@ -49,5 +50,8 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/admin/event', [EventController::class, 'create'])->name('event');
         Route::post('/admin/event', [EventController::class, 'store']);
+
+        Route::get('/FAQ/create', [FAQController::class, 'create'])->name('FAQ');
+        Route::post('/FAQ/create', [FAQController::class, 'store']);
     });
 });
