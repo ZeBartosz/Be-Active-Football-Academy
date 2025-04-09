@@ -63,6 +63,9 @@ function TopNavBar() {
                         <Link href="/register" className="pr-1">
                             Register
                         </Link>
+                        <Link href="/FAQ" className="pr-1">
+                            FAQ
+                        </Link>
                     </>
                 )}
             </nav>
