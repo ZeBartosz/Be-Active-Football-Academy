@@ -1,7 +1,7 @@
 import { Link } from "@inertiajs/react";
 
 function PlayerTable({ players }) {
-    return (
+return (
         <>
             <h1>This is a Players table</h1>
             <div className="bg-opacity-75 mt-5 flex flex-col justify-center bg-[#05283d] text-white">
