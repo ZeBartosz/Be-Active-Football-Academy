@@ -53,5 +53,6 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/FAQ/create', [FAQController::class, 'create'])->name('FAQ');
         Route::post('/FAQ/create', [FAQController::class, 'store']);
+        Route::delete('/FAQ/delete/{faq}', [FAQController::class, 'destroy']);
     });
 });

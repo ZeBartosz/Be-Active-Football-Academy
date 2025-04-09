@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Models\FAQ;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Response;
@@ -21,7 +22,7 @@ final class FAQController extends Controller
         return inertia('FAQ/FAQList', ['faqs' => $faqs]);
     }
 
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $FAQ = $request->validate([
             'question' => 'required|string|max:255',
@@ -38,5 +39,12 @@ final class FAQController extends Controller
         $this->authorize('admin', Auth::user());
 
         return inertia('Components/FAQComp/CreateFAQ');
+    }
+
+    public function destroy(FAQ $faq): RedirectResponse
+    {
+        $faq->delete();
+
+        return redirect()->action([self::class, 'index'])->with('success', 'FAQ deleted successfully.');
     }
 }
