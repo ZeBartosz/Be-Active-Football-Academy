@@ -53,6 +53,8 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/FAQ/create', [FAQController::class, 'create'])->name('FAQ');
         Route::post('/FAQ/create', [FAQController::class, 'store']);
+        Route::get('/FAQ/update/{faq}', [FAQController::class, 'edit'])->name('FAQ');
+        Route::put('/FAQ/update/{faq}', [FAQController::class, 'update']);
         Route::delete('/FAQ/delete/{faq}', [FAQController::class, 'destroy']);
     });
 });

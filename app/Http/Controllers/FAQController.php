@@ -41,6 +41,28 @@ final class FAQController extends Controller
         return inertia('Components/FAQComp/CreateFAQ');
     }
 
+    public function edit(FAQ $faq): Response
+    {
+        $this->authorize('admin', Auth::user());
+
+        return inertia('Components/FAQComp/EditFAQ', ['faq' => $faq]);
+    }
+
+    public function update(Request $request, FAQ $faq): RedirectResponse
+    {
+
+        $this->authorize('admin', Auth::user());
+
+        $updateFAQ = $request->validate([
+            'question' => 'required|string|max:255',
+            'answer' => 'required|string|max:255',
+        ]);
+
+        $faq->update($updateFAQ);
+
+        return redirect()->action([self::class, 'index'])->with('success', 'FAQ updated successfully.');
+    }
+
     public function destroy(FAQ $faq): RedirectResponse
     {
         $faq->delete();

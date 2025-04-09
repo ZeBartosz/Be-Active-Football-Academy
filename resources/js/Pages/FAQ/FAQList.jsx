@@ -20,12 +20,15 @@ export default function FAQList({ faqs }) {
                     <h2>Answer:</h2>
                     <p>{faq.answer}</p>
                     {authUser ? (
-                        <button
-                            className="rounded-lg border bg-red-600 p-2"
-                            onClick={(e) => handleDeleteFAQ(faq, e)}
-                        >
-                            Delete
-                        </button>
+                        <>
+                            <button
+                                className="rounded-lg border bg-red-600 p-2"
+                                onClick={(e) => handleDeleteFAQ(faq, e)}
+                            >
+                                Delete
+                            </button>
+                            <Link href={`/FAQ/update/${faq.id}`}>Edit</Link>
+                        </>
                     ) : (
                         ""
                     )}
