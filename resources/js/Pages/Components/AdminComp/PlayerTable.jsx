@@ -1,6 +1,8 @@
 import { Link } from "@inertiajs/react";
 
 function PlayerTable({ players }) {
+    console.log(players);
+
     return (
         <>
             <h1>This is a Players table</h1>
@@ -26,9 +28,9 @@ function PlayerTable({ players }) {
                                 <td>{player.date_of_birth}</td>
                                 <td>{player.address}</td>
                                 <td>{player.post_code}</td>
-                                <td>{player.team_name}</td>
+                                <td>{player.team.team_name}</td>
                                 <td>
-                                    {`${player.user_first_name} ${player.user_last_name}`}
+                                    {`${player.user.first_name} ${player.user.last_name}`}
                                 </td>
                                 <td>
                                     <Link

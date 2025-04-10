@@ -22,15 +22,15 @@ function CoachTable({ coaches }) {
                                 <td>
                                     <img src={coach.avatar} width="50" />
                                 </td>
-                                <td>{coach.first_name}</td>
-                                <td>{coach.last_name}</td>
-                                <td>{coach.email}</td>
+                                <td>{coach.user.first_name}</td>
+                                <td>{coach.user.last_name}</td>
+                                <td>{coach.user.email}</td>
                                 <td>{coach.about}</td>
                                 <td>
                                     <Link
                                         className="pr-1"
                                         href={route("coach.edit", {
-                                            user: coach.user_id,
+                                            user: coach.user.id,
                                         })}
                                         method="get"
                                         type="button"
