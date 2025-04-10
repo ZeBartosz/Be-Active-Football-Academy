@@ -23,7 +23,7 @@ class TeamController extends Controller
 
         Team::create($team);
 
-        return redirect('/admin')->with('success', "{$team['team_name']} created successfully}");
+        return to_route('admin.index')->with('success', "{$team['team_name']} created successfully}");
     }
 
     public function create()
