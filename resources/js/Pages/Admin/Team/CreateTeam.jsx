@@ -7,7 +7,7 @@ export default function CreateTeam() {
 
     function handleTeamCreation(e) {
         e.preventDefault();
-        post("/admin/team");
+        post(route("team.store", data));
     }
 
     return (

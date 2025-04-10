@@ -14,7 +14,7 @@ export default function CreateEvent({ teams }) {
 
     function handleEventCreation(e) {
         e.preventDefault();
-        post("/admin/event");
+        post(route("event.store", data));
     }
 
     return (

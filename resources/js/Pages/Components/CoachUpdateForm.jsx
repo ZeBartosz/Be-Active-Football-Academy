@@ -39,9 +39,9 @@ function CoachUpdateForm({ coach }) {
     function handleEditCoach(e) {
         e.preventDefault();
 
-        post(`/coach/update/${coach.id}`);
+        post(route("coach.update", { coach: coach.id }, data));
     }
-    
+
     return (
         <div>
             <h1>Coach Update Form</h1>

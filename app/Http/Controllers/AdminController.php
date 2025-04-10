@@ -17,7 +17,7 @@ final class AdminController extends Controller
         $users = User::all();
         $coaches = Coach::join('users', 'coaches.user_id', '=', 'users.id')
             ->select('users.first_name', 'users.last_name', 'users.email', 'coaches.about', 'coaches.skills',
-                'coaches.avatar', 'coaches.id')
+                'coaches.avatar', 'coaches.id', 'coaches.user_id')
             ->get();
         $teams = Team::all();
         $players = Player::join('users', 'players.user_id', '=', 'users.id')

@@ -2,17 +2,17 @@ import { Link, useForm, usePage } from "@inertiajs/react";
 
 export default function FAQList({ faqs }) {
     const { authUser } = usePage().props;
-    const { delete: deleteFAQ } = useForm();
+    const { delete: deleteFAQ, processing } = useForm();
 
-    function handleDeleteFAQ(FAQ, e) {
+    function handleDeleteFAQ(faq, e) {
         e.preventDefault();
-        deleteFAQ(`/FAQ/delete/${FAQ.id}`);
+        deleteFAQ(route("faq.destroy", { faq: faq.id }));
     }
 
     return (
         <>
             <h1>This is the FAQ</h1>
-            <Link href="/FAQ/create">Add FAQ</Link>
+            <Link href={route(`faq.create`)}>Add FAQ</Link>
             {faqs.map((faq) => (
                 <div key={faq.id}>
                     <h2>Question:</h2>
@@ -24,10 +24,13 @@ export default function FAQList({ faqs }) {
                             <button
                                 className="rounded-lg border bg-red-600 p-2"
                                 onClick={(e) => handleDeleteFAQ(faq, e)}
+                                disabled={processing} // Disable button during deletion
                             >
-                                Delete
+                                {processing ? "Deleting..." : "Delete"}
                             </button>
-                            <Link href={`/FAQ/update/${faq.id}`}>Edit</Link>
+                            <Link href={route("faq.edit", { faq: faq.id })}>
+                                Edit
+                            </Link>
                         </>
                     ) : (
                         ""

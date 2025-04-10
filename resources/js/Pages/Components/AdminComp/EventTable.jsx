@@ -37,7 +37,7 @@ function EventTable({ events }) {
                                 <td>
                                     <Link
                                         className="pr-1"
-                                        href={`/admin/event/edit/${event.id}`}
+                                        href={"/"}
                                         method="get"
                                         type="button"
                                     >

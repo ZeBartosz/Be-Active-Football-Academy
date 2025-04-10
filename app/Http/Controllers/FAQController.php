@@ -31,7 +31,7 @@ final class FAQController extends Controller
 
         FAQ::create($FAQ);
 
-        return redirect()->action([self::class, 'index'])->with('success', 'FAQ created successfully.');
+        return to_route('faq.index')->with('success', 'FAQ has been added');
     }
 
     public function create(): Response
@@ -60,13 +60,13 @@ final class FAQController extends Controller
 
         $faq->update($updateFAQ);
 
-        return redirect()->action([self::class, 'index'])->with('success', 'FAQ updated successfully.');
+        return to_route('faq.index')->with('success', 'FAQ has been updated');
     }
 
     public function destroy(FAQ $faq): RedirectResponse
     {
         $faq->delete();
 
-        return redirect()->action([self::class, 'index'])->with('success', 'FAQ deleted successfully.');
+        return to_route('faq.index')->with('success', 'FAQ has been deleted');
     }
 }

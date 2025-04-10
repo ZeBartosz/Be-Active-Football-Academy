@@ -29,7 +29,9 @@ function CoachTable({ coaches }) {
                                 <td>
                                     <Link
                                         className="pr-1"
-                                        href={`/coach/edit/${coach.id}`}
+                                        href={route("coach.edit", {
+                                            user: coach.user_id,
+                                        })}
                                         method="get"
                                         type="button"
                                     >

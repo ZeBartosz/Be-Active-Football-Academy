@@ -11,7 +11,6 @@ use Illuminate\Http\Request;
 
 final class PlayerController extends Controller
 {
-
     use AuthorizesRequests;
 
     /**
@@ -31,7 +30,7 @@ final class PlayerController extends Controller
 
         Player::create($player);
 
-        return back()->with('success', 'Player created!');
+        return to_route('home')->with('message', 'Player created');
     }
 
     /**

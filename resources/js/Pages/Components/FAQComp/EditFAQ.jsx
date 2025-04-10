@@ -8,7 +8,7 @@ function EditFAQ({ faq }) {
 
     function handleFAQUpdate(e) {
         e.preventDefault();
-        put(`/FAQ/update/${faq.id}`, data);
+        put(route("faq.update", { faq: faq.id }, data));
     }
 
     return (

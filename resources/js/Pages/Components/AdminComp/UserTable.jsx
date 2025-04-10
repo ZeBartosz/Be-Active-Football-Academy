@@ -10,18 +10,18 @@ function UserTable({ users }) {
 
     function handleCoachPost(user, e) {
         e.preventDefault();
-        postCoach(`/admin/create/coach/${user.id}`);
+        postCoach(route("coach.store", { user: user.id }));
     }
 
     function handleCoachdelet(user, e) {
         e.preventDefault();
-        deleteCoach(`/admin/delete/coach/${user.id}`);
+        deleteCoach(route("coach.destroy", { user: user.id }));
     }
 
     // Function to toggle admin status
     function toggleAdminStatus(user, e) {
         e.preventDefault();
-        putAdmin(`/admin/update/admin/${user.id}`);
+        putAdmin(route("admin.toggleAdmin", { user: user.id }));
     }
 
     return (

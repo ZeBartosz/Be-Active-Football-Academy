@@ -2,6 +2,7 @@ import { Link, usePage } from "@inertiajs/react";
 
 function TopNavBar() {
     const { authUser } = usePage().props;
+
     return (
         <>
             <nav className="flex">
@@ -12,17 +13,20 @@ function TopNavBar() {
                         </Link>
                         <Link
                             className="pr-1"
-                            href="/player"
+                            href={route("player.create")}
                             method="get"
                             type="button"
                         >
                             Add player
                         </Link>
+                        <Link href={route(`faq.index`)} className="pr-1">
+                            FAQ
+                        </Link>
                         {authUser.is_admin ? (
                             <>
                                 <Link
                                     className="pr-1"
-                                    href="/admin"
+                                    href={route("admin.index")}
                                     method="get"
                                     type="button"
                                 >
@@ -36,7 +40,9 @@ function TopNavBar() {
                             <>
                                 <Link
                                     className="pr-1"
-                                    href={`/coach/edit/${authUser.id}`}
+                                    href={route("coach.edit", {
+                                        user: authUser.id,
+                                    })}
                                     method="get"
                                     type="button"
                                 >
@@ -48,7 +54,7 @@ function TopNavBar() {
                         )}
                         <Link
                             className="pr-1"
-                            href="/logout"
+                            href={route(`auth.logout`)}
                             method="post"
                             type="button"
                         >
@@ -57,13 +63,13 @@ function TopNavBar() {
                     </>
                 ) : (
                     <>
-                        <Link href="/login" className="pr-1">
+                        <Link href={route(`auth.login`)} className="pr-1">
                             Login
                         </Link>
-                        <Link href="/register" className="pr-1">
+                        <Link href={route(`auth.register`)} className="pr-1">
                             Register
                         </Link>
-                        <Link href="/FAQ" className="pr-1">
+                        <Link href={route(`faq.index`)} className="pr-1">
                             FAQ
                         </Link>
                     </>

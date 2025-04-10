@@ -30,7 +30,7 @@ class EventController extends Controller
 
         Event::create($validatedData);
 
-        return redirect('/admin')->with('success', "Event {$validatedData['title']} created!");
+        return to_route('admin.index')->with('success', "Event {$validatedData['title']} created!");
     }
 
     public function create()

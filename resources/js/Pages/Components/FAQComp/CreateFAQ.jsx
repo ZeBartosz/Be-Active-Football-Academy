@@ -8,7 +8,7 @@ function CreateFAQ() {
 
     function handleFAQCreation(e) {
         e.preventDefault();
-        post("/FAQ/create");
+        post(route(`faq.store`), data);
     }
 
     return (

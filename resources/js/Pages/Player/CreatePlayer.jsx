@@ -15,7 +15,7 @@ export default function CreatePlayer({ teams }) {
 
     function handlePlayerCreation(e) {
         e.preventDefault();
-        post("/player");
+        post(route("player.store", data));
     }
 
     return (

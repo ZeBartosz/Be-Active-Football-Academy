@@ -11,7 +11,7 @@ export default function Dashboard({ users, coaches, teams, players, events }) {
             <h1> this is an admin page </h1>
             <Link
                 className="pr-1"
-                href="/admin/team"
+                href={route("team.create")}
                 method="get"
                 type="button"
             >
@@ -19,7 +19,7 @@ export default function Dashboard({ users, coaches, teams, players, events }) {
             </Link>
             <Link
                 className="pr-1"
-                href="/admin/event"
+                href={route("event.create")}
                 method="get"
                 type="button"
             >
