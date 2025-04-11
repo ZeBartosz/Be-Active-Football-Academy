@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 test('Check redirect to register page', function () {
     $this->get('/register')
-        ->assertStatus(200)
+        ->assertOk()
         ->assertSee('Register');
 });
 
 test('Check redirect to login page', function () {
     $this->get('/login')
-        ->assertStatus(200)
+        ->assertOk()
         ->assertSee('Login');
 });
 
@@ -19,12 +19,23 @@ test('Registering a user', function () {
         'first_name' => 'first',
         'last_name' => 'second',
         'email' => 'email@email.com',
+        'number' => '12345678912',
+        'address' => 'address',
+        'post_code' => '11111',
+        'date_of_birth' => date('Y-m-d', strtotime('-1 year')),
         'password' => 'password',
         'password_confirmation' => 'password',
     ];
 
-    $this->post('/register', $data)->assertStatus(302)->assertRedirect('/');
-    $this->assertDatabaseHas('users', ['first_name' => 'first', 'last_name' => 'second', 'email' => 'email@email.com']);
+    $this->post('/register', $data)
+        ->assertStatus(302)
+        ->assertRedirect('/');
+    
+    $this->assertDatabaseHas('users', [
+        'first_name' => 'first',
+        'last_name' => 'second',
+        'email' => 'email@email.com'
+    ]);
 });
 
 test('Login a user', function () {

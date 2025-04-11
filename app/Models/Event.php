@@ -3,10 +3,13 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Event extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'team_id',
         'title',
@@ -19,7 +22,7 @@ class Event extends Model
     ];
 
     protected $casts = [
-        'date_of_birth' => 'date',
+        'date' => 'date',
     ];
 
     /**
@@ -28,7 +31,7 @@ class Event extends Model
      * @param $value
      * @return string
      */
-    public function getDateOfBirthAttribute($value)
+    public function getDateAttribute($value)
     {
         return Carbon::parse($value)->format('d-m-Y');
     }

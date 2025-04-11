@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Player>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Event>
  */
-class PlayerFactory extends Factory
+class EventFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,11 +17,13 @@ class PlayerFactory extends Factory
     public function definition(): array
     {
         return [
-            'first_name' => fake()->firstName(),
-            'last_name' => fake()->lastName(),
+            'title' => fake()->text(),
+            'description' => fake()->text(),
+            'type' => fake()->text(),
+            'date' => fake()->date(),
+            'time' => fake()->time(),
             'address' => fake()->address(),
             'post_code' => fake()->postCode(),
-            'date_of_birth' => fake()->dateTime(),
         ];
     }
 }

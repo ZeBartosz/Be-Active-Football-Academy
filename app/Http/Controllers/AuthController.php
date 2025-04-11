@@ -54,7 +54,7 @@ final class AuthController extends Controller
             'number' => 'required|string|min:11',
             'date_of_birth' => 'required|date|before:today',
             'address' => 'required|string|max:500',
-            'post_code' => 'required|string|max:255',
+            'post_code' => 'required|string|max:6',
             'password' => 'required|string|min:6|confirmed',
         ]);
 

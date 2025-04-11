@@ -33,7 +33,7 @@ final class UserFactory extends Factory
             'number' => fake()->phoneNumber(),
             'address' => fake()->address(),
             'post_code' => fake()->postCode(),
-            'date_of_birth' => $this->faker->date(),
+            'date_of_birth' => fake()->date('y-m-d'),
             'remember_token' => Str::random(10),
         ];
     }

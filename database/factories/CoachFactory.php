@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Team>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Coach>
  */
-class TeamFactory extends Factory
+class CoachFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +17,9 @@ class TeamFactory extends Factory
     public function definition(): array
     {
         return [
-            'team_name' => fake()->name(),
+            'avatar' => fake()->imageUrl(),
+            'about' => fake()->paragraph(),
+            'skills' => fake()->words(3),
         ];
     }
 }
