@@ -2,15 +2,21 @@
 
 declare(strict_types=1);
 
-test('adminAndUser allows ', function () {
-    $policy = new App\Policies\BasePolicy();
+use App\Models\User;
+use App\Policies\BasePolicy;
 
-    $admin = App\Models\User::factory()->create([
+test('adminAndUser allows admin to access', function () {
+    $policy = new BasePolicy();
+
+    $admin = User::factory()->create([
         'is_admin' => true,
     ]);
-    $model = (object) ['user_id' => 999];
 
-    $result = $policy->adminAndUser($admin, $model);
+    $user = User::factory()->create([]);
+    $coach = $user->coach()->create();
+    $this->actingAs($admin);
+
+    $result = $policy->adminAndUser($admin, $coach);
 
     expect($result->allowed())->toBeTrue();
 });

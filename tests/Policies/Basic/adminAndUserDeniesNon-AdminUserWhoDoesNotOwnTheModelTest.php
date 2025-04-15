@@ -1,14 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
+use App\Models\Coach;
+use App\Models\User;
+use App\Policies\BasePolicy;
+
 test('adminAndUser denies non-admin user who does not own the model', function () {
-    $policy = new \App\Policies\BasePolicy();
+    $users = User::factory(2)->create([]);
+    $coach = Coach::factory()->create(['user_id' => $users[0]->id]);
+    $this->actingAs($users[1]);
 
-    $user = \App\Models\User::factory()->create([
-        'id' => 1
-    ]);
-
-    $model = (object) ['user_id' => 2];
-    $result = $policy->adminAndUser($user, $model);
+    $policy = new BasePolicy();
+    $result = $policy->adminAndUser($users[1], $coach);
 
     expect($result->allowed())->toBeFalse();
 });
