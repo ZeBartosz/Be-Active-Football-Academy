@@ -1,19 +1,35 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreTeamRequest;
-use App\Http\Requests\UpdateTeamRequest;
 use App\Models\Team;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Inertia\Response;
+use Inertia\ResponseFactory;
 
-class TeamController extends Controller
+/**
+ * Class TeamController
+ *
+ *
+ * This controller handles team related operations.
+ * It includes methods for creating a new team, storing, updating it in the database.
+ */
+final class TeamController extends Controller
 {
     use AuthorizesRequests;
 
-    public function store(Request $request)
+    /**
+     * Stores the team in the database.
+     *
+     * @param  Request  $request
+     * @return RedirectResponse
+     */
+    public function store(Request $request): RedirectResponse
     {
         $this->authorize('admin', Auth::user());
 
@@ -26,7 +42,12 @@ class TeamController extends Controller
         return to_route('admin.index')->with('success', "{$team['team_name']} created successfully}");
     }
 
-    public function create()
+    /**
+     * Redirects the admin the create team page.
+     *
+     * @return Response|ResponseFactory
+     */
+    public function create(): Response|ResponseFactory
     {
         $this->authorize('admin', Auth::user());
 

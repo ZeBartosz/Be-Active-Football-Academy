@@ -7,16 +7,32 @@ namespace App\Http\Controllers;
 use App\Models\Player;
 use App\Models\Team;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Inertia\Response;
+use Inertia\ResponseFactory;
 
+/**
+ * Class PlayerController
+ *
+ * PlayerController handles the management of players in the application.
+ * It provides methods to create, edit, update, and delete players.
+ *
+ */
 final class PlayerController extends Controller
 {
     use AuthorizesRequests;
 
     /**
-     * Store a newly created resource in storage.
+     * Display a listing of the players.
+     *
+     * This action retrieves all players from the database and returns an Inertia response
+     * to render the player list view.
+     *
+     * @param  Request  $request
+     * @return RedirectResponse An Inertia response instance containing the player list view.
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $player = $request->validate([
             'first_name' => 'required|string|max:255',
@@ -33,35 +49,35 @@ final class PlayerController extends Controller
         return to_route('home')->with('message', 'Player created');
     }
 
+
     /**
-     * Show the form for creating a new resource.
+     * Display the form for creating a new player.
+     *
+     * This action retrieves all teams from the database and returns an Inertia response
+     * to render the player creation view.
+     *
+     * @return Response|ResponseFactory An Inertia response instance containing the player creation view.
      */
-    public function create()
+    public function create(): Response|ResponseFactory
     {
         $teams = Team::all();
 
         return inertia('Player/CreatePlayer', ['teams' => $teams]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit(Player $player)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(Request $request, Player $player)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(Player $player)
     {
         //
