@@ -1,4 +1,4 @@
-import { useForm } from "@inertiajs/react";
+import { Link, useForm } from "@inertiajs/react";
 
 export default function Login() {
     const { data, setData, post, processing, errors } = useForm({
@@ -42,6 +42,11 @@ export default function Login() {
                         {processing ? "Registering..." : "Register"}
                     </button>
                 </form>
+                <p>
+                    <Link href={route(`auth.register`)} className="pr-1">
+                        Don't have an account? Register
+                    </Link>
+                </p>
             </div>
         </>
     );

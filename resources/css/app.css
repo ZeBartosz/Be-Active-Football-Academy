@@ -1,2 +1,21 @@
 @import 'tailwindcss';
 
+@theme static {
+
+    --font-sans: 'Inter', 'sans-serif';
+    --font-display: 'Montserrat', 'sans-serif';
+
+    --color-primary: oklch(0.44 0.1672 259.63);
+    --color-secondary: oklch(0.89 0.182186 95.3305);
+    --color-accent: oklch(1 0 0deg);
+}
+
+@layer base {
+    body {
+        @apply font-sans font-normal p-0 m-0;
+    }
+}
+
+.top_navbar_link {
+    @apply px-3 py-0;
+}
