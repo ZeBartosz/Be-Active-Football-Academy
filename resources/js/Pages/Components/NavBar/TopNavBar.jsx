@@ -6,12 +6,9 @@ function TopNavBar() {
     return (
         <>
             <nav className="shadow- bg-accent flex flex-wrap justify-between px-8 py-2 shadow-2xl">
-                <div className="flex items-center">
-                    <Link href="/public" className="top_navbar_link">
-                        <img
-                            src="https://img1.wsimg.com/isteam/ip/fc1e157d-0b27-43a1-8eb8-6eb4a390d896/Transparent1.png/:/rs=w:50,h:50,cg:true,m/cr=w:200,h:200/qt=q:95"
-                            alt="logo"
-                        />
+                <div className="flex items-center justify-center">
+                    <Link href="/public" className="top_navbar_link h-16 w-20">
+                        <img src="storage/assets/logo.png" alt="logo" />
                     </Link>
                     <h1 className="top_navbar_link text-2xl font-bold">
                         Be Active Football Academy
