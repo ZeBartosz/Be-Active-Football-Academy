@@ -3,7 +3,7 @@ import { Link } from "@inertiajs/react";
 export default function Home() {
     return (
         <>
-            <main className="relative h-screen">
+            <section className="relative h-screen">
                 {/* Background container */}
                 <div
                     className="absolute inset-0 bg-cover bg-center"
@@ -31,25 +31,17 @@ export default function Home() {
                             </Link>
                         </button>
                         <button className="bg-accent mr-2 rounded px-4 py-2 text-2xl text-black shadow-lg">
-                            <Link href={route("auth.register")}>
-                                Learn More
-                            </Link>
+                            <Link href={route("faq.index")}>Learn More</Link>
                         </button>
                     </div>
                 </div>
-            </main>
+            </section>
 
             <section>
                 <h1 className="bg-yellow-200 p-2 text-3xl font-bold underline">
                     Hello
                 </h1>
             </section>
-
-            <footer>
-                <h1 className="bg-yellow-200 p-2 text-3xl font-bold underline">
-                    Hello
-                </h1>
-            </footer>
         </>
     );
 }

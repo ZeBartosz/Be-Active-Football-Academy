@@ -1,5 +1,6 @@
 import { usePage } from "@inertiajs/react";
-import TopNavBar from "../Components/TopNavBar.jsx";
+import TopNavBar from "../Components/NavBar/TopNavBar.jsx";
+import Footer from "../Components/Footer/Footer.jsx";
 
 export default function Layout({ children }) {
     const { authUser } = usePage().props;
@@ -9,6 +10,7 @@ export default function Layout({ children }) {
             <header>
                 <TopNavBar />
                 <main>{children}</main>
+                <Footer />
             </header>
         </>
     );

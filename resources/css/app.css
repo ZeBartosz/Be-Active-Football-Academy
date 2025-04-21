@@ -19,3 +19,7 @@
 .top_navbar_link {
     @apply px-3 py-0;
 }
+
+.footer_containers {
+    @apply flex flex-col gap-1 p-2 max-w-sm;
+}
