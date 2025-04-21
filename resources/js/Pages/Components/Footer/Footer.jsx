@@ -8,10 +8,9 @@ function Footer() {
                     <div className="footer_containers">
                         <div className="flex items-center justify-center">
                             <img
-                                src="/storage/coaches/default_pfp.png"
+                                className="h-14 w-16 pr-2"
+                                src="/storage/assets/logo.png"
                                 alt="Logo"
-                                width="50px"
-                                height="50px"
                             />
                             <h1 className="p-1 text-center text-2xl font-bold">
                                 Be Active Football Academy
@@ -21,38 +20,65 @@ function Footer() {
                             Your premier destination for football training and
                             competition.
                         </p>
-                    </div>
-                    <div className="footer_containers">
-                        <p className="text-lg font-light">
-                            Follow us on social media:
-                        </p>
-                        <div className="flex justify-center space-x-4">
+                        <div>
                             <a
-                                href="https://www.facebook.com/BeActiveFootballAcademy"
+                                className="social_icon"
+                                href="https://www.facebook.com/people/Be-Active-Football-Academy/100083073291647/"
+                                rel="noreferrer"
                                 target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-accent hover:text-secondary"
                             >
-                                Facebook
+                                <img
+                                    alt="Facebook"
+                                    src="storage/assets/socials/facebook.svg"
+                                />
                             </a>
                             <a
-                                href="https://www.instagram.com/BeActiveFootballAcademy"
+                                className="social_icon"
+                                href="https://www.instagram.com/beactivefootballacademy/"
+                                rel="noreferrer"
                                 target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-accent hover:text-secondary"
                             >
-                                Instagram
+                                <img
+                                    alt="Instagram"
+                                    src="storage/assets/socials/instagram.svg"
+                                />
                             </a>
                             <a
-                                href="https://twitter.com/BeActiveFootballAcademy"
+                                className="social_icon"
+                                href="https://www.linkedin.com/in/lukasz-stachowiak-74318423b/"
+                                rel="noreferrer"
                                 target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-accent hover:text-secondary"
                             >
-                                Twitter
+                                <img
+                                    alt="LinkedIn"
+                                    src="storage/assets/socials/linkedIn.svg"
+                                />
+                            </a>
+                            <a
+                                className="social_icon"
+                                href="https://www.tiktok.com/@bafateam22oficial"
+                                rel="noreferrer"
+                                target="_blank"
+                            >
+                                <img
+                                    alt="TikTok"
+                                    src="storage/assets/socials/tiktok.svg"
+                                />
+                            </a>
+                            <a
+                                className="social_icon"
+                                href="https://www.youtube.com/channel/UC_OVY2_01d84rF-Id7COWwg"
+                                rel="noreferrer"
+                                target="_blank"
+                            >
+                                <img
+                                    alt="Youtube"
+                                    src="storage/assets/socials/youtube.svg"
+                                />
                             </a>
                         </div>
                     </div>
+                    <div className="footer_containers"></div>
                 </div>
                 <div className="flex items-center justify-center p-2 text-2xl">
                     <h1 className="p-2">Privacy Policy</h1>
