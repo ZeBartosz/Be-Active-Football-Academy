@@ -4,7 +4,6 @@ export default function Home() {
     return (
         <>
             <section className="relative h-screen">
-                {/* Background container */}
                 <div
                     className="absolute inset-0 bg-cover bg-center"
                     style={{
@@ -14,9 +13,7 @@ export default function Home() {
                 >
                     <div className="absolute inset-0 bg-[rgba(10,76,173,0.95)]"></div>
                 </div>
-
-                {/* content */}
-                <div className="font-display relative z-10 m-auto flex h-full w-[70%] flex-col justify-center text-white">
+                <div className="home_container relative z-10 h-full text-white">
                     <h1 className="p-2 text-8xl font-bold">
                         Be Active <br /> Be healthy <br /> Be Happy
                     </h1>
@@ -38,9 +35,19 @@ export default function Home() {
             </section>
 
             <section>
-                <h1 className="bg-yellow-200 p-2 text-3xl font-bold underline">
-                    Hello
-                </h1>
+                <div className="home_container">
+                    <h1 className="">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Repudiandae, cumque! Quisquam, voluptatibus. Quod,
+                        cumque. Quisquam
+                    </h1>
+                </div>
+            </section>
+
+            <section className="bg-primary">
+                <div className="home_container text-black">
+                    <h1 className="text-3xl font-bold underline">Hello</h1>
+                </div>
             </section>
         </>
     );

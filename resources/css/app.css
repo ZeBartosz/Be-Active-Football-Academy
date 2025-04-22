@@ -27,3 +27,7 @@
 .social_icon {
     @apply w-14 h-14 m-2 hover:bg-primary inline-flex items-center rounded-full border p-2.5 text-center text-sm font-medium transition focus:ring-2 focus:outline-none ;
 }
+
+.home_container {
+    @apply font-display m-auto flex h-full w-[70%] flex-col justify-center p-2;
+}
