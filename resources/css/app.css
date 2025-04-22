@@ -29,5 +29,5 @@
 }
 
 .home_container {
-    @apply font-display m-auto flex h-full w-[70%] flex-col justify-center p-2;
+    @apply font-display m-auto flex h-full w-[70%] justify-center p-2;
 }
