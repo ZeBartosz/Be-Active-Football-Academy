@@ -16,7 +16,7 @@ function Footer() {
                                 Be Active Football Academy
                             </h1>
                         </div>
-                        <p className="text-lg font-light">
+                        <p className="text-lg font-light text-gray-200">
                             Your premier destination for football training and
                             competition.
                         </p>
@@ -85,7 +85,7 @@ function Footer() {
                     <h1 className="p-2">Terms and Conditions</h1>
                 </div>
                 <hr className="my-4 border-gray-800" />
-                <p>
+                <p className="text-gray-400">
                     &copy; {currentYear} Be Active Football Academy - All Rights
                     Reserved.
                 </p>
