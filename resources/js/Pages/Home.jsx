@@ -89,12 +89,10 @@ export default function Home() {
                 </div>
             </section>
 
-            <section className="bg-primary">
+            <section className="bg-primary text-white">
                 <div className="home_container">
                     <div className="flex flex-col items-center justify-center pt-20">
-                        <h1 className="text-center text-7xl text-white">
-                            Our Programs
-                        </h1>
+                        <h1 className="text-center text-7xl">Our Programs</h1>
                         <p className="py-3 text-center text-2xl font-light">
                             We provide age-appropriate coaching to ensure every
                             child develops at their own pace, with programs

@@ -88,11 +88,13 @@ function TopNavBar() {
                                 Programs
                             </Link>
 
-                            <button className="bg-primary font-display hover:bg-primary/95 ml-1 rounded-md border p-2 text-sm text-black text-white">
-                                <Link href={route(`auth.login`)} c>
-                                    Join Now
-                                </Link>
-                            </button>
+                            <Link
+                                href={route("auth.login")}
+                                className="bg-primary font-display hover:bg-primary/95 ml-1 rounded-md border p-2 text-sm text-white"
+                            >
+                                Join Now
+                            </Link>
+
                             <h1 className="top_navbar_link">More</h1>
                         </>
                     )}
