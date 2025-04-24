@@ -89,7 +89,7 @@ final class CoachController extends Controller
 
         $coach->update($validated);
 
-        return redirect()->back()->with('success', 'Coach updated successfully');
+        return to_route('home')->with('success', 'Coach updated successfully');
     }
 
     /**
