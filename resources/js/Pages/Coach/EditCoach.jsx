@@ -1,4 +1,4 @@
-import CoachUpdateForm from "../Components/CoachUpdateForm.jsx";
+import CoachUpdateForm from "../Components/CoachComp/CoachUpdateForm.jsx";
 
 export default function EditCoach({ coach }) {
     return (

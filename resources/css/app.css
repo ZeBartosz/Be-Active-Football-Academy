@@ -17,6 +17,17 @@
 }
 
 @layer components {
+    input, textarea {
+        @apply appearance-none border border-gray-300 rounded w-full py-3 px-4 text-gray-700 text-base leading-tight focus:outline-none focus:ring focus:border-blue-300;
+    }
+
+    form {
+        @apply w-full max-w-xl bg-white shadow-md rounded-lg p-10;
+    }
+
+    label {
+        @apply block text-gray-900 text-base font-bold mb-2 text-2xl;
+    }
 
     .top_navbar_link {
         @apply px-3 py-0;
@@ -39,24 +50,12 @@
     }
 
     .form-title {
-        @apply text-4xl font-bold mb-8 text-center;
+        @apply text-4xl font-bold  text-center;
 
-    }
-
-    .form {
-        @apply w-full max-w-xl bg-white shadow-md rounded-lg p-10;
     }
 
     .form-group {
         @apply mb-6;
-    }
-
-    .form-label {
-        @apply block text-gray-900 text-base font-bold mb-2 text-2xl;
-    }
-
-    .form-input {
-        @apply appearance-none border border-gray-300 rounded w-full py-3 px-4 text-gray-700 text-base leading-tight focus:outline-none focus:ring focus:border-blue-300;
     }
 
     .form-error {
@@ -64,6 +63,6 @@
     }
 
     .form-button {
-        @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded focus:outline-none  w-full;
+        @apply w-full rounded bg-blue-700 p-4 font-bold text-white hover:bg-blue-500 ;
     }
 }

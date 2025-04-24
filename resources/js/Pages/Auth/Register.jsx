@@ -25,24 +25,13 @@ export default function Register() {
                 <Background background={null} />
                 <div className="py relative z-10 flex min-h-screen flex-col items-center justify-center px-4 py-20">
                     <div className="w-full max-w-xl rounded-lg border bg-white p-10 shadow-lg">
-                        <h1 className="mb-8 text-center text-4xl font-bold">
-                            Register
-                        </h1>
-                        <form
-                            onSubmit={handleRegisterSubmit}
-                            className="space-y-6"
-                        >
+                        <h1 className="form-title">Register</h1>
+                        <form onSubmit={handleRegisterSubmit}>
                             {/* First Name */}
                             <div className="form-group">
-                                <label
-                                    htmlFor="first_name"
-                                    className="mb-2 block text-lg font-semibold text-gray-700"
-                                >
-                                    Name:
-                                </label>
+                                <label htmlFor="first_name">Name:</label>
                                 <input
                                     id="first_name"
-                                    className="form-input w-full rounded border border-gray-300 px-4 py-3 text-gray-700 focus:border-blue-300 focus:ring focus:outline-none"
                                     value={data.first_name}
                                     onChange={(e) =>
                                         setData("first_name", e.target.value)
@@ -52,7 +41,7 @@ export default function Register() {
                                     name="first_name"
                                 />
                                 {errors.first_name && (
-                                    <p className="mt-1 text-sm text-red-500">
+                                    <p className="form-error">
                                         {errors.first_name}
                                     </p>
                                 )}
@@ -60,15 +49,9 @@ export default function Register() {
 
                             {/* Last Name */}
                             <div className="form-group">
-                                <label
-                                    htmlFor="last_name"
-                                    className="mb-2 block text-lg font-semibold text-gray-700"
-                                >
-                                    Surname:
-                                </label>
+                                <label htmlFor="last_name">Surname:</label>
                                 <input
                                     id="last_name"
-                                    className="form-input w-full rounded border border-gray-300 px-4 py-3 text-gray-700 focus:border-blue-300 focus:ring focus:outline-none"
                                     value={data.last_name}
                                     onChange={(e) =>
                                         setData("last_name", e.target.value)
@@ -78,7 +61,7 @@ export default function Register() {
                                     name="last_name"
                                 />
                                 {errors.last_name && (
-                                    <p className="mt-1 text-sm text-red-500">
+                                    <p className="form-error">
                                         {errors.last_name}
                                     </p>
                                 )}
@@ -86,15 +69,9 @@ export default function Register() {
 
                             {/* Email */}
                             <div className="form-group">
-                                <label
-                                    htmlFor="email"
-                                    className="mb-2 block text-lg font-semibold text-gray-700"
-                                >
-                                    Email:
-                                </label>
+                                <label htmlFor="email">Email:</label>
                                 <input
                                     id="email"
-                                    className="form-input w-full rounded border border-gray-300 px-4 py-3 text-gray-700 focus:border-blue-300 focus:ring focus:outline-none"
                                     value={data.email}
                                     onChange={(e) =>
                                         setData("email", e.target.value)
@@ -104,20 +81,13 @@ export default function Register() {
                                     name="email"
                                 />
                                 {errors.email && (
-                                    <p className="mt-1 text-sm text-red-500">
-                                        {errors.email}
-                                    </p>
+                                    <p className="form-error">{errors.email}</p>
                                 )}
                             </div>
 
                             {/* Number */}
                             <div className="form-group">
-                                <label
-                                    htmlFor="number"
-                                    className="mb-2 block text-lg font-semibold text-gray-700"
-                                >
-                                    Number:
-                                </label>
+                                <label htmlFor="number">Number:</label>
                                 <input
                                     id="number"
                                     type="text"
@@ -126,11 +96,10 @@ export default function Register() {
                                     onChange={(e) =>
                                         setData("number", e.target.value)
                                     }
-                                    className="form-input w-full rounded border border-gray-300 px-4 py-3 text-gray-700 focus:border-blue-300 focus:ring focus:outline-none"
                                     placeholder="Phone Number"
                                 />
                                 {errors.number && (
-                                    <p className="mt-1 text-sm text-red-500">
+                                    <p className="form-error">
                                         {errors.number}
                                     </p>
                                 )}
@@ -138,10 +107,7 @@ export default function Register() {
 
                             {/* Date of Birth */}
                             <div className="form-group">
-                                <label
-                                    htmlFor="date_of_birth"
-                                    className="mb-2 block text-lg font-semibold text-gray-700"
-                                >
+                                <label htmlFor="date_of_birth">
                                     Date of Birth:
                                 </label>
                                 <input
@@ -151,10 +117,9 @@ export default function Register() {
                                     onChange={(e) =>
                                         setData("date_of_birth", e.target.value)
                                     }
-                                    className="form-input w-full rounded border border-gray-300 px-4 py-3 text-gray-700 focus:border-blue-300 focus:ring focus:outline-none"
                                 />
                                 {errors.date_of_birth && (
-                                    <p className="mt-1 text-sm text-red-500">
+                                    <p className="form-error">
                                         {errors.date_of_birth}
                                     </p>
                                 )}
@@ -162,12 +127,7 @@ export default function Register() {
 
                             {/* Address */}
                             <div className="form-group">
-                                <label
-                                    htmlFor="address"
-                                    className="mb-2 block text-lg font-semibold text-gray-700"
-                                >
-                                    Address:
-                                </label>
+                                <label htmlFor="address">Address:</label>
                                 <input
                                     id="address"
                                     type="text"
@@ -176,11 +136,10 @@ export default function Register() {
                                     onChange={(e) =>
                                         setData("address", e.target.value)
                                     }
-                                    className="form-input w-full rounded border border-gray-300 px-4 py-3 text-gray-700 focus:border-blue-300 focus:ring focus:outline-none"
                                     placeholder="Address"
                                 />
                                 {errors.address && (
-                                    <p className="mt-1 text-sm text-red-500">
+                                    <p className="form-error">
                                         {errors.address}
                                     </p>
                                 )}
@@ -188,12 +147,7 @@ export default function Register() {
 
                             {/* Post Code */}
                             <div className="form-group">
-                                <label
-                                    htmlFor="post_code"
-                                    className="mb-2 block text-lg font-semibold text-gray-700"
-                                >
-                                    Post code:
-                                </label>
+                                <label htmlFor="post_code">Post code:</label>
                                 <input
                                     id="post_code"
                                     type="text"
@@ -202,11 +156,10 @@ export default function Register() {
                                     onChange={(e) =>
                                         setData("post_code", e.target.value)
                                     }
-                                    className="form-input w-full rounded border border-gray-300 px-4 py-3 text-gray-700 focus:border-blue-300 focus:ring focus:outline-none"
                                     placeholder="Post Code"
                                 />
                                 {errors.post_code && (
-                                    <p className="mt-1 text-sm text-red-500">
+                                    <p className="form-error">
                                         {errors.post_code}
                                     </p>
                                 )}
@@ -214,12 +167,7 @@ export default function Register() {
 
                             {/* Password */}
                             <div className="form-group">
-                                <label
-                                    htmlFor="password"
-                                    className="mb-2 block text-lg font-semibold text-gray-700"
-                                >
-                                    Password:
-                                </label>
+                                <label htmlFor="password">Password:</label>
                                 <input
                                     id="password"
                                     value={data.password}
@@ -229,10 +177,9 @@ export default function Register() {
                                     type="password"
                                     placeholder="Password"
                                     name="password"
-                                    className="form-input w-full rounded border border-gray-300 px-4 py-3 text-gray-700 focus:border-blue-300 focus:ring focus:outline-none"
                                 />
                                 {errors.password && (
-                                    <p className="mt-1 text-sm text-red-500">
+                                    <p className="form-error">
                                         {errors.password}
                                     </p>
                                 )}
@@ -240,10 +187,7 @@ export default function Register() {
 
                             {/* Password Confirmation */}
                             <div className="form-group">
-                                <label
-                                    htmlFor="password_confirmation"
-                                    className="mb-2 block text-lg font-semibold text-gray-700"
-                                >
+                                <label htmlFor="password_confirmation">
                                     Confirm Password:
                                 </label>
                                 <input
@@ -258,10 +202,9 @@ export default function Register() {
                                     type="password"
                                     placeholder="Confirm Password"
                                     name="password_confirmation"
-                                    className="form-input w-full rounded border border-gray-300 px-4 py-3 text-gray-700 focus:border-blue-300 focus:ring focus:outline-none"
                                 />
                                 {errors.password_confirmation && (
-                                    <p className="mt-1 text-sm text-red-500">
+                                    <p className="form-error">
                                         {errors.password_confirmation}
                                     </p>
                                 )}
@@ -270,7 +213,7 @@ export default function Register() {
                             <button
                                 type="submit"
                                 disabled={processing}
-                                className="form-button focus:shadow-outline w-full rounded bg-blue-500 px-6 py-3 font-bold text-white hover:bg-blue-700 focus:outline-none"
+                                className="form-button"
                             >
                                 {processing ? "Registering..." : "Register"}
                             </button>
