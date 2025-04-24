@@ -1,42 +1,101 @@
+import { useState } from "react";
 import { Link, useForm, usePage } from "@inertiajs/react";
+import { PlusIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
 export default function FAQList({ faqs }) {
     const { authUser } = usePage().props;
     const { delete: deleteFAQ, processing } = useForm();
+    const [openIds, setOpenIds] = useState([]);
+
+    function toggle(id) {
+        setOpenIds((prev) =>
+            prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id],
+        );
+    }
 
     function handleDeleteFAQ(faq, e) {
         e.preventDefault();
-        deleteFAQ(route("faq.destroy", { faq: faq.id }));
+        if (confirm("Are you sure you want to delete this FAQ?")) {
+            deleteFAQ(route("faq.destroy", { faq: faq.id }));
+        }
     }
 
     return (
-        <>
-            <h1>This is the FAQ</h1>
-            <Link href={route(`faq.create`)}>Add FAQ</Link>
-            {faqs.map((faq) => (
-                <div key={faq.id}>
-                    <h2>Question:</h2>
-                    <p>{faq.question}</p>
-                    <h2>Answer:</h2>
-                    <p>{faq.answer}</p>
-                    {authUser ? (
-                        <>
-                            <button
-                                className="rounded-lg border bg-red-600 p-2"
-                                onClick={(e) => handleDeleteFAQ(faq, e)}
-                                disabled={processing} // Disable button during deletion
-                            >
-                                {processing ? "Deleting..." : "Delete"}
-                            </button>
-                            <Link href={route("faq.edit", { faq: faq.id })}>
-                                Edit
-                            </Link>
-                        </>
-                    ) : (
-                        ""
-                    )}
+        <div className="font-display mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
+            <h1 className="mb-12 text-center text-5xl font-bold">
+                Frequently Asked Questions
+            </h1>
+
+            {authUser && (
+                <div className="mb-6 text-right">
+                    <Link
+                        href={route("faq.create")}
+                        className="inline-block rounded bg-green-600 px-4 py-2 font-semibold text-white hover:bg-green-700"
+                    >
+                        + Add FAQ
+                    </Link>
                 </div>
-            ))}
-        </>
+            )}
+
+            <div className="space-y-4">
+                {faqs.map((faq) => {
+                    const isOpen = openIds.includes(faq.id);
+
+                    return (
+                        <div key={faq.id} className="border-b">
+                            <button
+                                onClick={() => toggle(faq.id)}
+                                className="flex w-full items-center justify-between py-4 text-left focus:outline-none"
+                            >
+                                <span className="text-5xl font-bold">
+                                    {faq.question}
+                                </span>
+                                <span className="ml-4">
+                                    {isOpen ? (
+                                        <XMarkIcon className="h-6 w-6 text-gray-600" />
+                                    ) : (
+                                        <PlusIcon className="h-6 w-6 text-gray-600" />
+                                    )}
+                                </span>
+                            </button>
+
+                            <div
+                                className={`overflow-hidden transition-all duration-300 ${
+                                    isOpen ? "max-h-screen pb-4" : "max-h-0"
+                                }`}
+                            >
+                                <p className="text-2xl text-gray-950">
+                                    {faq.answer}
+                                </p>
+
+                                {authUser && (
+                                    <div className="mt-4 flex justify-end space-x-2 text-end text-2xl">
+                                        <Link
+                                            href={route("faq.edit", {
+                                                faq: faq.id,
+                                            })}
+                                            className="text-blue-600 hover:underline"
+                                        >
+                                            Edit
+                                        </Link>
+                                        <button
+                                            onClick={(e) =>
+                                                handleDeleteFAQ(faq, e)
+                                            }
+                                            disabled={processing}
+                                            className="text-red-600 hover:underline"
+                                        >
+                                            {processing
+                                                ? "Deleting..."
+                                                : "Delete"}
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
+        </div>
     );
 }

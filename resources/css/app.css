@@ -60,7 +60,7 @@
     }
 
     .form-container {
-        @apply mx-auto flex flex-col items-center justify-center p-4 h-screen;
+        @apply mx-auto flex flex-col items-center justify-center p-4 h-screen font-display;
     }
 
     .form-title {
