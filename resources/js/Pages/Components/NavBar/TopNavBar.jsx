@@ -7,7 +7,10 @@ function TopNavBar() {
         <>
             <nav className="shadow- bg-accent flex flex-wrap justify-between px-8 py-2 shadow-2xl">
                 <div className="flex items-center justify-center">
-                    <Link href="/public" className="top_navbar_link h-16 w-20">
+                    <Link
+                        href={route("home")}
+                        className="top_navbar_link h-16 w-20"
+                    >
                         <img src="storage/assets/logo.png" alt="logo" />
                     </Link>
                     <h1 className="top_navbar_link text-2xl font-bold">
