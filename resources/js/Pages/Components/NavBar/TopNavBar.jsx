@@ -5,7 +5,7 @@ function TopNavBar() {
 
     return (
         <>
-            <nav className="shadow- bg-accent flex flex-wrap justify-between px-8 py-2 shadow-2xl">
+            <nav className="shadow- bg-accent flex flex-wrap justify-between px-8 py-2 shadow-md">
                 <div className="flex items-center justify-center">
                     <Link
                         href={route("home")}
