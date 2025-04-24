@@ -1,4 +1,5 @@
 import { Link, useForm } from "@inertiajs/react";
+import Background from "../Components/Background/Background.jsx";
 
 export default function Login() {
     const { data, setData, post, processing, errors } = useForm({
@@ -14,14 +15,7 @@ export default function Login() {
     return (
         <>
             <div className="relative flex min-h-screen items-center justify-center">
-                <div
-                    className="absolute inset-0 bg-cover bg-center"
-                    style={{
-                        backgroundImage: "url('/storage/assets/logo.png')",
-                    }}
-                >
-                    <div className="absolute inset-0 bg-[rgba(10,76,173,0.95)]"></div>
-                </div>
+                <Background background={null} />
 
                 <div className="relative inset-10 w-full max-w-md rounded-lg border bg-white p-8 shadow-md">
                     <h1 className="mb-6 text-center text-3xl font-bold">

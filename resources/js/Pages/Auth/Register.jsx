@@ -1,4 +1,5 @@
 import { Link, useForm } from "@inertiajs/react";
+import Background from "../Components/Background/Background.jsx";
 
 export default function Register() {
     const { data, setData, post, processing, errors } = useForm({
@@ -21,17 +22,9 @@ export default function Register() {
     return (
         <>
             <div className="relative min-h-screen">
-                <div
-                    className="absolute inset-0 bg-cover bg-center"
-                    style={{
-                        backgroundImage: "url('/storage/assets/logo.png')",
-                    }}
-                >
-                    <div className="absolute inset-0 bg-[rgba(10,76,173,0.95)]"></div>
-                </div>
-
+                <Background background={null} />
                 <div className="py relative z-10 flex min-h-screen flex-col items-center justify-center px-4 py-20">
-                    <div className="w-full max-w-xl rounded-lg bg-white p-10 shadow-lg">
+                    <div className="w-full max-w-xl rounded-lg border bg-white p-10 shadow-lg">
                         <h1 className="mb-8 text-center text-4xl font-bold">
                             Register
                         </h1>

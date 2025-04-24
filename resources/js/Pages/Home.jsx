@@ -1,18 +1,11 @@
 import { Link } from "@inertiajs/react";
+import Background from "./Components/Background/Background.jsx";
 
 export default function Home() {
     return (
         <>
             <section className="relative h-screen">
-                <div
-                    className="absolute inset-0 bg-cover bg-center"
-                    style={{
-                        backgroundImage:
-                            "url('/storage/coaches/default_pfp.png')",
-                    }}
-                >
-                    <div className="absolute inset-0 bg-[rgba(10,76,173,0.95)]"></div>
-                </div>
+                <Background background={null} />
                 <div className="home_container relative z-10 h-full flex-col text-white">
                     <h1 className="p-2 text-8xl font-bold">
                         Be Active <br /> Be healthy <br /> Be Happy
