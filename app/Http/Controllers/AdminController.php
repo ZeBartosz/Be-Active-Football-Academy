@@ -37,7 +37,7 @@ final class AdminController extends Controller
     {
         $users = User::all();
         $coaches = Coach::with('user')->get();
-        $teams = Team::all();
+        $teams = Team::withCount(['players', 'events'])->get();
         $players = Player::with('user', 'team')->get();
         $events = Event::all();
 

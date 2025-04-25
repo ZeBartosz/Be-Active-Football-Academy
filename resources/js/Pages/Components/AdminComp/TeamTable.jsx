@@ -1,6 +1,7 @@
 import { Link } from "@inertiajs/react";
 
 export default function TeamTable({ teams }) {
+    console.log(teams);
     return (
         <div>
             <div className="mb-6 flex items-center justify-between">
@@ -21,12 +22,16 @@ export default function TeamTable({ teams }) {
                     <thead>
                         <tr>
                             <th>Team Name</th>
+                            <th>Player Count</th>
+                            <th>Event Count</th>
                         </tr>
                     </thead>
                     <tbody>
                         {teams.map((team) => (
                             <tr key={team.id}>
                                 <td>{team.team_name}</td>
+                                <td>{team.players_count}</td>
+                                <td>{team.events_count}</td>
                             </tr>
                         ))}
                     </tbody>
