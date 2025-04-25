@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Database\Seeders;
 
+use App\Models\Event;
+use App\Models\FAQ;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -17,6 +19,8 @@ final class DatabaseSeeder extends Seeder
     public function run(): void
     {
         User::factory(100)->create();
+        Event::factory(100)->create();
+        FAQ::factory(10)->create();
 
         User::factory()->create([
             'first_name' => 'John',

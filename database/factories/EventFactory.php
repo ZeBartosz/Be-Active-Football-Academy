@@ -17,9 +17,9 @@ class EventFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => fake()->text(),
+            'title' => fake()->title(),
             'description' => fake()->text(),
-            'type' => fake()->text(),
+            'type' => fake()->word(),
             'date' => fake()->date(),
             'time' => fake()->time(),
             'address' => fake()->address(),
