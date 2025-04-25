@@ -1,9 +1,23 @@
-function TeamTable({ teams }) {
+import { Link } from "@inertiajs/react";
+
+export default function TeamTable({ teams }) {
     return (
-        <>
-            <h1>This is a Team table</h1>
-            <div className="bg-opacity-75 mt-5 flex flex-col justify-center bg-[#05283d] text-white">
-                <table className="table-fixed border-collapse rounded-md border border-[#9dbebb] text-center">
+        <div>
+            <div className="mb-6 flex items-center justify-between">
+                <h1 className="text-3xl font-bold">Teams</h1>
+                <Link
+                    href={route("team.create")}
+                    className="btn-sm btn-green"
+                    method="get"
+                    type="button"
+                >
+                    + Add Team
+                </Link>
+            </div>
+
+            {/* Table container */}
+            <div className="admin-table-container">
+                <table className="admin-table">
                     <thead>
                         <tr>
                             <th>Team Name</th>
@@ -18,8 +32,6 @@ function TeamTable({ teams }) {
                     </tbody>
                 </table>
             </div>
-        </>
+        </div>
     );
 }
-
-export default TeamTable;

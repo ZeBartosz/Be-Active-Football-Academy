@@ -1,34 +1,34 @@
 import { useForm, usePage } from "@inertiajs/react";
 
-function UserTable({ users }) {
+export default function UserTable({ users }) {
     const { authUser } = usePage().props;
-
-    const { post: postCoach } = useForm();
-    const { delete: deleteCoach } = useForm();
-
-    const { put: putAdmin } = useForm();
+    const {
+        post: postCoach,
+        delete: deleteCoach,
+        put: putAdmin,
+        processing,
+    } = useForm();
 
     function handleCoachPost(user, e) {
         e.preventDefault();
         postCoach(route("coach.store", { user: user.id }));
     }
 
-    function handleCoachdelet(user, e) {
+    function handleCoachDelete(user, e) {
         e.preventDefault();
         deleteCoach(route("coach.destroy", { user: user.id }));
     }
 
-    // Function to toggle admin status
     function toggleAdminStatus(user, e) {
         e.preventDefault();
         putAdmin(route("admin.toggleAdmin", { user: user.id }));
     }
 
     return (
-        <>
-            <h1>This is a user table</h1>
-            <div className="bg-opacity-75 mt-5 flex flex-col justify-center bg-[#05283d] text-white">
-                <table className="table-fixed border-collapse rounded-md border border-[#9dbebb] text-center">
+        <div>
+            <h1 className="text-3xl font-bold">User Management</h1>
+            <div className="admin-table-container">
+                <table className="admin-table">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -38,8 +38,8 @@ function UserTable({ users }) {
                             <th>DoB</th>
                             <th>Address</th>
                             <th>Post Code</th>
-                            <th>Is_Admin</th>
-                            <th>Is_Coach</th>
+                            <th>Admin</th>
+                            <th>Coach</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -52,52 +52,57 @@ function UserTable({ users }) {
                                 <td>{user.date_of_birth}</td>
                                 <td>{user.address}</td>
                                 <td>{user.post_code}</td>
+
+                                {/* Admin toggle */}
                                 <td>
                                     {!user.is_admin ? (
                                         <button
-                                            className="rounded-lg border bg-green-600 p-2"
                                             onClick={(e) =>
                                                 toggleAdminStatus(user, e)
                                             }
+                                            className="btn-sm btn-green"
                                         >
-                                            False
+                                            Grant
+                                        </button>
+                                    ) : authUser.id === user.id ? (
+                                        <button className="btn-sm btn-gray">
+                                            You
                                         </button>
                                     ) : (
                                         <button
-                                            disabled={authUser.id === user.id}
-                                            className="rounded-lg border bg-red-600 p-2"
                                             onClick={(e) =>
                                                 toggleAdminStatus(user, e)
                                             }
+                                            className="btn-sm btn-red"
                                         >
-                                            True
+                                            Revoke
                                         </button>
                                     )}
                                 </td>
+
                                 <td>
                                     {!user.is_coach ? (
                                         <button
-                                            className="rounded-lg border bg-green-600 p-2"
                                             onClick={(e) =>
                                                 handleCoachPost(user, e)
                                             }
+                                            className="btn-sm btn-green"
                                         >
-                                            False
+                                            Make
+                                        </button>
+                                    ) : authUser.id === user.id ? (
+                                        <button className="btn-sm btn-gray">
+                                            You
                                         </button>
                                     ) : (
-                                        <>
-                                            <button
-                                                disabled={
-                                                    authUser.id === user.id
-                                                }
-                                                className="rounded-lg border bg-red-600 p-2"
-                                                onClick={(e) =>
-                                                    handleCoachdelet(user, e)
-                                                }
-                                            >
-                                                True
-                                            </button>
-                                        </>
+                                        <button
+                                            onClick={(e) =>
+                                                handleCoachDelete(user, e)
+                                            }
+                                            className="btn-sm btn-red"
+                                        >
+                                            Remove
+                                        </button>
                                     )}
                                 </td>
                             </tr>
@@ -105,8 +110,6 @@ function UserTable({ users }) {
                     </tbody>
                 </table>
             </div>
-        </>
+        </div>
     );
 }
-
-export default UserTable;

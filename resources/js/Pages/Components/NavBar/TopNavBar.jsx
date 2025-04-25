@@ -20,7 +20,10 @@ function TopNavBar() {
                 <div className="flex items-center">
                     {authUser ? (
                         <>
-                            <Link className="top_navbar_link" href="/public">
+                            <Link
+                                className="top_navbar_link"
+                                href={route("home")}
+                            >
                                 <h1>{authUser.first_name}</h1>
                             </Link>
                             <Link

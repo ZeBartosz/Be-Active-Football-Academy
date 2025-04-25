@@ -1,13 +1,11 @@
 import { Link } from "@inertiajs/react";
 
-function PlayerTable({ players }) {
-    console.log(players);
-
+export default function PlayerTable({ players }) {
     return (
-        <>
-            <h1>This is a Players table</h1>
-            <div className="bg-opacity-75 mt-5 flex flex-col justify-center bg-[#05283d] text-white">
-                <table className="table-fixed border-collapse rounded-md border border-[#9dbebb] text-center">
+        <div>
+            <h1 className="mb-6 text-3xl font-bold">Players</h1>
+            <div className="admin-table-container">
+                <table className="admin-table">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -34,10 +32,10 @@ function PlayerTable({ players }) {
                                 </td>
                                 <td>
                                     <Link
-                                        className="pr-1"
-                                        href={"/"}
-                                        method="get"
-                                        type="button"
+                                        href={route("home", {
+                                            player: player.id,
+                                        })}
+                                        className="btn-sm btn-green"
                                     >
                                         Edit
                                     </Link>
@@ -47,8 +45,6 @@ function PlayerTable({ players }) {
                     </tbody>
                 </table>
             </div>
-        </>
+        </div>
     );
 }
-
-export default PlayerTable;

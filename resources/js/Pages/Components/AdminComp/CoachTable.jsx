@@ -1,18 +1,19 @@
 import { Link } from "@inertiajs/react";
 
-function CoachTable({ coaches }) {
+export default function CoachTable({ coaches }) {
     return (
-        <>
-            <h1>This is a coaches table</h1>
-            <div className="bg-opacity-75 mt-5 flex flex-col justify-center bg-[#05283d] text-white">
-                <table className="table-fixed border-collapse rounded-md border border-[#9dbebb] text-center">
+        <div>
+            <h1 className="mb-6 text-3xl font-bold">Coaches</h1>
+
+            <div className="admin-table-container">
+                <table className="admin-table">
                     <thead>
                         <tr>
                             <th>Photo</th>
                             <th>Name</th>
                             <th>Surname</th>
                             <th>Email</th>
-                            <th>about</th>
+                            <th>About</th>
                             <th>Edit</th>
                         </tr>
                     </thead>
@@ -20,7 +21,11 @@ function CoachTable({ coaches }) {
                         {coaches.map((coach) => (
                             <tr key={coach.id}>
                                 <td>
-                                    <img src={coach.avatar} width="50" />
+                                    <img
+                                        src={coach.avatar}
+                                        alt={`${coach.user.first_name} avatar`}
+                                        className="mx-auto h-12 w-12 rounded-full object-cover"
+                                    />
                                 </td>
                                 <td>{coach.user.first_name}</td>
                                 <td>{coach.user.last_name}</td>
@@ -28,12 +33,10 @@ function CoachTable({ coaches }) {
                                 <td>{coach.about}</td>
                                 <td>
                                     <Link
-                                        className="pr-1"
                                         href={route("coach.edit", {
                                             user: coach.user.id,
                                         })}
-                                        method="get"
-                                        type="button"
+                                        className="btn-sm btn-green"
                                     >
                                         Edit
                                     </Link>
@@ -43,8 +46,6 @@ function CoachTable({ coaches }) {
                     </tbody>
                 </table>
             </div>
-        </>
+        </div>
     );
 }
-
-export default CoachTable;

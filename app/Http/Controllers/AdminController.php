@@ -23,7 +23,7 @@ final class AdminController extends Controller
     /**
      * Redirects the admin to the admin dashboard.
      *
-     * This action returns an Inertia response that renders the "Admin/Dashboard" page.
+     * This action returns an Inertia response that renders the "Admin/AdminDashboard" page.
      * The response data array contains:
      * - `users`: a collection of all User models.
      * - `coaches`: a collection of Coach models with their related User.
@@ -41,7 +41,7 @@ final class AdminController extends Controller
         $players = Player::with('user', 'team')->get();
         $events = Event::all();
 
-        return inertia('Admin/Dashboard', [
+        return inertia('Admin/AdminDashboard', [
             'users' => $users,
             'coaches' => $coaches,
             'teams' => $teams,
@@ -61,7 +61,7 @@ final class AdminController extends Controller
      */
     public function toggleAdmin(User $user): RedirectResponse
     {
-        $user->update(['is_admin' => ! $user->is_admin]);
+        $user->update(['is_admin' => !$user->is_admin]);
 
         return redirect()->back()->with(
             'success',

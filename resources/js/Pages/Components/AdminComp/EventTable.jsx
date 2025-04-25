@@ -1,11 +1,22 @@
 import { Link } from "@inertiajs/react";
 
-function EventTable({ events }) {
+export default function EventTable({ events }) {
     return (
-        <>
-            <h1>This is a Event table</h1>
-            <div className="bg-opacity-75 mt-5 flex flex-col justify-center bg-[#05283d] text-white">
-                <table className="table-fixed border-collapse rounded-md border border-[#9dbebb] text-center">
+        <div>
+            <div className="mb-6 flex items-center justify-between">
+                <h1 className="text-3xl font-bold">Events</h1>
+                <Link
+                    href={route("event.create")}
+                    className="btn-sm btn-green"
+                    method="get"
+                    type="button"
+                >
+                    + Add Event
+                </Link>
+            </div>
+
+            <div className="admin-table-container">
+                <table className="admin-table">
                     <thead>
                         <tr>
                             <th>Title</th>
@@ -16,7 +27,7 @@ function EventTable({ events }) {
                             <th>Time</th>
                             <th>Address</th>
                             <th>Post Code</th>
-                            <th>Other</th>
+                            <th>Edit</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -25,19 +36,21 @@ function EventTable({ events }) {
                                 <td>{event.title}</td>
                                 <td>{event.description}</td>
                                 <td>{event.type}</td>
-                                {event.team_id ? (
-                                    <td>{event.team_id}</td>
-                                ) : (
-                                    <td> Everyone</td>
-                                )}
+                                <td>
+                                    {event.team
+                                        ? event.team.team_name
+                                        : "Everyone"}
+                                </td>
                                 <td>{event.date}</td>
                                 <td>{event.time}</td>
                                 <td>{event.address}</td>
                                 <td>{event.post_code}</td>
                                 <td>
                                     <Link
-                                        className="pr-1"
-                                        href={"/"}
+                                        href={route("home", {
+                                            event: event.id,
+                                        })}
+                                        className="btn-sm btn-green"
                                         method="get"
                                         type="button"
                                     >
@@ -49,8 +62,6 @@ function EventTable({ events }) {
                     </tbody>
                 </table>
             </div>
-        </>
+        </div>
     );
 }
-
-export default EventTable;
