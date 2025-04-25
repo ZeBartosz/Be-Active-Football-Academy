@@ -18,7 +18,7 @@ export default function CoachTable({ coaches }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {coaches.map((coach) => (
+                        {coaches.data.map((coach) => (
                             <tr key={coach.id}>
                                 <td>
                                     <img
@@ -45,6 +45,25 @@ export default function CoachTable({ coaches }) {
                         ))}
                     </tbody>
                 </table>
+                <div className="my-4 flex justify-center space-x-2">
+                    {coaches.links.map((link, idx) => (
+                        <Link
+                            key={idx}
+                            href={link.url || "#"}
+                            className={`rounded px-3 py-1 ${
+                                link.active
+                                    ? "bg-secondary text-black"
+                                    : "bg-primary hover:bg-secondary text-white hover:text-black"
+                            }`}
+                            preserveState
+                        >
+                            {/* link.label comes as "&laquo; Previous", page numbers, "Next &raquo;" */}
+                            <span
+                                dangerouslySetInnerHTML={{ __html: link.label }}
+                            />
+                        </Link>
+                    ))}
+                </div>
             </div>
         </div>
     );

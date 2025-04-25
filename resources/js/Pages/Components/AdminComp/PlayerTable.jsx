@@ -19,7 +19,7 @@ export default function PlayerTable({ players }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {players.map((player) => (
+                        {players.data.map((player) => (
                             <tr key={player.id}>
                                 <td>{player.first_name}</td>
                                 <td>{player.last_name}</td>
@@ -44,6 +44,25 @@ export default function PlayerTable({ players }) {
                         ))}
                     </tbody>
                 </table>
+                <div className="my-4 flex justify-center space-x-2">
+                    {players.links.map((link, idx) => (
+                        <Link
+                            key={idx}
+                            href={link.url || "#"}
+                            className={`rounded px-3 py-1 ${
+                                link.active
+                                    ? "bg-secondary text-black"
+                                    : "bg-primary hover:bg-secondary text-white hover:text-black"
+                            }`}
+                            preserveState
+                        >
+                            {/* link.label comes as "&laquo; Previous", page numbers, "Next &raquo;" */}
+                            <span
+                                dangerouslySetInnerHTML={{ __html: link.label }}
+                            />
+                        </Link>
+                    ))}
+                </div>
             </div>
         </div>
     );

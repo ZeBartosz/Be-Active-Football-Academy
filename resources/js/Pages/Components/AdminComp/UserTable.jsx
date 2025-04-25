@@ -1,4 +1,4 @@
-import { useForm, usePage } from "@inertiajs/react";
+import { Link, useForm, usePage } from "@inertiajs/react";
 
 export default function UserTable({ users }) {
     const { authUser } = usePage().props;
@@ -43,7 +43,7 @@ export default function UserTable({ users }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {users.map((user) => (
+                        {users.data.map((user) => (
                             <tr key={user.id}>
                                 <td>{user.first_name}</td>
                                 <td>{user.last_name}</td>
@@ -109,6 +109,25 @@ export default function UserTable({ users }) {
                         ))}
                     </tbody>
                 </table>
+                <div className="my-4 flex justify-center space-x-2">
+                    {users.links.map((link, idx) => (
+                        <Link
+                            key={idx}
+                            href={link.url || "#"}
+                            className={`rounded px-3 py-1 ${
+                                link.active
+                                    ? "bg-secondary text-black"
+                                    : "bg-primary hover:bg-secondary text-white hover:text-black"
+                            }`}
+                            preserveState
+                        >
+                            {/* link.label comes as "&laquo; Previous", page numbers, "Next &raquo;" */}
+                            <span
+                                dangerouslySetInnerHTML={{ __html: link.label }}
+                            />
+                        </Link>
+                    ))}
+                </div>
             </div>
         </div>
     );

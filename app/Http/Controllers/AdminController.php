@@ -35,11 +35,11 @@ final class AdminController extends Controller
      */
     public function index(): Response|ResponseFactory
     {
-        $users = User::all();
-        $coaches = Coach::with('user')->get();
-        $teams = Team::withCount(['players', 'events'])->get();
-        $players = Player::with('user', 'team')->get();
-        $events = Event::all();
+        $users = User::paginate(10);
+        $coaches = Coach::with('user')->paginate(10);
+        $teams = Team::withCount(['players', 'events'])->paginate(10);
+        $players = Player::with('user', 'team')->paginate(10);
+        $events = Event::paginate(10);
 
         return inertia('Admin/AdminDashboard', [
             'users' => $users,

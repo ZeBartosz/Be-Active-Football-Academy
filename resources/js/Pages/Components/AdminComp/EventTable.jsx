@@ -31,7 +31,7 @@ export default function EventTable({ events }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {events.map((event) => (
+                        {events.data.map((event) => (
                             <tr key={event.id}>
                                 <td>{event.title}</td>
                                 <td>{event.description}</td>
@@ -61,6 +61,25 @@ export default function EventTable({ events }) {
                         ))}
                     </tbody>
                 </table>
+                <div className="my-4 flex justify-center space-x-2">
+                    {events.links.map((link, idx) => (
+                        <Link
+                            key={idx}
+                            href={link.url || "#"}
+                            className={`rounded px-3 py-1 ${
+                                link.active
+                                    ? "bg-secondary text-black"
+                                    : "bg-primary hover:bg-secondary text-white hover:text-black"
+                            }`}
+                            preserveState
+                        >
+                            {/* link.label comes as "&laquo; Previous", page numbers, "Next &raquo;" */}
+                            <span
+                                dangerouslySetInnerHTML={{ __html: link.label }}
+                            />
+                        </Link>
+                    ))}
+                </div>
             </div>
         </div>
     );

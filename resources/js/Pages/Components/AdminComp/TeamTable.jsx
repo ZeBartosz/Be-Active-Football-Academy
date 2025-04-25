@@ -16,7 +16,6 @@ export default function TeamTable({ teams }) {
                 </Link>
             </div>
 
-            {/* Table container */}
             <div className="admin-table-container">
                 <table className="admin-table">
                     <thead>
@@ -27,7 +26,7 @@ export default function TeamTable({ teams }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {teams.map((team) => (
+                        {teams.data.map((team) => (
                             <tr key={team.id}>
                                 <td>{team.team_name}</td>
                                 <td>{team.players_count}</td>
@@ -36,6 +35,25 @@ export default function TeamTable({ teams }) {
                         ))}
                     </tbody>
                 </table>
+                <div className="my-4 flex justify-center space-x-2">
+                    {teams.links.map((link, idx) => (
+                        <Link
+                            key={idx}
+                            href={link.url || "#"}
+                            className={`rounded px-3 py-1 ${
+                                link.active
+                                    ? "bg-secondary text-black"
+                                    : "bg-primary hover:bg-secondary text-white hover:text-black"
+                            }`}
+                            preserveState
+                        >
+                            {/* link.label comes as "&laquo; Previous", page numbers, "Next &raquo;" */}
+                            <span
+                                dangerouslySetInnerHTML={{ __html: link.label }}
+                            />
+                        </Link>
+                    ))}
+                </div>
             </div>
         </div>
     );

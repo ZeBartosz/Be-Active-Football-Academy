@@ -13,7 +13,7 @@ export default function AdminDashboard({
 }) {
     return (
         <>
-            <div className="mx-auto my-10 h-screen w-[70%]">
+            <div className="mx-auto my-10 w-[70%]">
                 <h1> this is an admin page </h1>
 
                 <UserTable users={users} />
