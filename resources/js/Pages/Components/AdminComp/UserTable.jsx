@@ -24,12 +24,10 @@ export default function UserTable({ users, activeTab, tableId }) {
         putAdmin(route("admin.toggleAdmin", { user: user.id }));
     }
 
+    if (activeTab !== tableId) return null;
+
     return (
-        <div
-            className={`table-content ${
-                activeTab === tableId ? "active" : "hidden"
-            }`}
-        >
+        <div>
             <div className="admin-table-container">
                 <table className="admin-table">
                     <thead>
@@ -126,7 +124,9 @@ export default function UserTable({ users, activeTab, tableId }) {
                         >
                             {/* link.label comes as "&laquo; Previous", page numbers, "Next &raquo;" */}
                             <span
-                                dangerouslySetInnerHTML={{ __html: link.label }}
+                                dangerouslySetInnerHTML={{
+                                    __html: link.label,
+                                }}
                             />
                         </Link>
                     ))}

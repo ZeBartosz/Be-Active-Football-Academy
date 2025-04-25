@@ -1,12 +1,9 @@
 import { Link } from "@inertiajs/react";
 
 export default function CoachTable({ coaches, activeTab, tableId }) {
+    if (activeTab !== tableId) return null;
     return (
-        <div
-            className={`table-content ${
-                activeTab === tableId ? "active" : "hidden"
-            }`}
-        >
+        <div>
             <div className="admin-table-container">
                 <table className="admin-table">
                     <thead>

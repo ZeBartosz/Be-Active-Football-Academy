@@ -1,12 +1,9 @@
 import { Link } from "@inertiajs/react";
 
 export default function EventTable({ events, activeTab, tableId }) {
+    if (activeTab !== tableId) return null;
     return (
-        <div
-            className={`table-content ${
-                activeTab === tableId ? "active" : "hidden"
-            }`}
-        >
+        <div>
             <div className="mb-6 flex items-center justify-end">
                 <Link
                     href={route("event.create")}

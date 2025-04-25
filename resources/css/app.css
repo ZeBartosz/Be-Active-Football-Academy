@@ -109,7 +109,7 @@
     }
 
     .btn-sm {
-        @apply px-3 py-1 text-xs font-medium rounded transition;
+        @apply px-3 py-1 text-xl font-medium rounded transition;
     }
 
     .btn-green {
@@ -136,5 +136,4 @@
         background-color: var(--color-secondary);
         color: black;
     }
-    
 }

@@ -1,13 +1,10 @@
 import { Link } from "@inertiajs/react";
 
 export default function TeamTable({ teams, activeTab, tableId }) {
-    console.log(teams);
+    if (activeTab !== tableId) return null;
+
     return (
-        <div
-            className={`table-content ${
-                activeTab === tableId ? "active" : "hidden"
-            }`}
-        >
+        <div>
             <div className="mb-6 flex items-center justify-end">
                 <Link
                     href={route("team.create")}
