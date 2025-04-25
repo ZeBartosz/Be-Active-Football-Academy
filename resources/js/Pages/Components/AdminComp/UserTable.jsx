@@ -1,6 +1,6 @@
 import { Link, useForm, usePage } from "@inertiajs/react";
 
-export default function UserTable({ users }) {
+export default function UserTable({ users, activeTab, tableId }) {
     const { authUser } = usePage().props;
     const {
         post: postCoach,
@@ -25,8 +25,11 @@ export default function UserTable({ users }) {
     }
 
     return (
-        <div>
-            <h1 className="text-3xl font-bold">User Management</h1>
+        <div
+            className={`table-content ${
+                activeTab === tableId ? "active" : "hidden"
+            }`}
+        >
             <div className="admin-table-container">
                 <table className="admin-table">
                     <thead>

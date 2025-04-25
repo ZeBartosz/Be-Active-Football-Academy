@@ -1,10 +1,13 @@
 import { Link } from "@inertiajs/react";
 
-export default function EventTable({ events }) {
+export default function EventTable({ events, activeTab, tableId }) {
     return (
-        <div>
-            <div className="mb-6 flex items-center justify-between">
-                <h1 className="text-3xl font-bold">Events</h1>
+        <div
+            className={`table-content ${
+                activeTab === tableId ? "active" : "hidden"
+            }`}
+        >
+            <div className="mb-6 flex items-center justify-end">
                 <Link
                     href={route("event.create")}
                     className="btn-sm btn-green"

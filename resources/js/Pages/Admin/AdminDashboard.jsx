@@ -3,6 +3,7 @@ import CoachTable from "../Components/AdminComp/CoachTable.jsx";
 import TeamTable from "../Components/AdminComp/TeamTable.jsx";
 import PlayerTable from "../Components/AdminComp/PlayerTable.jsx";
 import EventTable from "../Components/AdminComp/EventTable.jsx";
+import { useState } from "react";
 
 export default function AdminDashboard({
     users,
@@ -11,16 +12,58 @@ export default function AdminDashboard({
     players,
     events,
 }) {
+    const [activeTab, setActiveTab] = useState("users");
+
     return (
         <>
-            <div className="mx-auto my-10 w-[70%]">
-                <h1> this is an admin page </h1>
+            <div className="font-display mx-auto my-10 w-[70%]">
+                <div className="mb-4 flex justify-evenly border-b">
+                    {[
+                        { key: "users", label: "Users" },
+                        { key: "coaches", label: "Coaches" },
+                        { key: "players", label: "Players" },
+                        { key: "teams", label: "Teams" },
+                        { key: "events", label: "Events" },
+                    ].map(({ key, label }) => (
+                        <button
+                            key={key}
+                            onClick={() => setActiveTab(key)}
+                            className={`relative px-4 py-2 text-2xl font-medium ${
+                                activeTab === key
+                                    ? "text-primary border-accent border-b-4"
+                                    : "hover:text-primary"
+                            } `}
+                        >
+                            {label}
+                        </button>
+                    ))}
+                </div>
 
-                <UserTable users={users} />
-                <PlayerTable players={players} />
-                <CoachTable coaches={coaches} />
-                <TeamTable teams={teams} />
-                <EventTable events={events} />
+                <UserTable
+                    users={users}
+                    activeTab={activeTab}
+                    tableId={"users"}
+                />
+                <PlayerTable
+                    players={players}
+                    activeTab={activeTab}
+                    tableId={"players"}
+                />
+                <CoachTable
+                    coaches={coaches}
+                    activeTab={activeTab}
+                    tableId={"coaches"}
+                />
+                <TeamTable
+                    teams={teams}
+                    activeTab={activeTab}
+                    tableId={"teams"}
+                />
+                <EventTable
+                    events={events}
+                    activeTab={activeTab}
+                    tableId={"events"}
+                />
             </div>
         </>
     );

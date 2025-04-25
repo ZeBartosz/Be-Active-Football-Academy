@@ -1,9 +1,12 @@
 import { Link } from "@inertiajs/react";
 
-export default function PlayerTable({ players }) {
+export default function PlayerTable({ players, activeTab, tableId }) {
     return (
-        <div>
-            <h1 className="mb-6 text-3xl font-bold">Players</h1>
+        <div
+            className={`table-content ${
+                activeTab === tableId ? "active" : "hidden"
+            }`}
+        >
             <div className="admin-table-container">
                 <table className="admin-table">
                     <thead>
