@@ -43,7 +43,7 @@ final class EventController extends Controller
             'type' => 'required|max:255',
             'date' => 'required|date|after:today',
             'time' => 'required|date_format:H:i',
-            'team_id' => 'nullable|e\Illuminate\Http\xists:teams,id',
+            'team_id' => 'nullable|exists:teams,id',
             'address' => 'required|max:255',
             'post_code' => 'required|max:7|min:6',
         ]);
