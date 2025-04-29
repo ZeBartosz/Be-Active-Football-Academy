@@ -1,7 +1,9 @@
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 import Background from "./Components/Background/Background.jsx";
 
 export default function Home() {
+    const { authUser } = usePage().props;
+
     return (
         <>
             <section className="relative h-screen">
@@ -15,11 +17,15 @@ export default function Home() {
                         for premier training and top-tier competition.
                     </p>
                     <div className="p-2">
-                        <button className="bg-secondary mr-2 rounded px-4 py-2 text-2xl text-black shadow-lg">
-                            <Link href={route("auth.register")}>
-                                Join Our Academy
-                            </Link>
-                        </button>
+                        {authUser ? (
+                            ""
+                        ) : (
+                            <button className="bg-secondary mr-2 rounded px-4 py-2 text-2xl text-black shadow-lg">
+                                <Link href={route("auth.register")}>
+                                    Join Our Academy
+                                </Link>
+                            </button>
+                        )}
                         <button className="bg-accent mr-2 rounded px-4 py-2 text-2xl text-black shadow-lg">
                             <Link href={route("faq.index")}>Learn More</Link>
                         </button>
