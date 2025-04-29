@@ -40,6 +40,7 @@ final class AdminController extends Controller
         $coachCount = Coach::count();
         $playerCount = Player::count();
         $nextEvent = Event::where('date', '>', Carbon::now())
+            ->with('team')
             ->orderBy('date')
             ->limit(5)
             ->get();
