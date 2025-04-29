@@ -19,8 +19,8 @@ class EventFactory extends Factory
         return [
             'title' => fake()->title(),
             'description' => fake()->text(),
-            'type' => fake()->word(),
-            'date' => fake()->date(),
+            'type' => fake()->randomElement(['training', 'match', 'event']),
+            'date' => fake()->dateTimeBetween('-1 week', '+1 week'),
             'time' => fake()->time(),
             'address' => fake()->address(),
             'post_code' => fake()->postCode(),
