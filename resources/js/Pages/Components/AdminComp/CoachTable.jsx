@@ -35,7 +35,7 @@ export default function CoachTable({ coaches, activeTab, tableId }) {
                                         href={route("coach.edit", {
                                             user: coach.user.id,
                                         })}
-                                        className="btn-sm btn-green"
+                                        className="btn-sm btn-yellow"
                                     >
                                         Edit
                                     </Link>

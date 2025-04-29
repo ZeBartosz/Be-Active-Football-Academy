@@ -5,17 +5,6 @@ export default function TeamTable({ teams, activeTab, tableId }) {
 
     return (
         <div>
-            <div className="mb-6 flex items-center justify-end">
-                <Link
-                    href={route("team.create")}
-                    className="btn-sm btn-green"
-                    method="get"
-                    type="button"
-                >
-                    + Add Team
-                </Link>
-            </div>
-
             <div className="admin-table-container">
                 <table className="admin-table">
                     <thead>

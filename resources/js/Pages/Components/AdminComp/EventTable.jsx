@@ -4,17 +4,6 @@ export default function EventTable({ events, activeTab, tableId }) {
     if (activeTab !== tableId) return null;
     return (
         <div>
-            <div className="mb-6 flex items-center justify-end">
-                <Link
-                    href={route("event.create")}
-                    className="btn-sm btn-green"
-                    method="get"
-                    type="button"
-                >
-                    + Add Event
-                </Link>
-            </div>
-
             <div className="admin-table-container">
                 <table className="admin-table">
                     <thead>
@@ -50,7 +39,7 @@ export default function EventTable({ events, activeTab, tableId }) {
                                         href={route("home", {
                                             event: event.id,
                                         })}
-                                        className="btn-sm btn-green"
+                                        className="btn-sm btn-yellow"
                                         method="get"
                                         type="button"
                                     >

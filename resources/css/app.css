@@ -112,12 +112,13 @@
         @apply px-3 py-1 text-xl font-medium rounded transition;
     }
 
-    .btn-green {
+    .btn-yellow {
         background-color: var(--color-secondary);
         color: black;
+        margin: 4px;
     }
 
-    .btn-green:hover {
+    .btn-yellow:hover {
         background-color: color-mix(in srgb, var(--color-secondary) 90%, white);
     }
 
@@ -135,5 +136,13 @@
         @apply opacity-50 cursor-not-allowed;
         background-color: var(--color-secondary);
         color: black;
+    }
+
+    .total-container {
+        @apply bg-primary my-4 rounded-lg border p-4 shadow-md;
+    }
+
+    .total-subTitle {
+        @apply text-secondary text-3xl font-bold;
     }
 }

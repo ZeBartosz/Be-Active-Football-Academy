@@ -36,7 +36,7 @@ export default function PlayerTable({ players, activeTab, tableId }) {
                                         href={route("home", {
                                             player: player.id,
                                         })}
-                                        className="btn-sm btn-green"
+                                        className="btn-sm btn-yellow"
                                     >
                                         Edit
                                     </Link>

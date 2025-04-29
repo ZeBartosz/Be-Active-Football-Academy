@@ -61,7 +61,7 @@ export default function UserTable({ users, activeTab, tableId }) {
                                             onClick={(e) =>
                                                 toggleAdminStatus(user, e)
                                             }
-                                            className="btn-sm btn-green"
+                                            className="btn-sm btn-yellow"
                                         >
                                             Grant
                                         </button>
@@ -87,7 +87,7 @@ export default function UserTable({ users, activeTab, tableId }) {
                                             onClick={(e) =>
                                                 handleCoachPost(user, e)
                                             }
-                                            className="btn-sm btn-green"
+                                            className="btn-sm btn-yellow"
                                         >
                                             Make
                                         </button>

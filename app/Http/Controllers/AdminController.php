@@ -9,6 +9,7 @@ use App\Models\Event;
 use App\Models\Player;
 use App\Models\Team;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Response;
 use Inertia\ResponseFactory;
@@ -35,6 +36,14 @@ final class AdminController extends Controller
      */
     public function index(): Response|ResponseFactory
     {
+        $userCount = User::count();
+        $coachCount = Coach::count();
+        $playerCount = Player::count();
+        $nextEvent = Event::where('date', '>', Carbon::now())
+            ->orderBy('date')
+            ->limit(5)
+            ->get();
+
         $users = User::paginate(10);
         $coaches = Coach::with('user')->paginate(10);
         $teams = Team::withCount(['players', 'events'])->paginate(10);
@@ -47,6 +56,10 @@ final class AdminController extends Controller
             'teams' => $teams,
             'players' => $players,
             'events' => $events,
+            'userCount' => $userCount,
+            'coachCount' => $coachCount,
+            'playerCount' => $playerCount,
+            'nextEvent' => $nextEvent,
         ]);
     }
 
