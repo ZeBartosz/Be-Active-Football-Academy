@@ -40,6 +40,14 @@ function TopNavBar() {
                             >
                                 FAQ
                             </Link>
+                            <Link
+                                className="top_navbar_link"
+                                href={route("user.index")}
+                                method="get"
+                                type="button"
+                            >
+                                User Dashboard
+                            </Link>
                             {authUser.is_admin ? (
                                 <>
                                     <Link

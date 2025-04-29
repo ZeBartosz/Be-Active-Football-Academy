@@ -9,6 +9,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\FAQController;
 use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\TeamController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -31,6 +32,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
     Route::get('/player', [PlayerController::class, 'create'])->name('player.create');
     Route::post('/player', [PlayerController::class, 'store'])->name('player.store');
+
+    Route::get('/user', [UserController::class, 'index'])->name('user.index');
 
     Route::middleware('coach')->group(function () {
         Route::post('/coach/update/{coach}', [CoachController::class, 'update'])->name('coach.update');
