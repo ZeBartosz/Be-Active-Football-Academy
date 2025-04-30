@@ -26,14 +26,7 @@ function TopNavBar() {
                             >
                                 <h1>{authUser.first_name}</h1>
                             </Link>
-                            <Link
-                                className="top_navbar_link"
-                                href={route("player.create")}
-                                method="get"
-                                type="button"
-                            >
-                                Add player
-                            </Link>
+
                             <Link
                                 href={route(`faq.index`)}
                                 className="top_navbar_link"

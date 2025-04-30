@@ -1,12 +1,28 @@
+import { Link } from "@inertiajs/react";
+
 export default function PlayerList({ players }) {
-    console.log(players.data);
+    const shouldScroll = players.length > 3;
+
     return (
         <div>
-            <h1 className="text-primary text-center text-4xl font-bold">
-                Player List
-            </h1>
-            <div className="grid grid-cols-3 gap-4">
-                {players.data.map((player) => (
+            <div className="flex justify-between pb-1">
+                <h1 className="text-primary text-center text-4xl font-bold">
+                    Player List
+                </h1>
+                <Link
+                    href={route("player.create")}
+                    className="btn-sm btn-yellow"
+                    method="get"
+                    type="button"
+                >
+                    + Add Player
+                </Link>
+            </div>
+
+            <div
+                className={`${shouldScroll ? "max-h-[550px] overflow-y-auto" : ""} space-y-4`}
+            >
+                {players.map((player) => (
                     <div
                         key={player.id}
                         className="rounded-lg border p-4 shadow-md"

@@ -19,7 +19,7 @@ final class UserController extends Controller
     public function index(): Response|ResponseFactory
     {
         $user = Auth::user();
-        $players = $user->players()->with('team')->paginate(5);
+        $players = $user->players()->with('team')->get();
         $nextEvents = $players->flatMap(function ($player) {
             return $player->team->events()
                 ->where('date', '>', Carbon::now())
