@@ -23,11 +23,11 @@ export default function FAQList({ faqs }) {
 
     return (
         <>
-            <div className="relative flex min-h-screen items-center justify-center">
+            <div className="relative flex h-fit items-center justify-center">
                 <Background background={null} />
 
-                <div className="relative inset-10 h-screen text-white">
-                    <div className="font-display mx-auto h-screen max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
+                <div className="relative inset-10 h-fit text-white">
+                    <div className="font-display mx-auto h-fit max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
                         <h1 className="mb-12 text-center text-5xl font-bold">
                             Frequently Asked Questions
                         </h1>

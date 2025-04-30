@@ -1,4 +1,14 @@
 export default function ({ events }) {
+    if (events.length === 0) {
+        return (
+            <div>
+                <h1 className="text-primary text-center text-4xl font-bold">
+                    No Events Found
+                </h1>
+            </div>
+        );
+    }
+
     return (
         <div>
             <h1 className="text-primary text-center text-4xl font-bold">
@@ -13,9 +23,14 @@ export default function ({ events }) {
                         <h2 className="text-3xl font-bold text-white">
                             {event.title}
                         </h2>
-                        <p className="text-secondary text-2xl">
-                            {event.team.team_name}
-                        </p>
+                        {event.team ? (
+                            <p className="text-secondary text-2xl">
+                                {event.team.team_name}
+                            </p>
+                        ) : (
+                            ""
+                        )}
+
                         <p className="text-secondary text-2xl">{event.type}</p>
                         <p className="text-secondary text-2xl">{event.date}</p>
                         <p className="text-secondary text-2xl">{event.time}</p>

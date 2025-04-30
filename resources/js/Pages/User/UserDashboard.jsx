@@ -3,7 +3,7 @@ import PlayerList from "../Components/UserComp/PlayerList.jsx";
 
 export default function userDashboard({ user, players, nextEvents }) {
     return (
-        <div className="font-display mx-auto flex h-screen w-[70%] flex-col">
+        <div className="font-display mx-auto flex h-fit w-[70%] flex-col">
             <h1 className="text-primary text-center text-4xl font-bold">
                 User Dashboard
             </h1>
