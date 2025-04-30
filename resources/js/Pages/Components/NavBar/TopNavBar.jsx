@@ -13,11 +13,11 @@ function TopNavBar() {
                     >
                         <img src="storage/assets/logo.png" alt="logo" />
                     </Link>
-                    <h1 className="top_navbar_link text-2xl font-bold">
+                    <h1 className="top_navbar_link text-3xl font-bold">
                         Be Active Football Academy
                     </h1>
                 </div>
-                <div className="flex items-center">
+                <div className="flex items-center text-2xl">
                     {authUser ? (
                         <>
                             <Link
@@ -97,7 +97,7 @@ function TopNavBar() {
 
                             <Link
                                 href={route("auth.login")}
-                                className="bg-primary font-display hover:bg-primary/95 ml-1 rounded-md border p-2 text-sm text-white"
+                                className="bg-primary font-display hover:bg-primary/95 ml-1 rounded-md border p-2 text-white"
                             >
                                 Join Now
                             </Link>
