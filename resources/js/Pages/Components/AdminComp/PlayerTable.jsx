@@ -16,7 +16,7 @@ export default function PlayerTable({ players, activeTab, tableId }) {
                             <th>Post Code</th>
                             <th>Team Name</th>
                             <th>Guardian</th>
-                            <th>Edit</th>
+                            <th>More</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -33,12 +33,22 @@ export default function PlayerTable({ players, activeTab, tableId }) {
                                 </td>
                                 <td>
                                     <Link
-                                        href={route("home", {
+                                        href={route("player.edit", {
                                             player: player.id,
                                         })}
                                         className="btn-sm btn-yellow"
                                     >
                                         Edit
+                                    </Link>
+                                    <Link
+                                        href={route("player.destroy", {
+                                            player: player.id,
+                                        })}
+                                        className="btn-sm btn-red"
+                                        method="delete"
+                                        type="button"
+                                    >
+                                        Delete
                                     </Link>
                                 </td>
                             </tr>

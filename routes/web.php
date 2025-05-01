@@ -17,6 +17,9 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/faq', [FAQController::class, 'index'])->name('faq.index');
+Route::get('/player/edit/{player}', [PlayerController::class, 'edit'])->name('player.edit');
+Route::put('/player/update/{player}', [PlayerController::class, 'update'])->name('player.update');
+Route::delete('/player/delete/{player}', [PlayerController::class, 'destroy'])->name('player.destroy');
 
 // Routes for guests
 Route::middleware('guest')->group(function () {
@@ -32,6 +35,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
     Route::get('/player', [PlayerController::class, 'create'])->name('player.create');
     Route::post('/player', [PlayerController::class, 'store'])->name('player.store');
+  
 
     Route::get('/user', [UserController::class, 'index'])->name('user.index');
 

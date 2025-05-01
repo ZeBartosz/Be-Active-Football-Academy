@@ -44,6 +44,17 @@ final class User extends Authenticatable
         'password',
         'remember_token',
     ];
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected $casts = [
+        'is_admin' => 'boolean',
+        'is_coach' => 'boolean',
+        'email_verified_at' => 'datetime',
+        'date_of_birth' => 'date',
+    ];
 
     public function coach(): HasOne
     {
@@ -58,21 +69,5 @@ final class User extends Authenticatable
     public function getDateOfBirthAttribute($value)
     {
         return Carbon::parse($value)->format('d-m-Y');
-    }
-
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-            'is_admin' => 'boolean',
-            'is_coach' => 'boolean',
-            'date_of_birth' => 'date',
-        ];
     }
 }

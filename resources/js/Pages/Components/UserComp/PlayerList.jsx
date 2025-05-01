@@ -34,6 +34,24 @@ export default function PlayerList({ players }) {
                         <p>{player.date_of_birth}</p>
                         <p>{player.address}</p>
                         <p>{player.post_code}</p>
+                        <Link
+                            href={route("player.edit", {
+                                player: player.id,
+                            })}
+                            className="btn-sm btn-yellow"
+                        >
+                            Edit
+                        </Link>
+                        <Link
+                            href={route("player.destroy", {
+                                player: player.id,
+                            })}
+                            className="btn-sm btn-red"
+                            method="delete"
+                            type="button"
+                        >
+                            Delete
+                        </Link>
                     </div>
                 ))}
             </div>

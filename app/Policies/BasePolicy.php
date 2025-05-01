@@ -22,9 +22,10 @@ final class BasePolicy
      */
     public function adminAndUser(User $user, Model $model): Response
     {
-        return $user->is_admin === true || $user->id === $model->user_id
+        return ($user->is_admin === true || $user->id === $model->user_id)
             ? Response::allow()
             : Response::denyAsNotFound();
+
     }
 
     /**
