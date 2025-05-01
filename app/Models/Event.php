@@ -24,6 +24,7 @@ class Event extends Model
 
     protected $casts = [
         'date' => 'date',
+        'time' => 'datetime:H:i'
     ];
 
     /**

@@ -16,7 +16,7 @@ export default function EventTable({ events, activeTab, tableId }) {
                             <th>Time</th>
                             <th>Address</th>
                             <th>Post Code</th>
-                            <th>Edit</th>
+                            <th>More</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -36,7 +36,7 @@ export default function EventTable({ events, activeTab, tableId }) {
                                 <td>{event.post_code}</td>
                                 <td>
                                     <Link
-                                        href={route("home", {
+                                        href={route("event.edit", {
                                             event: event.id,
                                         })}
                                         className="btn-sm btn-yellow"
@@ -44,6 +44,17 @@ export default function EventTable({ events, activeTab, tableId }) {
                                         type="button"
                                     >
                                         Edit
+                                    </Link>
+
+                                    <Link
+                                        href={route("event.destroy", {
+                                            event: event.id,
+                                        })}
+                                        className="btn-sm btn-red"
+                                        method="delete"
+                                        type="button"
+                                    >
+                                        Delete
                                     </Link>
                                 </td>
                             </tr>
