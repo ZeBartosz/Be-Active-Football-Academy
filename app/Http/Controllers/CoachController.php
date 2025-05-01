@@ -67,7 +67,7 @@ final class CoachController extends Controller
      */
     public function update(Request $request, Coach $coach): RedirectResponse
     {
-        $this->authorize('adminAndUser', $coach);
+        $this->authorize('adminAndUser', [Auth::user(), $coach]);
 
         $validated = $request->validate([
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:3000',
@@ -105,6 +105,8 @@ final class CoachController extends Controller
      */
     public function edit(User $user): Response|ResponseFactory
     {
+        $this->authorize('adminAndUser', [Auth::user(), $coach]);
+
         $coach = $user->coach;
 
         $this->authorize('adminAndUser', $coach);
@@ -126,7 +128,7 @@ final class CoachController extends Controller
      */
     public function destroy(User $user): RedirectResponse
     {
-        $this->authorize('admin', Auth::user());
+        $this->authorize('adminAndUser', [Auth::user(), $coach]);
 
         $user->update(['is_coach' => false]);
 
