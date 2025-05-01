@@ -11,17 +11,38 @@ export default function UserTable({ users, activeTab, tableId }) {
 
     function handleCoachPost(user, e) {
         e.preventDefault();
-        postCoach(route("coach.store", { user: user.id }));
+        postCoach(
+            route("coach.store", { user: user.id }),
+            {},
+            { preserveScroll: false },
+        );
     }
 
     function handleCoachDelete(user, e) {
         e.preventDefault();
-        deleteCoach(route("coach.destroy", { user: user.id }));
+        deleteCoach(
+            route("coach.destroy", { user: user.id }),
+            {},
+            { preserveScroll: false },
+        );
     }
 
-    function toggleAdminStatus(user, e) {
+    function GrantAdminStatus(user, e) {
         e.preventDefault();
-        putAdmin(route("admin.toggleAdmin", { user: user.id }));
+        putAdmin(
+            route("admin.grant", { user: user.id }),
+            {},
+            { preserveScroll: false },
+        );
+    }
+
+    function RevokeAdminStatus(user, e) {
+        e.preventDefault();
+        putAdmin(
+            route("admin.revoke", { user: user.id }),
+            {},
+            { preserveScroll: false },
+        );
     }
 
     if (activeTab !== tableId) return null;
@@ -58,8 +79,9 @@ export default function UserTable({ users, activeTab, tableId }) {
                                 <td>
                                     {!user.is_admin ? (
                                         <button
+                                            type="button"
                                             onClick={(e) =>
-                                                toggleAdminStatus(user, e)
+                                                GrantAdminStatus(user, e)
                                             }
                                             className="btn-sm btn-yellow"
                                         >
@@ -71,8 +93,9 @@ export default function UserTable({ users, activeTab, tableId }) {
                                         </button>
                                     ) : (
                                         <button
+                                            type="button"
                                             onClick={(e) =>
-                                                toggleAdminStatus(user, e)
+                                                RevokeAdminStatus(user, e)
                                             }
                                             className="btn-sm btn-red"
                                         >

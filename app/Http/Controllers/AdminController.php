@@ -10,7 +10,9 @@ use App\Models\Player;
 use App\Models\Team;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Response;
 use Inertia\ResponseFactory;
 
@@ -21,6 +23,9 @@ use Inertia\ResponseFactory;
  */
 final class AdminController extends Controller
 {
+
+    use AuthorizesRequests;
+
     /**
      * Redirects the admin to the admin dashboard.
      *
@@ -36,6 +41,8 @@ final class AdminController extends Controller
      */
     public function index(): Response|ResponseFactory
     {
+        $this->authorize('admin', Auth::user());
+
         $userCount = User::count();
         $coachCount = Coach::count();
         $playerCount = Player::count();
@@ -65,21 +72,44 @@ final class AdminController extends Controller
     }
 
     /**
-     * Toggles the user's admin status.
+     * Redirects the admin to the user management page.
      *
-     * This method inverts the current admin status of the given user and then
-     * redirects back to the previous page with a success message.
+     * This action returns an Inertia response that renders the "Admin/Users" page.
+     * The response data array contains:
+     * - `users`: a collection of all User models.
      *
-     * @param  User  $user  The user whose admin status is to be toggled.
-     * @return RedirectResponse A redirect response indicating the update was successful.
+     * @return Response|ResponseFactory An Inertia response instance containing the user management data.
      */
-    public function toggleAdmin(User $user): RedirectResponse
+    public function grantAdmin(User $user): RedirectResponse
     {
-        $user->update(['is_admin' => !$user->is_admin]);
+        $this->authorize('admin', Auth::user());
+
+        $user->update(['is_admin' => true]);
 
         return redirect()->back()->with(
             'success',
-            "Coach {$user->first_name} {$user->last_name} updated successfully"
+            "{$user->first_name} {$user->last_name} updated successfully"
+        );
+    }
+
+    /**
+     * Redirects the admin to the user management page.
+     *
+     * This action returns an Inertia response that renders the "Admin/Users" page.
+     * The response data array contains:
+     * - `users`: a collection of all User models.
+     *
+     * @return Response|ResponseFactory An Inertia response instance containing the user management data.
+     */
+    public function revokeAdmin(User $user): RedirectResponse
+    {
+        $this->authorize('admin', Auth::user());
+
+        $user->update(['is_admin' => false]);
+
+        return redirect()->back()->with(
+            'success',
+            "{$user->first_name} {$user->last_name} updated successfully"
         );
     }
 }

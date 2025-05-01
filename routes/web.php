@@ -43,7 +43,8 @@ Route::middleware('auth')->group(function () {
     // Admin routes (only for authenticated admins)
     Route::middleware('admin')->group(function () {
         Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
-        Route::put('/admin/update/admin/{user}', [AdminController::class, 'toggleAdmin'])->name('admin.toggleAdmin');
+        Route::put('/admin/update/{user}', [AdminController::class, 'grantAdmin'])->name('admin.grant');
+        Route::put('/admin/delete/{user}', [AdminController::class, 'revokeAdmin'])->name('admin.revoke');
 
         Route::post('/create/coach/{user}', [CoachController::class, 'store'])->name('coach.store');
         Route::delete('/coach/delete/{user}', [CoachController::class, 'destroy'])->name('coach.destroy');
