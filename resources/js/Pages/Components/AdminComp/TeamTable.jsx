@@ -12,6 +12,7 @@ export default function TeamTable({ teams, activeTab, tableId }) {
                             <th>Team Name</th>
                             <th>Player Count</th>
                             <th>Event Count</th>
+                            <th>More</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -20,6 +21,26 @@ export default function TeamTable({ teams, activeTab, tableId }) {
                                 <td>{team.team_name}</td>
                                 <td>{team.players_count}</td>
                                 <td>{team.events_count}</td>
+                                <td>
+                                    <Link
+                                        href={route("team.edit", {
+                                            team: team.id,
+                                        })}
+                                        className="btn-sm btn-yellow"
+                                    >
+                                        Edit
+                                    </Link>
+                                    <Link
+                                        href={route("team.destroy", {
+                                            team: team.id,
+                                        })}
+                                        className="btn-sm btn-red"
+                                        method="delete"
+                                        type="button"
+                                    >
+                                        Delete
+                                    </Link>
+                                </td>
                             </tr>
                         ))}
                     </tbody>

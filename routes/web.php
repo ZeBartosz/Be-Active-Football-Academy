@@ -35,7 +35,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
     Route::get('/player', [PlayerController::class, 'create'])->name('player.create');
     Route::post('/player', [PlayerController::class, 'store'])->name('player.store');
-  
+
 
     Route::get('/user', [UserController::class, 'index'])->name('user.index');
 
@@ -55,6 +55,9 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/team', [TeamController::class, 'create'])->name('team.create');
         Route::post('/team', [TeamController::class, 'store'])->name('team.store');
+        Route::get('/team/update/{team}', [TeamController::class, 'edit'])->name('team.edit');
+        Route::put('/team/update/{team}', [TeamController::class, 'update'])->name('team.update');
+        Route::delete('/team/delete/{team}', [TeamController::class, 'destroy'])->name('team.destroy');
 
         Route::get('/event', [EventController::class, 'create'])->name('event.create');
         Route::post('/event', [EventController::class, 'store'])->name('event.store');
