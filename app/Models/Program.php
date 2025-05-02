@@ -12,7 +12,7 @@ class Program extends Model
     use HasFactory;
 
     protected $fillable = [
-        'programGroup_id',
+        'program_group_id',
         'title',
         'description',
         'price',

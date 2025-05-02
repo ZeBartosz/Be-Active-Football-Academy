@@ -29,7 +29,7 @@ final class DatabaseSeeder extends Seeder
         $groups = ProgramGroup::factory(3)->create();
         $groups->each(function ($group) {
             \App\Models\Program::factory(3)
-                ->create(['programGroup_id' => $group->id]);
+                ->create(['program_group_id' => $group->id]);
         });
 
         $user = User::factory()->create([
