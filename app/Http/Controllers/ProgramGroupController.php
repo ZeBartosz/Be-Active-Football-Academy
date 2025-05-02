@@ -15,6 +15,18 @@ class ProgramGroupController extends Controller
     use AuthorizesRequests;
 
     /**
+     * Displays a list of program groups.
+     *
+     * @return Response
+     */
+    public function show(ProgramGroup $programGroup): Response|ResponseFactory
+    {
+        return inertia('ProgramGroups/ShowProgramGroup', [
+            'programs' => $programGroup,
+        ]);
+    }
+
+    /**
      * Stores a new program group.
      *
      * @param  Request  $request
@@ -50,9 +62,9 @@ class ProgramGroupController extends Controller
     /**
      * Displays the form for creating a new program group.
      *
-     * @return Response
+     * @return Response|ResponseFactory
      */
-    public function create(): Response
+    public function create(): Response|ResponseFactory
     {
         $this->authorize('admin', Auth::user());
 
@@ -63,7 +75,7 @@ class ProgramGroupController extends Controller
      * Displays the form for editing an existing program group.
      *
      * @param  ProgramGroup  $programGroup
-     * @return Response
+     * @return Response|ResponseFactory
      */
     public function edit(ProgramGroup $programGroup): Response|ResponseFactory
     {
@@ -99,6 +111,8 @@ class ProgramGroupController extends Controller
 
             Storage::disk('public')->putFileAs('program_groups', $file, $fileName);
             $validated['image'] = "/storage/coaches/$fileName";
+        } else {
+            $validated['image'] = $programGroup->image;
         }
 
         $programGroup->update($validated);

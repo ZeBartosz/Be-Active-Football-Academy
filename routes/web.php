@@ -20,6 +20,8 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/faq', [FAQController::class, 'index'])->name('faq.index');
+Route::get('/program-group/{programGroup}',
+    [ProgramGroupController::class, 'show'])->name('program_group.show');
 
 // Routes for guests
 Route::middleware('guest')->group(function () {
@@ -78,6 +80,7 @@ Route::middleware('auth')->group(function () {
         Route::delete('/faq/delete/{faq}', [FAQController::class, 'destroy'])->name('faq.destroy');
 
         // Program Group routes
+
         Route::get('/program-group/create', [ProgramGroupController::class, 'create'])->name('program_group.create');
         Route::post('/program-group/create', [ProgramGroupController::class, 'store'])->name('program_group.store');
         Route::get('/program-group/update/{programGroup}',

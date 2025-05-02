@@ -1,17 +1,23 @@
 import Background from "../Components/Background/Background.jsx";
 import { useForm } from "@inertiajs/react";
 
-export default function CreateProgramGroup() {
-    const { data, setData, post, processing, errors } = useForm({
-        title: "",
-        description: "",
-        age_range: "",
+export default function CreateProgramGroup({ programGroup }) {
+    const { data, setData, put, processing, errors } = useForm({
+        title: programGroup.title || "",
+        description: programGroup.description || "",
+        age_range: programGroup.age_range || "",
         image: "",
     });
 
-    function handleProgramGroupCreation(e) {
+    function handleProgramGroupUpdate(e) {
         e.preventDefault();
-        post(route("program_group.store", data));
+        put(
+            route(
+                "program_group.update",
+                { programGroup: programGroup.id },
+                data,
+            ),
+        );
     }
 
     return (
@@ -20,7 +26,7 @@ export default function CreateProgramGroup() {
 
             <div className="relative inset-10 w-full max-w-md rounded-lg border bg-white p-8 shadow-md">
                 <h1 className="form-title">Create Program Group</h1>
-                <form onSubmit={handleProgramGroupCreation}>
+                <form onSubmit={handleProgramGroupUpdate}>
                     <div className="form-group">
                         {/* Title */}
                         <label htmlFor="title">Title:</label>
