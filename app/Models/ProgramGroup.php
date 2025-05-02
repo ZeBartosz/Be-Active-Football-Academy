@@ -1,11 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class ProgramGroup extends Model
+final class ProgramGroup extends Model
 {
     use HasFactory;
 
@@ -15,4 +18,9 @@ class ProgramGroup extends Model
         'image',
         'age_range',
     ];
+
+    public function programs(): HasMany
+    {
+        return $this->hasMany(Program::class);
+    }
 }

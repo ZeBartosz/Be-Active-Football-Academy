@@ -26,7 +26,11 @@ final class DatabaseSeeder extends Seeder
         FAQ::factory(5)->create();
         Team::factory(5)->create();
         Event::factory(100)->create(['team_id' => 1]);
-        ProgramGroup::factory(3)->create();
+        $groups = ProgramGroup::factory(3)->create();
+        $groups->each(function ($group) {
+            \App\Models\Program::factory(3)
+                ->create(['programGroup_id' => $group->id]);
+        });
 
         $user = User::factory()->create([
             'first_name' => 'John',
