@@ -105,9 +105,9 @@ final class CoachController extends Controller
      */
     public function edit(User $user): Response|ResponseFactory
     {
-        $this->authorize('adminAndUser', [Auth::user(), $coach]);
-
         $coach = $user->coach;
+
+        $this->authorize('adminAndUser', [Auth::user(), $coach]);
 
         $this->authorize('adminAndUser', $coach);
 
