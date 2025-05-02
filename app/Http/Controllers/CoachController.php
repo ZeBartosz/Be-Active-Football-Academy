@@ -128,7 +128,7 @@ final class CoachController extends Controller
      */
     public function destroy(User $user): RedirectResponse
     {
-        $this->authorize('adminAndUser', [Auth::user(), $coach]);
+        $this->authorize('admin', Auth::user());
 
         $user->update(['is_coach' => false]);
 
