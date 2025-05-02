@@ -7,6 +7,7 @@ namespace Database\Seeders;
 use App\Models\Event;
 use App\Models\FAQ;
 use App\Models\Player;
+use App\Models\ProgramGroup;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -25,6 +26,7 @@ final class DatabaseSeeder extends Seeder
         FAQ::factory(5)->create();
         Team::factory(5)->create();
         Event::factory(100)->create(['team_id' => 1]);
+        ProgramGroup::factory(3)->create();
 
         $user = User::factory()->create([
             'first_name' => 'John',
