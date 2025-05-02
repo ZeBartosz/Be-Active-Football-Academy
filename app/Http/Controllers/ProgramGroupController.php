@@ -22,7 +22,8 @@ class ProgramGroupController extends Controller
     public function show(ProgramGroup $programGroup): Response|ResponseFactory
     {
         return inertia('ProgramGroups/ShowProgramGroup', [
-            'programs' => $programGroup,
+            'programGroups' => $programGroup,
+            'programs' => $programGroup->programs,
         ]);
     }
 

@@ -19,7 +19,7 @@ final class ProgramFactory extends Factory
     public function definition(): array
     {
         return [
-            'programGroup_id' => \App\Models\ProgramGroup::factory(),
+            'program_group_id' => \App\Models\ProgramGroup::factory(),
             'title' => fake()->words(3, true),
             'description' => fake()->sentence(),
             'price' => fake()->randomFloat(2, 10, 1000),

@@ -8,6 +8,7 @@ use App\Http\Controllers\CoachController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\FAQController;
 use App\Http\Controllers\PlayerController;
+use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\ProgramGroupController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\UserController;
@@ -80,7 +81,6 @@ Route::middleware('auth')->group(function () {
         Route::delete('/faq/delete/{faq}', [FAQController::class, 'destroy'])->name('faq.destroy');
 
         // Program Group routes
-
         Route::get('/program-group/create', [ProgramGroupController::class, 'create'])->name('program_group.create');
         Route::post('/program-group/create', [ProgramGroupController::class, 'store'])->name('program_group.store');
         Route::get('/program-group/update/{programGroup}',
@@ -89,5 +89,12 @@ Route::middleware('auth')->group(function () {
             [ProgramGroupController::class, 'update'])->name('program_group.update');
         Route::delete('/program-group/delete/{programGroup}',
             [ProgramGroupController::class, 'destroy'])->name('program_group.destroy');
+
+        // Program routes
+        Route::get('/program/create/{programGroup}', [ProgramController::class, 'create'])->name('program.create');
+        Route::post('/program/create/{programGroup}', [ProgramController::class, 'store'])->name('program.store');
+        Route::get('/program/update/{program}', [ProgramController::class, 'edit'])->name('program.edit');
+        Route::put('/program/update/{program}', [ProgramController::class, 'update'])->name('program.update');
+        Route::delete('/program/delete/{program}', [ProgramController::class, 'destroy'])->name('program.destroy');
     });
 });
