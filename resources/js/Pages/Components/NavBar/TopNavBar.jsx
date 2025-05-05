@@ -91,7 +91,10 @@ function TopNavBar() {
                             <Link href={"/"} className="top_navbar_link">
                                 Coach
                             </Link>
-                            <Link href={"/"} className="top_navbar_link">
+                            <Link
+                                href={route("program_group.index")}
+                                className="top_navbar_link"
+                            >
                                 Programs
                             </Link>
 

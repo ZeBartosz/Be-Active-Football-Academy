@@ -23,6 +23,8 @@ Route::get('/', function () {
 Route::get('/faq', [FAQController::class, 'index'])->name('faq.index');
 Route::get('/program-group/{programGroup}',
     [ProgramGroupController::class, 'show'])->name('program_group.show');
+Route::get('/program-group', [ProgramGroupController::class, 'index'])->name('program_group.index');
+
 
 // Routes for guests
 Route::middleware('guest')->group(function () {

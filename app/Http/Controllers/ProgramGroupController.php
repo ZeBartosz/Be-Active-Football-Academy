@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Models\ProgramGroup;
@@ -10,9 +12,21 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Response;
 
-class ProgramGroupController extends Controller
+final class ProgramGroupController extends Controller
 {
     use AuthorizesRequests;
+
+    /**
+     * Displays a list of program groups.
+     *
+     * @return Response
+     */
+    public function index(): Response|ResponseFactory
+    {
+        return inertia('ProgramGroups/ProgramGroupIndex', [
+            'programGroups' => ProgramGroup::all(),
+        ]);
+    }
 
     /**
      * Displays a list of program groups.
@@ -29,9 +43,6 @@ class ProgramGroupController extends Controller
 
     /**
      * Stores a new program group.
-     *
-     * @param  Request  $request
-     * @return RedirectResponse
      */
     public function store(Request $request): RedirectResponse
     {
@@ -62,8 +73,6 @@ class ProgramGroupController extends Controller
 
     /**
      * Displays the form for creating a new program group.
-     *
-     * @return Response|ResponseFactory
      */
     public function create(): Response|ResponseFactory
     {
@@ -74,9 +83,6 @@ class ProgramGroupController extends Controller
 
     /**
      * Displays the form for editing an existing program group.
-     *
-     * @param  ProgramGroup  $programGroup
-     * @return Response|ResponseFactory
      */
     public function edit(ProgramGroup $programGroup): Response|ResponseFactory
     {
@@ -89,10 +95,6 @@ class ProgramGroupController extends Controller
 
     /**
      * Updates an existing program group.
-     *
-     * @param  Request  $request
-     * @param  ProgramGroup  $programGroup
-     * @return RedirectResponse
      */
     public function update(Request $request, ProgramGroup $programGroup): RedirectResponse
     {
@@ -123,9 +125,6 @@ class ProgramGroupController extends Controller
 
     /**
      * Deletes an existing program group.
-     *
-     * @param  ProgramGroup  $programGroup
-     * @return RedirectResponse
      */
     public function destroy(ProgramGroup $programGroup): RedirectResponse
     {
