@@ -1,5 +1,8 @@
 @import 'tailwindcss';
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Montserrat:wght@400;700&display=swap');
+
+
 @theme static {
 
     --font-sans: 'Inter', 'sans-serif';
@@ -8,6 +11,11 @@
     --color-primary: oklch(0.44 0.1672 259.63);
     --color-secondary: oklch(0.89 0.182186 95.3305);
     --color-accent: oklch(1 0 0deg);
+}
+
+:root {
+    --font-sans: 'Inter', sans-serif;
+    --font-display: 'Montserrat', sans-serif;
 }
 
 @layer base {
