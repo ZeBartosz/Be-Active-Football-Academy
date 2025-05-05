@@ -1,4 +1,5 @@
 import { Link } from "@inertiajs/react";
+import ConfirmButton from "../Confirmation/ConfirmButton.jsx";
 
 export default function CoachTable({ coaches, activeTab, tableId }) {
     if (activeTab !== tableId) return null;
@@ -13,7 +14,7 @@ export default function CoachTable({ coaches, activeTab, tableId }) {
                             <th>Surname</th>
                             <th>Email</th>
                             <th>About</th>
-                            <th>Edit</th>
+                            <th>More</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -39,6 +40,15 @@ export default function CoachTable({ coaches, activeTab, tableId }) {
                                     >
                                         Edit
                                     </Link>
+                                    <ConfirmButton
+                                        id={coach.user.id}
+                                        routeName="coach.destroy"
+                                        routeParamKey="user"
+                                        className="btn-sm btn-red"
+                                        method="delete"
+                                        children="Remove"
+                                        message="Are you sure you want remove this coach?"
+                                    />
                                 </td>
                             </tr>
                         ))}

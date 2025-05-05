@@ -1,4 +1,5 @@
 import { Link } from "@inertiajs/react";
+import ConfirmButton from "../Confirmation/ConfirmButton.jsx";
 
 export default function EventTable({ events, activeTab, tableId }) {
     if (activeTab !== tableId) return null;
@@ -46,16 +47,15 @@ export default function EventTable({ events, activeTab, tableId }) {
                                         Edit
                                     </Link>
 
-                                    <Link
-                                        href={route("event.destroy", {
-                                            event: event.id,
-                                        })}
+                                    <ConfirmButton
+                                        id={event.id}
+                                        routeName="event.destroy"
+                                        routeParamKey="event"
                                         className="btn-sm btn-red"
                                         method="delete"
-                                        type="button"
-                                    >
-                                        Delete
-                                    </Link>
+                                        children="Delete"
+                                        message="Are you sure you want delete this event?"
+                                    />
                                 </td>
                             </tr>
                         ))}

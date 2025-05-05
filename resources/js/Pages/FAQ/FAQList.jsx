@@ -1,24 +1,18 @@
 import { useState } from "react";
-import { Link, useForm, usePage } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 import { PlusIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Background from "../Components/Background/Background.jsx";
+import ConfirmButton from "../Components/Confirmation/ConfirmButton.jsx";
 
 export default function FAQList({ faqs }) {
     const { authUser } = usePage().props;
-    const { delete: deleteFAQ, processing } = useForm();
+
     const [openIds, setOpenIds] = useState([]);
 
     function toggle(id) {
         setOpenIds((prev) =>
             prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id],
         );
-    }
-
-    function handleDeleteFAQ(faq, e) {
-        e.preventDefault();
-        if (confirm("Are you sure you want to delete this FAQ?")) {
-            deleteFAQ(route("faq.destroy", { faq: faq.id }));
-        }
     }
 
     return (
@@ -58,9 +52,9 @@ export default function FAQList({ faqs }) {
                                             </span>
                                             <span className="ml-4">
                                                 {isOpen ? (
-                                                    <XMarkIcon className="h-6 w-6 text-white" />
+                                                    <XMarkIcon className="h-10 w-10 text-white" />
                                                 ) : (
-                                                    <PlusIcon className="h-6 w-6 text-white" />
+                                                    <PlusIcon className="h-10 w-10 text-white" />
                                                 )}
                                             </span>
                                         </button>
@@ -77,7 +71,7 @@ export default function FAQList({ faqs }) {
                                             </p>
 
                                             {authUser && (
-                                                <div className="mt-4 flex items-center justify-end space-x-2 text-end text-2xl">
+                                                <div className="relative mt-4 flex items-center justify-end space-x-2 text-end text-2xl">
                                                     <Link
                                                         href={route(
                                                             "faq.edit",
@@ -89,20 +83,15 @@ export default function FAQList({ faqs }) {
                                                     >
                                                         Edit
                                                     </Link>
-                                                    <button
-                                                        onClick={(e) =>
-                                                            handleDeleteFAQ(
-                                                                faq,
-                                                                e,
-                                                            )
-                                                        }
-                                                        disabled={processing}
-                                                        className="rounded-md border border-black bg-red-600 px-2 py-1 text-white hover:underline"
-                                                    >
-                                                        {processing
-                                                            ? "Deleting..."
-                                                            : "Delete"}
-                                                    </button>
+                                                    <ConfirmButton
+                                                        id={faq.id}
+                                                        routeName="faq.destroy"
+                                                        routeParamKey="faq"
+                                                        className="btn-sm btn-red"
+                                                        method="delete"
+                                                        children="Delete"
+                                                        message="Are you sure you want to delete this FAQ?"
+                                                    />
                                                 </div>
                                             )}
                                         </div>

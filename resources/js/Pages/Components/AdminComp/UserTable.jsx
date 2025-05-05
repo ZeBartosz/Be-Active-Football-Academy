@@ -1,4 +1,5 @@
 import { Link, useForm, usePage } from "@inertiajs/react";
+import ConfirmButton from "../Confirmation/ConfirmButton.jsx";
 
 export default function UserTable({ users, activeTab, tableId }) {
     const { authUser } = usePage().props;
@@ -22,24 +23,6 @@ export default function UserTable({ users, activeTab, tableId }) {
         e.preventDefault();
         deleteCoach(
             route("coach.destroy", { user: user.id }),
-            {},
-            { preserveScroll: false },
-        );
-    }
-
-    function GrantAdminStatus(user, e) {
-        e.preventDefault();
-        putAdmin(
-            route("admin.grant", { user: user.id }),
-            {},
-            { preserveScroll: false },
-        );
-    }
-
-    function RevokeAdminStatus(user, e) {
-        e.preventDefault();
-        putAdmin(
-            route("admin.revoke", { user: user.id }),
             {},
             { preserveScroll: false },
         );
@@ -78,55 +61,57 @@ export default function UserTable({ users, activeTab, tableId }) {
                                 {/* Admin toggle */}
                                 <td>
                                     {!user.is_admin ? (
-                                        <button
-                                            type="button"
-                                            onClick={(e) =>
-                                                GrantAdminStatus(user, e)
-                                            }
+                                        <ConfirmButton
+                                            id={user.id}
+                                            routeName="admin.grant"
+                                            routeParamKey="user"
                                             className="btn-sm btn-yellow"
-                                        >
-                                            Grant
-                                        </button>
+                                            method="put"
+                                            children="Grant"
+                                            message="Are you sure you want to grant admin status?"
+                                        />
                                     ) : authUser.id === user.id ? (
                                         <button className="btn-sm btn-gray">
                                             You
                                         </button>
                                     ) : (
-                                        <button
-                                            type="button"
-                                            onClick={(e) =>
-                                                RevokeAdminStatus(user, e)
-                                            }
+                                        <ConfirmButton
+                                            id={user.id}
+                                            routeName="admin.revoke"
+                                            routeParamKey="user"
                                             className="btn-sm btn-red"
-                                        >
-                                            Revoke
-                                        </button>
+                                            method="put"
+                                            children="Revoke"
+                                            message="Are you sure you want to revoke admin status?"
+                                        />
                                     )}
                                 </td>
 
                                 <td>
                                     {!user.is_coach ? (
-                                        <button
-                                            onClick={(e) =>
-                                                handleCoachPost(user, e)
-                                            }
+                                        <ConfirmButton
+                                            id={user.id}
+                                            routeName="coach.store"
+                                            routeParamKey="user"
                                             className="btn-sm btn-yellow"
-                                        >
-                                            Make
-                                        </button>
+                                            method="post"
+                                            children="Make"
+                                            message="Are you sure you want to make coach?"
+                                        />
                                     ) : authUser.id === user.id ? (
                                         <button className="btn-sm btn-gray">
                                             You
                                         </button>
                                     ) : (
-                                        <button
-                                            onClick={(e) =>
-                                                handleCoachDelete(user, e)
-                                            }
+                                        <ConfirmButton
+                                            id={user.id}
+                                            routeName="coach.destroy"
+                                            routeParamKey="user"
                                             className="btn-sm btn-red"
-                                        >
-                                            Remove
-                                        </button>
+                                            method="delete"
+                                            children="Remove"
+                                            message="Are you sure you want to remove coach?"
+                                        />
                                     )}
                                 </td>
                             </tr>

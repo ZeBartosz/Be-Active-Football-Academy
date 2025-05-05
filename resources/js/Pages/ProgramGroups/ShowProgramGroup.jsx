@@ -1,5 +1,6 @@
 import Background from "../Components/Background/Background.jsx";
 import { Link, usePage } from "@inertiajs/react";
+import ConfirmButton from "../Components/Confirmation/ConfirmButton.jsx";
 
 export default function ShowProgramGroup({ programGroups, programs }) {
     const { authUser } = usePage().props;
@@ -13,14 +14,36 @@ export default function ShowProgramGroup({ programGroups, programs }) {
                     <h1 className="form-title">{programGroups.title}</h1>
                     <p>{programGroups.description}</p>
                     {authUser?.is_admin && (
-                        <Link
-                            href={route("program.create", {
-                                programGroup: programGroups.id,
-                            })}
-                            className="btn-yellow mt-1 p-2 text-lg"
-                        >
-                            + Add Program
-                        </Link>
+                        <>
+                            <Link
+                                href={route("program.create", {
+                                    programGroup: programGroups.id,
+                                })}
+                                className="btn-yellow mt-1 p-2 text-lg"
+                            >
+                                + Add Program
+                            </Link>
+
+                            <div className="absolute top-2 right-2 flex flex-col space-y-1">
+                                <Link
+                                    href={route("program_group.edit", {
+                                        programGroup: programGroups.id,
+                                    })}
+                                    className="btn-sm btn-yellow"
+                                >
+                                    Update
+                                </Link>
+                                <ConfirmButton
+                                    id={programGroups.id}
+                                    routeName="program_group.destroy"
+                                    routeParamKey="programGroup"
+                                    className="btn-sm btn-red"
+                                    method="delete"
+                                    children="Delete"
+                                    message="Are you sure you want delete this Program Group?"
+                                />
+                            </div>
+                        </>
                     )}
                 </div>
 
@@ -43,15 +66,16 @@ export default function ShowProgramGroup({ programGroups, programs }) {
                                 >
                                     Edit
                                 </Link>
-                                <Link
-                                    href={route("program.destroy", {
-                                        program: program.id,
-                                    })}
+
+                                <ConfirmButton
+                                    id={program.id}
+                                    routeName="program.destroy"
+                                    routeParamKey="program"
+                                    className="btn-sm btn-red"
                                     method="delete"
-                                    className="btn-red mt-1 p-2 text-lg"
-                                >
-                                    Delete
-                                </Link>
+                                    children="Delete"
+                                    message="Are you sure you want delete this Program ?"
+                                />
                             </>
                         )}
                     </div>

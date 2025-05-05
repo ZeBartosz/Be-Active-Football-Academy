@@ -43,20 +43,21 @@ final class AdminController extends Controller
     {
         $this->authorize('admin', Auth::user());
 
-        $userCount = User::count();
-        $coachCount = Coach::count();
-        $playerCount = Player::count();
+        $users = User::paginate(10);
+        $coaches = Coach::with('user')->paginate(10);
+        $teams = Team::withCount(['players', 'events'])->paginate(10);
+        $players = Player::with('user', 'team')->paginate(10);
+        $events = Event::paginate(10);
+
+        $userCount = $users->total();
+        $coachCount = $coaches->total();
+        $playerCount = $players->total();
         $nextEvent = Event::where('date', '>', Carbon::now())
             ->with('team')
             ->orderBy('date')
             ->limit(5)
             ->get();
 
-        $users = User::paginate(10);
-        $coaches = Coach::with('user')->paginate(10);
-        $teams = Team::withCount(['players', 'events'])->paginate(10);
-        $players = Player::with('user', 'team')->paginate(10);
-        $events = Event::paginate(10);
 
         return inertia('Admin/AdminDashboard', [
             'users' => $users,

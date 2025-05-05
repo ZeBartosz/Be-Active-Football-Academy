@@ -77,7 +77,7 @@ final class CoachController extends Controller
         ]);
 
         if ($request->hasFile('avatar')) {
-            $file = $request->file('avatar');
+             $file = $request->file('avatar');
             $extension = $file->getClientOriginalExtension();
             $fileName = $coach->id.'_'.$coach->user_id.'.'.$extension;
 

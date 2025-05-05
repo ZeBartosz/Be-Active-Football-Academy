@@ -48,38 +48,6 @@ function ProgramGroupSection({ programs }) {
                                             {program.description}
                                         </p>
                                     </div>
-                                    {authUser?.is_admin && (
-                                        <>
-                                            <div className="absolute top-2 right-2 flex flex-col space-y-1">
-                                                <Link
-                                                    href={route(
-                                                        "program_group.edit",
-                                                        program.id,
-                                                    )}
-                                                    className="btn-sm btn-yellow"
-                                                    onClick={(e) =>
-                                                        e.stopPropagation()
-                                                    }
-                                                >
-                                                    Update
-                                                </Link>
-                                                <Link
-                                                    href={route(
-                                                        "program_group.destroy",
-                                                        program.id,
-                                                    )}
-                                                    method="delete"
-                                                    as="button"
-                                                    className="btn-sm btn-red"
-                                                    onClick={(e) =>
-                                                        e.stopPropagation()
-                                                    }
-                                                >
-                                                    Delete
-                                                </Link>
-                                            </div>
-                                        </>
-                                    )}
                                 </Link>
                             </>
                         ))}

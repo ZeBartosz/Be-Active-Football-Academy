@@ -1,4 +1,5 @@
 import { Link } from "@inertiajs/react";
+import ConfirmButton from "../Confirmation/ConfirmButton.jsx";
 
 export default function PlayerTable({ players, activeTab, tableId }) {
     if (activeTab !== tableId) return null;
@@ -40,16 +41,15 @@ export default function PlayerTable({ players, activeTab, tableId }) {
                                     >
                                         Edit
                                     </Link>
-                                    <Link
-                                        href={route("player.destroy", {
-                                            player: player.id,
-                                        })}
+                                    <ConfirmButton
+                                        id={player.id}
+                                        routeName="player.destroy"
+                                        routeParamKey="player"
                                         className="btn-sm btn-red"
                                         method="delete"
-                                        type="button"
-                                    >
-                                        Delete
-                                    </Link>
+                                        children="Delete"
+                                        message="Are you sure you want delete this player?"
+                                    />
                                 </td>
                             </tr>
                         ))}

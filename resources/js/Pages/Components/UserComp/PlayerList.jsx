@@ -1,4 +1,5 @@
 import { Link } from "@inertiajs/react";
+import ConfirmButton from "../Confirmation/ConfirmButton.jsx";
 
 export default function PlayerList({ players }) {
     const shouldScroll = players.length > 3;
@@ -42,16 +43,15 @@ export default function PlayerList({ players }) {
                         >
                             Edit
                         </Link>
-                        <Link
-                            href={route("player.destroy", {
-                                player: player.id,
-                            })}
+                        <ConfirmButton
+                            id={player.id}
+                            routeName="player.destroy"
+                            routeParamKey="player"
                             className="btn-sm btn-red"
                             method="delete"
-                            type="button"
-                        >
-                            Delete
-                        </Link>
+                            children="Delete"
+                            message="Are you sure you want to delete this player?"
+                        />
                     </div>
                 ))}
             </div>
