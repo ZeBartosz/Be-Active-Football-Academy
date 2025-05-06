@@ -17,7 +17,11 @@ class StuffFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'user_id' => \App\Models\User::factory(),
+            'role' => fake()->randomElement(['stuff', 'Upper']),
+            'avatar' => fake()->imageUrl(),
+            'about' => fake()->paragraph(),
+            'skills' => json_encode(fake()->words(3, true)),
         ];
     }
 }
