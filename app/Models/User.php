@@ -61,6 +61,11 @@ final class User extends Authenticatable
         return $this->HasOne(Coach::class);
     }
 
+    public function stuff(): HasOne
+    {
+        return $this->HasOne(Stuff::class);
+    }
+
     public function players(): HasMany
     {
         return $this->hasMany(Player::class);

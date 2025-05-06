@@ -12,11 +12,21 @@ use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\ProgramGroupController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\UserController;
+use App\Models\Coach;
+use App\Models\Stuff;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
+    $stuff = array_map(function ($modelClass) {
+        return $modelClass::with('user')->get();
+    }, [
+        'stuff' => Stuff::class,
+        'coaches' => Coach::class,
+    ]);
+
     return inertia('Home', [
-        'programGroups' => \App\Models\ProgramGroup::all(),
+        'programGroups' => App\Models\ProgramGroup::all(),
+        'stuff' => $stuff,
     ]);
 })->name('home');
 
@@ -24,7 +34,6 @@ Route::get('/faq', [FAQController::class, 'index'])->name('faq.index');
 Route::get('/program-group/{programGroup}',
     [ProgramGroupController::class, 'show'])->name('program_group.show');
 Route::get('/program-group', [ProgramGroupController::class, 'index'])->name('program_group.index');
-
 
 // Routes for guests
 Route::middleware('guest')->group(function () {
