@@ -116,7 +116,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/staff/update/{staff}', [\App\Http\Controllers\StaffController::class, 'edit'])->name('staff.edit');
         Route::put('/staff/update/{staff}',
             [\App\Http\Controllers\StaffController::class, 'update'])->name('staff.update');
-        Route::delete('/staff/delete/{staff}',
+        Route::delete('/staff/delete/{user}',
             [\App\Http\Controllers\StaffController::class, 'destroy'])->name('staff.destroy');
 
     });

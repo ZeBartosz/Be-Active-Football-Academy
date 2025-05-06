@@ -112,10 +112,10 @@ final class StaffController extends Controller
     public function destroy(User $user): RedirectResponse
     {
         $this->authorize('admin', Auth::user());
-
+        
         $user->staff()->delete();
 
-        $user->update(['is_staff' => null]);
+        $user->update(['is_staff' => false]);
 
         return redirect()->route('admin.index')->with('success', 'Staff deleted successfully.');
     }
