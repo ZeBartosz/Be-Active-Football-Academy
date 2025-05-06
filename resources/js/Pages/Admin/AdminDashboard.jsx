@@ -11,7 +11,7 @@ import StaffTable from "../Components/AdminComp/StaffTable.jsx";
 export default function AdminDashboard({
     users,
     coaches,
-    stuff,
+    staff,
     teams,
     players,
     events,
@@ -86,7 +86,7 @@ export default function AdminDashboard({
                     tableId={"events"}
                 />
                 <StaffTable
-                    stuff={stuff}
+                    staff={staff}
                     activeTab={activeTab}
                     tableId={"stuff"}
                 />

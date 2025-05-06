@@ -33,6 +33,7 @@ final class User extends Authenticatable
         'date_of_birth',
         'is_admin',
         'is_coach',
+        'is_staff'
     ];
 
     /**
@@ -52,6 +53,7 @@ final class User extends Authenticatable
     protected $casts = [
         'is_admin' => 'boolean',
         'is_coach' => 'boolean',
+        'is_staff' => 'boolean',
         'email_verified_at' => 'datetime',
         'date_of_birth' => 'date',
     ];

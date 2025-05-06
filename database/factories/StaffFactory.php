@@ -17,7 +17,7 @@ class StaffFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => \App\Models\User::factory(),
+            'user_id' => \App\Models\User::factory()->create(['is_staff' => true]),
             'role' => fake()->randomElement(['stuff', 'Upper']),
             'avatar' => fake()->imageUrl(),
             'about' => fake()->paragraph(),

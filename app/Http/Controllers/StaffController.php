@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Models\Staff;
+use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Response;
 use Inertia\ResponseFactory;
 
@@ -17,22 +19,36 @@ final class StaffController extends Controller
     use AuthorizesRequests;
 
     /**
-     * Store a newly created resource in storage.
+     * Store the data
+     *
+     * @param  Request  $request
+     * @param  User  $user
+     * @return RedirectResponse
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request, User $user): RedirectResponse
     {
         $this->authorize('admin', Auth::user());
 
-        $validated = $request->validated([
-            'user_id' => 'required|exists:users,id',
+        $validated = $request->validate([
             'role' => 'required|string|max:255',
-            'avatar' => 'nullable|image|max:2048',
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:3000',
             'about' => 'nullable|string|max:1000',
             'skills' => 'nullable|array',
-            'skills.*' => 'string|max:255',
+            'skills.*' => 'nullable|string|max:255',
         ]);
 
-        Staff::create($validated);
+        if ($request->hasFile('avatar')) {
+            $file = $request->file('avatar');
+            $extension = $file->getClientOriginalExtension();
+            $fileName = $staff->id.'_'.$staff->user_id.'.'.$extension;
+
+            Storage::disk('public')->putFileAs('$staff', $file, $fileName);
+            $validated['avatar'] = "/storage/staff/$fileName";
+        }
+
+        $user->staff()->create($validated);
+        $user->update(['is_staff' => true]);
+
 
         return redirect()->route('admin.index')->with('success', 'Staff created successfully.');
     }
@@ -40,11 +56,42 @@ final class StaffController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(): Response|ResponseFactory
+    public function create(User $user): Response|ResponseFactory
     {
         $this->authorize('admin', Auth::user());
 
-        return inertia('Staff/CreateStaff');
+        return inertia('Staff/CreateStaff', ['user' => $user]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Staff $staff): RedirectResponse
+    {
+        $this->authorize('admin', Auth::user());
+
+        $validated = $request->validate([
+            'role' => 'required|string|max:255',
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:3000',
+            'about' => 'nullable|string|max:1000',
+            'skills' => 'nullable|array',
+            'skills.*' => 'nullable|string|max:255',
+        ]);
+
+        if ($request->hasFile('avatar')) {
+            $file = $request->file('avatar');
+            $extension = $file->getClientOriginalExtension();
+            $fileName = $staff->id.'_'.$staff->user_id.'.'.$extension;
+
+            Storage::disk('public')->putFileAs('$staff', $file, $fileName);
+            $validated['avatar'] = "/storage/staff/$fileName";
+        } else {
+            unset($validated['avatar']);
+        }
+
+        $staff->update($validated);
+
+        return redirect()->route('admin.index')->with('success', 'Staff updated successfully.');
     }
 
     /**
@@ -60,34 +107,15 @@ final class StaffController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Staff $staff): RedirectResponse
-    {
-        $this->authorize('admin', Auth::user());
-
-        $validated = $request->validated([
-            'user_id' => 'required|exists:users,id',
-            'role' => 'required|string|max:255',
-            'avatar' => 'nullable|image|max:2048',
-            'about' => 'nullable|string|max:1000',
-            'skills' => 'nullable|array',
-            'skills.*' => 'string|max:255',
-        ]);
-
-        $staff->update($validated);
-
-        return redirect()->route('admin.index')->with('success', 'Staff updated successfully.');
-    }
-
-    /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Staff $staff): RedirectResponse
+    public function destroy(User $user): RedirectResponse
     {
         $this->authorize('admin', Auth::user());
 
-        $staff->delete();
+        $user->staff()->delete();
+
+        $user->update(['is_staff' => null]);
 
         return redirect()->route('admin.index')->with('success', 'Staff deleted successfully.');
     }

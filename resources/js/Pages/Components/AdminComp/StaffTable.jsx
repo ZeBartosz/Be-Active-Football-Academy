@@ -1,7 +1,7 @@
 import { Link } from "@inertiajs/react";
 import ConfirmButton from "../Confirmation/ConfirmButton.jsx";
 
-export default function StaffTable({ stuff, activeTab, tableId }) {
+export default function StaffTable({ staff, activeTab, tableId }) {
     if (activeTab !== tableId) return null;
     return (
         <div>
@@ -19,7 +19,7 @@ export default function StaffTable({ stuff, activeTab, tableId }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {stuff.data.map((item) => (
+                        {staff.data.map((item) => (
                             <tr key={item.id}>
                                 <td>
                                     <img
@@ -35,17 +35,17 @@ export default function StaffTable({ stuff, activeTab, tableId }) {
                                 <td>{item.about}</td>
                                 <td>
                                     <Link
-                                        href={route("coach.edit", {
-                                            user: item.user.id,
+                                        href={route("staff.edit", {
+                                            staff: item.id,
                                         })}
                                         className="btn-sm btn-yellow"
                                     >
                                         Edit
                                     </Link>
                                     <ConfirmButton
-                                        id={item.id}
+                                        id={item.user_id}
                                         routeName="staff.destroy"
-                                        routeParamKey="staff"
+                                        routeParamKey="user"
                                         className="btn-sm btn-red"
                                         method="delete"
                                         children="Remove"
@@ -57,7 +57,7 @@ export default function StaffTable({ stuff, activeTab, tableId }) {
                     </tbody>
                 </table>
                 <div className="my-4 flex justify-center space-x-2">
-                    {stuff.links.map((link, idx) => (
+                    {staff.links.map((link, idx) => (
                         <Link
                             key={idx}
                             href={link.url || "#"}

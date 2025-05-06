@@ -44,6 +44,7 @@ export default function UserTable({ users, activeTab, tableId }) {
                             <th>Address</th>
                             <th>Post Code</th>
                             <th>Admin</th>
+                            <th>Staff</th>
                             <th>Coach</th>
                         </tr>
                     </thead>
@@ -83,6 +84,33 @@ export default function UserTable({ users, activeTab, tableId }) {
                                             method="put"
                                             children="Revoke"
                                             message="Are you sure you want to revoke admin status?"
+                                        />
+                                    )}
+                                </td>
+
+                                <td>
+                                    {!user.is_staff ? (
+                                        <Link
+                                            href={route("staff.create", {
+                                                user: user.id,
+                                            })}
+                                            className="btn-sm btn-yellow py-2"
+                                        >
+                                            Make
+                                        </Link>
+                                    ) : authUser.id === user.id ? (
+                                        <button className="btn-sm btn-gray">
+                                            You
+                                        </button>
+                                    ) : (
+                                        <ConfirmButton
+                                            id={user.id}
+                                            routeName="staff.destroy"
+                                            routeParamKey="user"
+                                            className="btn-sm btn-red"
+                                            method="delete"
+                                            children="Remove"
+                                            message="Are you sure you want to remove staff?"
                                         />
                                     )}
                                 </td>

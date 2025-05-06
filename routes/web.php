@@ -109,13 +109,14 @@ Route::middleware('auth')->group(function () {
         Route::delete('/program/delete/{program}', [ProgramController::class, 'destroy'])->name('program.destroy');
 
         // Staff routes
-        Route::get('/stuff/create/{user.id}',
+        Route::get('/staff/create/{user}',
             [\App\Http\Controllers\StaffController::class, 'create'])->name('staff.create');
-        Route::post('/stuff/create', [\App\Http\Controllers\StaffController::class, 'store'])->name('staff.store');
-        Route::get('/stuff/update/{staff}', [\App\Http\Controllers\StaffController::class, 'edit'])->name('staff.edit');
-        Route::put('/stuff/update/{staff}',
+        Route::post('/staff/create/{user}',
+            [\App\Http\Controllers\StaffController::class, 'store'])->name('staff.store');
+        Route::get('/staff/update/{staff}', [\App\Http\Controllers\StaffController::class, 'edit'])->name('staff.edit');
+        Route::put('/staff/update/{staff}',
             [\App\Http\Controllers\StaffController::class, 'update'])->name('staff.update');
-        Route::delete('/stuff/delete/{staff}',
+        Route::delete('/staff/delete/{staff}',
             [\App\Http\Controllers\StaffController::class, 'destroy'])->name('staff.destroy');
 
     });
