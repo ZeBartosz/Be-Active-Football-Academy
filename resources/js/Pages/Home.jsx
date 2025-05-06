@@ -4,13 +4,13 @@ import ProgramGroupSection from "./Components/Home/ProgramGroupSection.jsx";
 import MeetTheTeamSection from "./Components/Home/MeetTheTeamSection.jsx";
 import ContactUsSection from "./Components/Home/ContactUsSection.jsx";
 
-export default function Home({ programGroups, stuff }) {
+export default function Home({ programGroups, staff }) {
     return (
         <>
             <MainSection background={null} />
             <AboutUsSection />
             <ProgramGroupSection programs={programGroups} />
-            <MeetTheTeamSection stuff={stuff} />
+            <MeetTheTeamSection staff={staff} />
             <ContactUsSection />
         </>
     );

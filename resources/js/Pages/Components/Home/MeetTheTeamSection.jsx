@@ -1,12 +1,12 @@
-function MeetTheTeamSection({ stuff }) {
+function MeetTheTeamSection({ staff }) {
     const allTeamMembers = [
-        ...stuff.stuff.map((member) => ({
+        ...staff.staff.map((member) => ({
             ...member,
             fullName: `${member.user.first} ${member.user.last_name}`,
             position: member.role,
             image: member.image,
         })),
-        ...stuff.coaches.map((coach) => ({
+        ...staff.coaches.map((coach) => ({
             ...coach,
             fullName: `${coach.user.first_name} ${coach.user.last_name}`,
             position: "Coach",

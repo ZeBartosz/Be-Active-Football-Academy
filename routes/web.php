@@ -17,7 +17,7 @@ use App\Models\Staff;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    $stuff = array_map(function ($modelClass) {
+    $staff = array_map(function ($modelClass) {
         return $modelClass::with('user')->get();
     }, [
         'staff' => Staff::class,
@@ -26,7 +26,7 @@ Route::get('/', function () {
 
     return inertia('Home', [
         'programGroups' => App\Models\ProgramGroup::all(),
-        'stuff' => $stuff,
+        'staff' => $staff,
     ]);
 })->name('home');
 
