@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Models\Coach;
 use App\Models\Event;
 use App\Models\Player;
+use App\Models\Stuff;
 use App\Models\Team;
 use App\Models\User;
 use Carbon\Carbon;
@@ -45,6 +46,7 @@ final class AdminController extends Controller
 
         $users = User::paginate(10);
         $coaches = Coach::with('user')->paginate(10);
+        $stuff = Stuff::with('user')->paginate(10);
         $teams = Team::withCount(['players', 'events'])->paginate(10);
         $players = Player::with('user', 'team')->paginate(10);
         $events = Event::paginate(10);
@@ -62,6 +64,7 @@ final class AdminController extends Controller
         return inertia('Admin/AdminDashboard', [
             'users' => $users,
             'coaches' => $coaches,
+            'stuff' => $stuff,
             'teams' => $teams,
             'players' => $players,
             'events' => $events,

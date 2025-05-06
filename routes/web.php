@@ -107,5 +107,16 @@ Route::middleware('auth')->group(function () {
         Route::get('/program/update/{program}', [ProgramController::class, 'edit'])->name('program.edit');
         Route::put('/program/update/{program}', [ProgramController::class, 'update'])->name('program.update');
         Route::delete('/program/delete/{program}', [ProgramController::class, 'destroy'])->name('program.destroy');
+
+        // Stuff routes
+        Route::get('/stuff/create/{user.id}',
+            [\App\Http\Controllers\StuffController::class, 'create'])->name('stuff.create');
+        Route::post('/stuff/create', [\App\Http\Controllers\StuffController::class, 'store'])->name('stuff.store');
+        Route::get('/stuff/update/{stuff}', [\App\Http\Controllers\StuffController::class, 'edit'])->name('stuff.edit');
+        Route::put('/stuff/update/{stuff}',
+            [\App\Http\Controllers\StuffController::class, 'update'])->name('stuff.update');
+        Route::delete('/stuff/delete/{stuff}',
+            [\App\Http\Controllers\StuffController::class, 'destroy'])->name('stuff.destroy');
+
     });
 });
