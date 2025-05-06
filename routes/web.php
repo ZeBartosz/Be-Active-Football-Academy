@@ -13,14 +13,14 @@ use App\Http\Controllers\ProgramGroupController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\UserController;
 use App\Models\Coach;
-use App\Models\Stuff;
+use App\Models\Staff;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     $stuff = array_map(function ($modelClass) {
         return $modelClass::with('user')->get();
     }, [
-        'stuff' => Stuff::class,
+        'staff' => Staff::class,
         'coaches' => Coach::class,
     ]);
 
@@ -108,15 +108,15 @@ Route::middleware('auth')->group(function () {
         Route::put('/program/update/{program}', [ProgramController::class, 'update'])->name('program.update');
         Route::delete('/program/delete/{program}', [ProgramController::class, 'destroy'])->name('program.destroy');
 
-        // Stuff routes
+        // Staff routes
         Route::get('/stuff/create/{user.id}',
-            [\App\Http\Controllers\StuffController::class, 'create'])->name('stuff.create');
-        Route::post('/stuff/create', [\App\Http\Controllers\StuffController::class, 'store'])->name('stuff.store');
-        Route::get('/stuff/update/{stuff}', [\App\Http\Controllers\StuffController::class, 'edit'])->name('stuff.edit');
-        Route::put('/stuff/update/{stuff}',
-            [\App\Http\Controllers\StuffController::class, 'update'])->name('stuff.update');
-        Route::delete('/stuff/delete/{stuff}',
-            [\App\Http\Controllers\StuffController::class, 'destroy'])->name('stuff.destroy');
+            [\App\Http\Controllers\StaffController::class, 'create'])->name('staff.create');
+        Route::post('/stuff/create', [\App\Http\Controllers\StaffController::class, 'store'])->name('staff.store');
+        Route::get('/stuff/update/{staff}', [\App\Http\Controllers\StaffController::class, 'edit'])->name('staff.edit');
+        Route::put('/stuff/update/{staff}',
+            [\App\Http\Controllers\StaffController::class, 'update'])->name('staff.update');
+        Route::delete('/stuff/delete/{staff}',
+            [\App\Http\Controllers\StaffController::class, 'destroy'])->name('staff.destroy');
 
     });
 });

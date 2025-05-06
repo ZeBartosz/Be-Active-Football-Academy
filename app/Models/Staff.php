@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-final class Stuff extends Model
+final class Staff extends Model
 {
-    /** @use HasFactory<\Database\Factories\StuffFactory> */
+    /** @use HasFactory<\Database\Factories\StaffFactory> */
     use HasFactory;
 
     protected $fillable = [

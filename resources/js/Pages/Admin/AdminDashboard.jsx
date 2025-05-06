@@ -6,7 +6,7 @@ import EventTable from "../Components/AdminComp/EventTable.jsx";
 import { useState } from "react";
 import TotalCount from "../Components/AdminComp/TotalCount.jsx";
 import NextEvents from "../Components/AdminComp/NextEvents.jsx";
-import StuffTable from "../Components/AdminComp/StuffTable.jsx";
+import StaffTable from "../Components/AdminComp/StaffTable.jsx";
 
 export default function AdminDashboard({
     users,
@@ -41,7 +41,7 @@ export default function AdminDashboard({
                 <div className="mb-4 flex justify-evenly border-b">
                     {[
                         { key: "users", label: "Users" },
-                        { key: "stuff", label: "Stuff" },
+                        { key: "stuff", label: "Staff" },
                         { key: "coaches", label: "Coaches" },
                         { key: "players", label: "Players" },
                         { key: "teams", label: "Teams" },
@@ -85,7 +85,7 @@ export default function AdminDashboard({
                     activeTab={activeTab}
                     tableId={"events"}
                 />
-                <StuffTable
+                <StaffTable
                     stuff={stuff}
                     activeTab={activeTab}
                     tableId={"stuff"}

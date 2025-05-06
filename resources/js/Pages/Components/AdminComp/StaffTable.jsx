@@ -1,7 +1,7 @@
 import { Link } from "@inertiajs/react";
 import ConfirmButton from "../Confirmation/ConfirmButton.jsx";
 
-export default function StuffTable({ stuff, activeTab, tableId }) {
+export default function StaffTable({ stuff, activeTab, tableId }) {
     if (activeTab !== tableId) return null;
     return (
         <div>
@@ -44,12 +44,12 @@ export default function StuffTable({ stuff, activeTab, tableId }) {
                                     </Link>
                                     <ConfirmButton
                                         id={item.id}
-                                        routeName="stuff.destroy"
-                                        routeParamKey="stuff"
+                                        routeName="staff.destroy"
+                                        routeParamKey="staff"
                                         className="btn-sm btn-red"
                                         method="delete"
                                         children="Remove"
-                                        message="Are you sure you want remove this stuff?"
+                                        message="Are you sure you want remove this staff?"
                                     />
                                 </td>
                             </tr>

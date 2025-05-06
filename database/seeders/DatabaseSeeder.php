@@ -8,7 +8,7 @@ use App\Models\Event;
 use App\Models\FAQ;
 use App\Models\Player;
 use App\Models\ProgramGroup;
-use App\Models\Stuff;
+use App\Models\Staff;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -26,7 +26,7 @@ final class DatabaseSeeder extends Seeder
         Event::factory(100)->create();
         FAQ::factory(5)->create();
         Team::factory(5)->create();
-        Stuff::factory(4)->create();
+        Staff::factory(4)->create();
         Event::factory(100)->create(['team_id' => 1]);
 
         $groups = ProgramGroup::factory(3)->create();
