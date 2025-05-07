@@ -24,6 +24,17 @@ final class EventController extends Controller
 {
     use AuthorizesRequests;
 
+    public function show(Event $event): Response|ResponseFactory
+    {
+        $this->authorize('admin', Auth::user());
+
+        $event->load('responsibilities.staff.user');
+
+        return inertia('Event/ShowEvent', [
+            'event' => $event,
+        ]);
+    }
+
     /**
      * Stores the event
      * checks if the user is an admin, validates the incoming request
