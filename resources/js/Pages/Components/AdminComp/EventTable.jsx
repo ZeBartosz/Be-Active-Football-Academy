@@ -37,6 +37,17 @@ export default function EventTable({ events, activeTab, tableId }) {
                                 <td>{event.post_code}</td>
                                 <td>
                                     <Link
+                                        href={route("event.show", {
+                                            event: event.id,
+                                        })}
+                                        className="btn-sm btn-yellow"
+                                        method="get"
+                                        type="button"
+                                    >
+                                        Show
+                                    </Link>
+
+                                    <Link
                                         href={route("event.edit", {
                                             event: event.id,
                                         })}
