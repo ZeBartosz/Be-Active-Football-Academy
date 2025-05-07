@@ -1,3 +1,5 @@
+import { Link } from "@inertiajs/react";
+
 export default function ({ events }) {
     if (events.length === 0) {
         return (
@@ -37,6 +39,16 @@ export default function ({ events }) {
                         <p className="text-secondary text-2xl">
                             {event.post_code}
                         </p>
+                        <Link
+                            href={route("event.show", {
+                                event: event.id,
+                            })}
+                            className="btn-sm btn-yellow"
+                            method="get"
+                            type="button"
+                        >
+                            Show
+                        </Link>
                     </div>
                 ))}
             </div>
