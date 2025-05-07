@@ -60,6 +60,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/coach/update/{coach}', [CoachController::class, 'update'])->name('coach.update');
     Route::get('/coach/edit/{user}', [CoachController::class, 'edit'])->name('coach.edit');
 
+    Route::get('/event/{event}', [EventController::class, 'show'])->name('event.show');
+
     // Admin routes (only for authenticated admins)
     Route::middleware('admin')->group(function () {
         Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
@@ -110,14 +112,25 @@ Route::middleware('auth')->group(function () {
 
         // Staff routes
         Route::get('/staff/create/{user}',
-            [\App\Http\Controllers\StaffController::class, 'create'])->name('staff.create');
+            [App\Http\Controllers\StaffController::class, 'create'])->name('staff.create');
         Route::post('/staff/create/{user}',
-            [\App\Http\Controllers\StaffController::class, 'store'])->name('staff.store');
-        Route::get('/staff/update/{staff}', [\App\Http\Controllers\StaffController::class, 'edit'])->name('staff.edit');
+            [App\Http\Controllers\StaffController::class, 'store'])->name('staff.store');
+        Route::get('/staff/update/{staff}', [App\Http\Controllers\StaffController::class, 'edit'])->name('staff.edit');
         Route::put('/staff/update/{staff}',
-            [\App\Http\Controllers\StaffController::class, 'update'])->name('staff.update');
+            [App\Http\Controllers\StaffController::class, 'update'])->name('staff.update');
         Route::delete('/staff/delete/{user}',
-            [\App\Http\Controllers\StaffController::class, 'destroy'])->name('staff.destroy');
+            [App\Http\Controllers\StaffController::class, 'destroy'])->name('staff.destroy');
 
+        // Responsibility routes
+        Route::get('/responsibility/create/{event}',
+            [App\Http\Controllers\ResponsibilityController::class, 'create'])->name('responsibility.create');
+        Route::post('/responsibility/create/{event}',
+            [App\Http\Controllers\ResponsibilityController::class, 'store'])->name('responsibility.store');
+        Route::get('/responsibility/update/{responsibility}',
+            [App\Http\Controllers\ResponsibilityController::class, 'edit'])->name('responsibility.edit');
+        Route::put('/responsibility/update/{responsibility}',
+            [App\Http\Controllers\ResponsibilityController::class, 'update'])->name('responsibility.update');
+        Route::delete('/responsibility/delete/{responsibility}',
+            [App\Http\Controllers\ResponsibilityController::class, 'destroy'])->name('responsibility.destroy');
     });
 });
