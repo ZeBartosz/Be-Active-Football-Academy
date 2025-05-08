@@ -63,17 +63,34 @@ export default function CreateEvent({ teams }) {
                                 )}
                             </div>
 
-                            {/* Description */}
+                            {/* Type */}
                             <div className="form-group">
                                 <label htmlFor="type">Type:</label>
-                                <input
-                                    type="text"
+                                <select
+                                    id="type"
                                     name="type"
                                     value={data.type}
                                     onChange={(e) =>
                                         setData("type", e.target.value)
                                     }
-                                />
+                                    className="mt-1 block w-full rounded border-gray-300 shadow-sm"
+                                >
+                                    <option value="">
+                                        -- choose Type of Event --
+                                    </option>
+                                    {[
+                                        { key: "game", label: "Game" },
+                                        { key: "training", label: "Training" },
+                                        { key: "event", label: "Event" },
+                                        { key: "other", label: "Other" },
+                                        { key: "meeting", label: "Meeting" },
+                                        { key: "other", label: "Other" },
+                                    ].map(({ key, label }) => (
+                                        <option key={key} value={label}>
+                                            {label}
+                                        </option>
+                                    ))}
+                                </select>
                                 {errors.type && (
                                     <p className="form-error">{errors.type}</p>
                                 )}
@@ -81,32 +98,24 @@ export default function CreateEvent({ teams }) {
 
                             {/* Team Selection */}
                             <div className="form-group">
-                                <h3>Select a Team:</h3>
-                                {teams.map((team) => (
-                                    <div key={team.id}>
-                                        <input
-                                            type="radio"
-                                            name="team_id"
-                                            value={team.id}
-                                            checked={data.team_id === team.id}
-                                            onChange={(e) =>
-                                                setData(
-                                                    "team_id",
-                                                    Number(e.target.value),
-                                                )
-                                            }
-                                        />
-                                        <label htmlFor={`team-${team.id}`}>
-                                            {team.team_name}
-                                        </label>
-                                        <br />
-                                    </div>
-                                ))}
-                                {errors.team_id && (
-                                    <p className="form-error">
-                                        {errors.team_id}
-                                    </p>
-                                )}
+                                <label htmlFor="team_id">Select a team:</label>
+                                <select
+                                    id="team_id"
+                                    name="team_id"
+                                    value={data.team_id}
+                                    onChange={(e) =>
+                                        setData("team_id", e.target.value)
+                                    }
+                                    className="mt-1 block w-full rounded border-gray-300 shadow-sm"
+                                >
+                                    <option value="">-- choose Team --</option>
+                                    <option value="">Everyone</option>
+                                    {teams.map((p) => (
+                                        <option key={p.id} value={p.id}>
+                                            {p.team_name}
+                                        </option>
+                                    ))}
+                                </select>
                             </div>
 
                             {/* Date */}
@@ -176,7 +185,11 @@ export default function CreateEvent({ teams }) {
                             </div>
 
                             {/* Button */}
-                            <button type="submit" disabled={processing}>
+                            <button
+                                type="submit"
+                                className="form-button"
+                                disabled={processing}
+                            >
                                 {processing ? "Submitting..." : "Submit"}
                             </button>
                         </form>
