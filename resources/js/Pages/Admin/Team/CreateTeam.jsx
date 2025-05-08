@@ -12,8 +12,6 @@ export default function CreateTeam({ coaches }) {
         post(route("team.store", data));
     }
 
-    console.log(data);
-
     return (
         <>
             <div className="relative flex min-h-screen items-center justify-center">
