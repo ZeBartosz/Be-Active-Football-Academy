@@ -47,9 +47,12 @@ final class AdminController extends Controller
         $users = User::paginate(10);
         $coaches = Coach::with('user')->paginate(10);
         $staff = Staff::with('user')->paginate(10);
-        $teams = Team::withCount(['players', 'events'])->paginate(10);
+        $teams = Team::with(['coaches.user'])
+            ->withCount(['players', 'events'])
+            ->paginate(10);
         $players = Player::with('user', 'team')->paginate(10);
         $events = Event::paginate(10);
+
 
         $userCount = $users->total();
         $coachCount = $coaches->total();
