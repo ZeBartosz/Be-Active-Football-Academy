@@ -17,13 +17,13 @@ class EventFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => fake()->title(),
+            'title' => fake()->words(),
             'description' => fake()->text(),
-            'type' => fake()->randomElement(['training', 'match', 'event']),
+            'type' => fake()->randomElement(['Training', 'Match', 'Event']),
             'date' => fake()->dateTimeBetween('-1 week', '+1 week'),
             'time' => fake()->time(),
             'address' => fake()->address(),
-            'post_code' => fake()->postCode(),
+            'post_code' => fake()->postcode(),
         ];
     }
 }
