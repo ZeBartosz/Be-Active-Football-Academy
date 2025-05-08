@@ -17,7 +17,7 @@ class EventFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => fake()->words(),
+            'title' => fake()->words(3, true),
             'description' => fake()->text(),
             'type' => fake()->randomElement(['Training', 'Match', 'Event']),
             'date' => fake()->dateTimeBetween('-1 week', '+1 week'),
