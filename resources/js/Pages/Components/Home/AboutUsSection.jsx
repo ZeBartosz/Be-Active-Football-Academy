@@ -3,7 +3,7 @@ function AboutUsSection() {
         <section className="font-display bg-gray-50 py-24">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="mb-16 text-center">
-                    <h2 className="text-primary text-3xl font-bold sm:text-4xl md:text-5xl">
+                    <h2 className="text-primary mb-3 text-4xl leading-tight font-bold sm:text-5xl md:text-6xl">
                         About Us
                     </h2>
                     <div className="bg-secondary mx-auto mt-4 h-1 w-24 rounded-full"></div>

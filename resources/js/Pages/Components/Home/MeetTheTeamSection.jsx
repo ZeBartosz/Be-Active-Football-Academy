@@ -18,10 +18,11 @@ function MeetTheTeamSection({ staff }) {
         <section className="bg-gray-50 py-16">
             <div className="container mx-auto max-w-7xl px-4">
                 <div className="mb-16 text-center">
-                    <h1 className="text-primary mb-6 text-5xl font-bold md:text-6xl">
+                    <h1 className="text-primary mb-3 text-4xl leading-tight font-bold sm:text-5xl md:text-6xl">
                         Meet Our Team
                     </h1>
-                    <p className="mx-auto max-w-3xl text-xl text-gray-700">
+                    <div className="bg-secondary mx-auto mb-6 h-1 w-24 rounded-full"></div>
+                    <p className="mx-auto mt-6 max-w-3xl text-2xl leading-relaxed font-light text-black/80">
                         Our highly qualified coaches are passionate about youth
                         development, combining football expertise with child
                         development knowledge.

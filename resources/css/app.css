@@ -75,6 +75,7 @@
         @apply font-display m-auto flex h-full w-[70%] justify-center p-2;
     }
 
+    /* About */
     .about_container {
         @apply overflow-hidden rounded-xl bg-white shadow-md transition-shadow duration-300 hover:shadow-lg
     }
@@ -90,6 +91,7 @@
     .about_text {
         @apply leading-relaxed text-gray-900 text-2xl font-normal;
     }
+    
 
     /* Form */
     .form-container {
