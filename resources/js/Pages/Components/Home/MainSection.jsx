@@ -43,7 +43,7 @@ function MainSection({ background }) {
                     </div>
                 </div>
             </div>
-            <div className="absolute right-0 bottom-16 left-0 z-10 flex animate-bounce flex-col items-center">
+            <div className="motion-blur-in motion-delay-1000 absolute right-0 bottom-16 left-0 z-10 flex animate-bounce flex-col items-center">
                 <span className="mb-1 text-sm font-medium text-white/80">
                     Scroll Down
                 </span>

@@ -1,7 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Montserrat:wght@400;700&display=swap');
 @import 'tailwindcss';
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Montserrat:wght@400;700&display=swap');
-
+@plugin "tailwindcss-motion";
 
 @theme static {
 
@@ -91,7 +91,7 @@
     .about_text {
         @apply leading-relaxed text-gray-900 text-2xl font-normal;
     }
-    
+
 
     /* Form */
     .form-container {

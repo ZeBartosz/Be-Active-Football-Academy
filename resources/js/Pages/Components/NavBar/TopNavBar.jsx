@@ -8,7 +8,7 @@ function TopNavBar() {
 
     return (
         <nav className="sticky top-0 z-50 bg-white shadow-md">
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="motion-blur-in motion-duration-[1s] mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="flex h-16 items-center justify-between">
                     {/* Logo and Brand Name */}
                     <div className="flex items-center">
