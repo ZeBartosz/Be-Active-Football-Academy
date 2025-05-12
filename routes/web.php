@@ -99,7 +99,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/program-group/create', [ProgramGroupController::class, 'store'])->name('program_group.store');
         Route::get('/program-group/update/{programGroup}',
             [ProgramGroupController::class, 'edit'])->name('program_group.edit');
-        Route::put('/program-group/update/{programGroup}',
+        Route::post('/program-group/update/{programGroup}',
             [ProgramGroupController::class, 'update'])->name('program_group.update');
         Route::delete('/program-group/delete/{programGroup}',
             [ProgramGroupController::class, 'destroy'])->name('program_group.destroy');

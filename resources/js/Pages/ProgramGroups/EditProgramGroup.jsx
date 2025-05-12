@@ -2,22 +2,17 @@ import Background from "../Components/Background/Background.jsx";
 import { useForm } from "@inertiajs/react";
 
 export default function CreateProgramGroup({ programGroup }) {
-    const { data, setData, put, processing, errors } = useForm({
+    const { data, setData, post, processing, errors } = useForm({
         title: programGroup.title || "",
         description: programGroup.description || "",
         age_range: programGroup.age_range || "",
         image: null,
     });
+    console.log(data);
 
     function handleProgramGroupUpdate(e) {
         e.preventDefault();
-        put(
-            route(
-                "program_group.update",
-                { programGroup: programGroup.id },
-                data,
-            ),
-        );
+        post(route("program_group.update", { programGroup: programGroup.id }));
     }
 
     return (
@@ -25,7 +20,7 @@ export default function CreateProgramGroup({ programGroup }) {
             <Background background={null} />
 
             <div className="relative inset-10 w-full max-w-md rounded-lg border bg-white p-8 shadow-md">
-                <h1 className="form-title">Create Program Group</h1>
+                <h1 className="form-title">Edit Program Group</h1>
                 <form onSubmit={handleProgramGroupUpdate}>
                     <div className="form-group">
                         {/* Title */}
@@ -79,7 +74,9 @@ export default function CreateProgramGroup({ programGroup }) {
                         <input
                             type="file"
                             name="image"
-                            onChange={(e) => setData("image", e.target.file[0])}
+                            onChange={(e) =>
+                                setData("image", e.target.files[0])
+                            }
                         />
                         {errors.image && (
                             <p className="form-error">{errors.image}</p>
