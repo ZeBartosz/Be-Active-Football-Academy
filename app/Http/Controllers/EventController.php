@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EventRequest;
 use App\Models\Event;
 use App\Models\Team;
+use App\Services\EventService;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Response;
 use Inertia\ResponseFactory;
@@ -24,14 +25,22 @@ final class EventController extends Controller
 {
     use AuthorizesRequests;
 
+    public function __construct(private readonly EventService $eventService)
+    {
+    }
+
+    /**
+     * Display a listing of the events.
+     *
+     * This action retrieves all events from the database and returns an Inertia response
+     * to render the event list view.
+     *
+     * @return Response|ResponseFactory An Inertia response instance containing the event list view.
+     */
     public function show(Event $event): Response|ResponseFactory
     {
-        $this->authorize('admin', Auth::user());
-
-        $event->load('responsibilities.staff.user');
-
         return inertia('Event/ShowEvent', [
-            'event' => $event,
+            'event' => $this->eventService->getEvent($event),
         ]);
     }
 
@@ -39,29 +48,12 @@ final class EventController extends Controller
      * Stores the event
      * checks if the user is an admin, validates the incoming request
      * on successful validates store the data
-     *
-     * @param  Request
-     *
-     * @throws AuthorizationException
      */
-    public function store(Request $request): RedirectResponse
+    public function store(EventRequest $request): RedirectResponse
     {
-        $this->authorize('admin', Auth::user());
+        $event = $this->eventService->storeEvent($request->validated());
 
-        $validatedData = $request->validate([
-            'title' => 'required|max:255',
-            'description' => 'required|max:500',
-            'type' => 'required|max:255',
-            'date' => 'required|date|after:today',
-            'time' => 'required|date_format:H:i',
-            'team_id' => 'nullable|exists:teams,id',
-            'address' => 'required|max:255',
-            'post_code' => 'required|max:7|min:6',
-        ]);
-
-        Event::create($validatedData);
-
-        return to_route('admin.index')->with('success', "Event {$validatedData['title']} created!");
+        return to_route('admin.index')->with('success', "Event {$event->title} created!");
     }
 
     /**
@@ -81,7 +73,9 @@ final class EventController extends Controller
     /**
      * redirects an admin to the edit page of the event
      *
-     * @throws AuthorizationException
+     * @param  Event  $event
+     *
+     * @return Response|ResponseFactory
      */
     public function edit(Event $event): Response|ResponseFactory
     {
@@ -100,27 +94,14 @@ final class EventController extends Controller
      * checks if the user is an admin, validates the incoming request
      * on successful validates store the data
      *
-     * @param  Request  $request
+     * @param  EventRequest  $request
      * @param  Event  $event
      *
      * @throws AuthorizationException
      */
-    public function update(Request $request, Event $event): RedirectResponse
+    public function update(EventRequest $request, Event $event): RedirectResponse
     {
-        $this->authorize('admin', Auth::user());
-
-        $validatedData = $request->validate([
-            'title' => 'required|max:255',
-            'description' => 'required|max:500',
-            'type' => 'required|max:255',
-            'date' => 'required|date|after:today',
-            'time' => 'required|date_format:H:i',
-            'team_id' => 'nullable|exists:teams,id',
-            'address' => 'required|max:255',
-            'post_code' => 'required|max:7|min:6',
-        ]);
-
-        $event->update($validatedData);
+        $event = $this->eventService->updateEvent($event, $request->validated());
 
         return to_route('admin.index')->with('success', "Event {$event->title} updated!");
     }
@@ -130,15 +111,15 @@ final class EventController extends Controller
      * checks if the user is an admin, validates the incoming request
      * on successful validates store the data
      *
-     * @param  Event
+     * @param  Event  $event
      *
-     * @throws AuthorizationException
+     * @return RedirectResponse
      */
     public function destroy(Event $event): RedirectResponse
     {
         $this->authorize('admin', Auth::user());
 
-        $event->delete();
+        $this->eventService->destroyEvent($event);
 
         return to_route('admin.index')->with('success', "Event {$event->title} deleted!");
     }
