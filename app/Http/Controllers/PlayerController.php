@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PlayerRequest;
 use App\Models\Player;
-use App\Models\Team;
+use App\Services\PlayerService;
+use App\Services\TeamService;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Response;
 use Inertia\ResponseFactory;
@@ -18,11 +19,15 @@ use Inertia\ResponseFactory;
  *
  * PlayerController handles the management of players in the application.
  * It provides methods to create, edit, update, and delete players.
- *
  */
 final class PlayerController extends Controller
 {
     use AuthorizesRequests;
+
+    public function __construct(
+        private readonly PlayerService $playerService,
+        private readonly TeamService $teamService
+    ) {}
 
     /**
      * Display a listing of the players.
@@ -30,26 +35,14 @@ final class PlayerController extends Controller
      * This action retrieves all players from the database and returns an Inertia response
      * to render the player list view.
      *
-     * @param  Request  $request
      * @return RedirectResponse An Inertia response instance containing the player list view.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(PlayerRequest $request): RedirectResponse
     {
-        $player = $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'team_id' => 'required|integer|exists:teams,id',
-            'user_id' => 'required|integer|exists:users,id',
-            'date_of_birth' => 'required|date|before:today',
-            'address' => 'required|string|max:500',
-            'post_code' => 'required|string|max:255',
-        ]);
-
-        Player::create($player);
+        $this->playerService->storePlayer($request->validated());
 
         return to_route('home')->with('message', 'Player created');
     }
-
 
     /**
      * Display the form for creating a new player.
@@ -61,9 +54,7 @@ final class PlayerController extends Controller
      */
     public function create(): Response|ResponseFactory
     {
-        $teams = Team::all();
-
-        return inertia('Player/CreatePlayer', ['teams' => $teams]);
+        return inertia('Player/CreatePlayer', ['teams' => $this->teamService->getTeams()]);
     }
 
     /**
@@ -77,12 +68,9 @@ final class PlayerController extends Controller
      */
     public function edit(Player $player): Response|ResponseFactory
     {
-
-        $teams = Team::all();
-
         return inertia('Player/EditPlayer', [
             'player' => $player,
-            'teams' => $teams,
+            'teams' => $this->teamService->getTeams(),
         ]);
     }
 
@@ -92,25 +80,13 @@ final class PlayerController extends Controller
      * This action validates the incoming request data and updates the specified player
      * with the provided information.
      *
-     * @param  Request  $request  The incoming request containing player data.
+     * @param  PlayerRequest  $request  The incoming request containing player data.
      * @param  Player  $player  The player to be updated.
      * @return RedirectResponse A redirect response indicating the result of the update operation.
      */
-    public function update(Request $request, Player $player): RedirectResponse
+    public function update(PlayerRequest $request, Player $player): RedirectResponse
     {
-        $this->authorize('adminAndUser', [Auth::user(), $player]);
-
-        $playerData = $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'team_id' => 'required|integer|exists:teams,id',
-            'user_id' => 'required|integer|exists:users,id',
-            'date_of_birth' => 'required|date|before:today',
-            'address' => 'required|string|max:500',
-            'post_code' => 'required|string|max:255',
-        ]);
-
-        $player->update($playerData);
+        $this->playerService->updatePlayer($player, $request->validated());
 
         return to_route('user.index')->with('message', 'Player updated');
     }
@@ -128,9 +104,8 @@ final class PlayerController extends Controller
     {
         $this->authorize('adminAndUser', [Auth::user(), $player]);
 
-        $player->delete();
+        $this->playerService->deletePlayer($player);
 
         return to_route('user.index')->with('message', 'Player updated');
     }
-
 }
