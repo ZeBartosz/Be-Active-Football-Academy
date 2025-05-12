@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Http\Requests\AuthAuthenticateRequest;
+use App\Http\Requests\AuthRegisterRequest;
+use App\Services\AuthService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Inertia\Response;
 use Inertia\ResponseFactory;
 
@@ -17,22 +18,10 @@ use Inertia\ResponseFactory;
  * This controller handles user authentication actions, including
  * presenting registration and login pages, authenticating users,
  * user registration, and logging out.
- *
- * @package App\Http\Controllers
  */
 final class AuthController extends Controller
 {
-    /**
-     * Redirects the guest to the registration page.
-     *
-     * This action returns an Inertia response that renders the "Auth/Register" page.
-     *
-     * @return Response|ResponseFactory An Inertia response instance containing the registration view.
-     */
-    public function register(): Response|ResponseFactory
-    {
-        return inertia('Auth/Register');
-    }
+    public function __construct(private readonly AuthService $authService) {}
 
     /**
      * Logs in the user with the provided valid credentials.
@@ -42,20 +31,14 @@ final class AuthController extends Controller
      * the session is regenerated and the user is redirected to their intended location.
      * On failure, the user is redirected back with error messages.
      *
-     * @param  Request  $request  The HTTP request containing login credentials.
+     * @param  AuthAuthenticateRequest  $request  The HTTP request containing login credentials.
      * @return RedirectResponse A redirect response after attempting authentication.
      */
-    public function authenticate(Request $request): RedirectResponse
+    public function authenticate(AuthAuthenticateRequest $request): RedirectResponse
     {
-        $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-        ]);
+        $credentials = $request->validated();
 
-        /** @var array<string, string> $credentials */
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-
+        if ($this->authService->authenticate($credentials, $request)) {
             return redirect()->intended('/');
         }
 
@@ -71,28 +54,26 @@ final class AuthController extends Controller
      * Validates the incoming request for required fields, creates a new user,
      * logs the user in, and then redirects to the homepage with a success message.
      *
-     * @param  Request  $request  The HTTP request containing registration data.
+     * @param  AuthRegisterRequest  $request  The HTTP request containing registration data.
      * @return RedirectResponse A redirect response after the user is registered.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(AuthRegisterRequest $request): RedirectResponse
     {
-        $credentials = $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'number' => 'required|string|min:11',
-            'date_of_birth' => 'required|date|before:today',
-            'address' => 'required|string|max:500',
-            'post_code' => 'required|string|max:6',
-            'password' => 'required|string|min:6|confirmed',
-        ]);
+        $this->authService->register($request->validated());
 
-        /** @var array<string, string> $credentials */
-        $user = User::create($credentials);
+        return redirect('/')->with('success', 'Account Created Successfully.');
+    }
 
-        Auth::login($user);
-
-        return redirect('/')->with('success', 'Account Created Successfully. Please log in.');
+    /**
+     * Redirects the guest to the registration page.
+     *
+     * This action returns an Inertia response that renders the "Auth/Register" page.
+     *
+     * @return Response|ResponseFactory An Inertia response instance containing the registration view.
+     */
+    public function register(): Response|ResponseFactory
+    {
+        return inertia('Auth/Register');
     }
 
     /**
@@ -108,21 +89,18 @@ final class AuthController extends Controller
     }
 
     /**
-     * Logs out the current user.
+     * Logs out the currently authenticated user.
      *
-     * This action logs out the user by invalidating the session and regenerating the session token,
-     * then redirects the user to the homepage with a success message.
+     * This action invalidates the session, regenerates the CSRF token,
+     * and redirects the user to the homepage with a success message.
      *
-     * @param  Request  $request  The HTTP request instance.
-     * @return RedirectResponse A redirect response after the user is logged out.
+     * @param  Request  $request  The HTTP request for logging out.
+     * @return RedirectResponse A redirect response after logging out.
      */
     public function logout(Request $request): RedirectResponse
     {
-        Auth::logout();
 
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
+        $this->authService->logout($request);
 
         return redirect('/')->with('success', 'You have been logged out.');
     }
