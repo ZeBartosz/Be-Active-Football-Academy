@@ -2,15 +2,17 @@ function MeetTheTeamSection({ staff }) {
     const allTeamMembers = [
         ...staff.staff.map((member) => ({
             ...member,
-            fullName: `${member.user.first} ${member.user.last_name}`,
+            id: member.user.id,
+            fullName: `${member.user.first_name} ${member.user.last_name}`,
             position: member.role,
-            image: member.image,
+            image: member.avatar,
         })),
         ...staff.coaches.map((coach) => ({
             ...coach,
+            id: coach.user.id,
             fullName: `${coach.user.first_name} ${coach.user.last_name}`,
             position: "Coach",
-            image: coach.image,
+            image: coach.avatar,
         })),
     ];
 
