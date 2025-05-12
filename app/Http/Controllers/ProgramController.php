@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProgramRequest;
 use App\Models\Program;
 use App\Models\ProgramGroup;
+use App\Services\ProgramService;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -17,6 +19,11 @@ final class ProgramController extends Controller
 {
     use AuthorizesRequests;
 
+    public function __construct(private readonly ProgramService $programService)
+    {
+    }
+
+
     /**
      * Store a newly created resource in storage.
      *
@@ -24,17 +31,9 @@ final class ProgramController extends Controller
      * @param  ProgramGroup  $programGroup
      * @return RedirectResponse
      */
-    public function store(Request $request, ProgramGroup $programGroup): RedirectResponse
+    public function store(ProgramRequest $request, ProgramGroup $programGroup): RedirectResponse
     {
-        $this->authorize('admin', Auth::user());
-
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'price' => 'required|string',
-        ]);
-
-        $programGroup->programs()->create($validated);
+        $this->programService->storeProgram($request->validated(), $programGroup);
 
         return to_route('home')->with('success', 'Program created successfully.');
     }
@@ -72,21 +71,13 @@ final class ProgramController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
+     * @param  ProgramRequest  $request
      * @param  Program  $program
      * @return RedirectResponse
      */
-    public function update(Request $request, Program $program): RedirectResponse
+    public function update(ProgramRequest $request, Program $program): RedirectResponse
     {
-        $this->authorize('admin', Auth::user());
-
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'price' => 'required|string',
-        ]);
-
-        $program->update($validated);
+        $this->programService->updateProgram($request->validated(), $program);
 
         return to_route('home')->with('success', 'Program updated successfully.');
     }
@@ -101,7 +92,7 @@ final class ProgramController extends Controller
     {
         $this->authorize('admin', Auth::user());
 
-        $program->delete();
+        $this->programService->deleteProgram($program);
 
         return to_route('home')->with('success', 'Program deleted successfully.');
     }
