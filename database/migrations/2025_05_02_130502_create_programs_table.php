@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('program_group_id')->constrained('program_groups')->cascadeOnDelete();
             $table->string('title');
-            $table->string('description');
+            $table->longText('description');
             $table->string('price')->nullable();
             $table->timestamps();
         });
