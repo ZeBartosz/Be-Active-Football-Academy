@@ -8,18 +8,19 @@ import TotalCount from "../Components/AdminComp/TotalCount.jsx";
 import NextEvents from "../Components/AdminComp/NextEvents.jsx";
 import StaffTable from "../Components/AdminComp/StaffTable.jsx";
 
-export default function AdminDashboard({
-    users,
-    coaches,
-    staff,
-    teams,
-    players,
-    events,
-    userCount,
-    coachCount,
-    playerCount,
-    nextEvent,
-}) {
+export default function AdminDashboard({ data }) {
+    const {
+        users,
+        coaches,
+        staff,
+        teams,
+        players,
+        events,
+        userCount,
+        coachCount,
+        playerCount,
+        nextEvent,
+    } = data;
     const [activeTab, setActiveTab] = useState("users");
 
     return (
