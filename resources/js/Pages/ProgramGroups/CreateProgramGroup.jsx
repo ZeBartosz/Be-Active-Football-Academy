@@ -6,7 +6,7 @@ export default function CreateProgramGroup() {
         title: "",
         description: "",
         age_range: "",
-        image: "",
+        image: null,
     });
 
     function handleProgramGroupCreation(e) {
@@ -73,8 +73,9 @@ export default function CreateProgramGroup() {
                         <input
                             type="file"
                             name="image"
-                            value={data.image}
-                            onChange={(e) => setData("image", e.target.value)}
+                            onChange={(e) =>
+                                setData("image", e.target.files[0])
+                            }
                         />
                         {errors.image && (
                             <p className="form-error">{errors.image}</p>
