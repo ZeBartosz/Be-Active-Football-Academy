@@ -6,9 +6,21 @@ namespace App\Services;
 
 use App\Models\Program;
 use App\Models\ProgramGroup;
+use Illuminate\Support\Collection;
 
 final class ProgramService
 {
+
+    /**
+     * Get all programs in the specified program group.
+     *
+     * @param  ProgramGroup  $programGroup
+     * @return Collection
+     */
+    public function getPrograms(ProgramGroup $programGroup): Collection
+    {
+        return $programGroup->programs()->get();
+    }
 
     /**
      * Store a newly created program in the specified program group.
