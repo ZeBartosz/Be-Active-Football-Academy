@@ -19,8 +19,6 @@ export default function EditPlayer({ player, teams }) {
         post_code: player.post_code || "",
     });
 
-    console.log(errors);
-
     function handlePlayerUpdate(e) {
         e.preventDefault();
         put(route("player.update", { player: player.id }, data));
