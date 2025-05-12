@@ -23,6 +23,12 @@ function ProgramGroupSection({ programs }) {
                     </h1>
                     <div className="bg-secondary mx-auto mb-6 h-1 w-24 rounded-full"></div>
 
+                    <p className="mx-auto mt-6 max-w-3xl text-2xl leading-relaxed font-light text-white/80">
+                        We provide age-appropriate coaching to ensure every
+                        child develops at their own pace, with programs designed
+                        to match their physical and cognitive development.
+                    </p>
+
                     {authUser?.is_admin && (
                         <Link
                             href={route("program_group.create")}
@@ -44,12 +50,6 @@ function ProgramGroupSection({ programs }) {
                             Add Program Group
                         </Link>
                     )}
-
-                    <p className="mx-auto mt-6 max-w-3xl text-2xl leading-relaxed font-light text-white/80">
-                        We provide age-appropriate coaching to ensure every
-                        child develops at their own pace, with programs designed
-                        to match their physical and cognitive development.
-                    </p>
                 </div>
 
                 <div className="flex flex-col space-y-12">

@@ -94,7 +94,8 @@ Route::middleware('auth')->group(function () {
         Route::delete('/faq/delete/{faq}', [FAQController::class, 'destroy'])->name('faq.destroy');
 
         // Program Group routes
-        Route::get('/program-group/create', [ProgramGroupController::class, 'create'])->name('program_group.create');
+        Route::get('/program-group/create/page',
+            [ProgramGroupController::class, 'create'])->name('program_group.create');
         Route::post('/program-group/create', [ProgramGroupController::class, 'store'])->name('program_group.store');
         Route::get('/program-group/update/{programGroup}',
             [ProgramGroupController::class, 'edit'])->name('program_group.edit');

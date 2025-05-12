@@ -24,6 +24,14 @@ export default function TotalCount({ userCount, coachCount, playerCount }) {
                     >
                         + Add Event
                     </Link>
+                    <Link
+                        href={route("program_group.create")}
+                        className="btn-sm btn-yellow"
+                        method="get"
+                        type="button"
+                    >
+                        + Add Program Group
+                    </Link>
                 </div>
             </div>
 
