@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FAQRequest;
 use App\Models\FAQ;
+use App\Services\FAQService;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Response;
 use Inertia\ResponseFactory;
@@ -17,11 +18,12 @@ use Inertia\ResponseFactory;
  *
  * This controller handles the management of Frequently Asked Questions (FAQs).
  * It provides methods to list, create, edit, update, and delete FAQs.
- *
  */
 final class FAQController extends Controller
 {
     use AuthorizesRequests;
+
+    public function __construct(private readonly FAQService $faqService) {}
 
     /**
      * Display a listing of the FAQs.
@@ -33,9 +35,7 @@ final class FAQController extends Controller
      */
     public function index(): Response|ResponseFactory
     {
-        $faqs = FAQ::all();
-
-        return inertia('FAQ/FAQList', ['faqs' => $faqs]);
+        return inertia('FAQ/FAQList', ['faqs' => $this->faqService->getFAQs()]);
     }
 
     /**
@@ -45,17 +45,12 @@ final class FAQController extends Controller
      * creates a new FAQ record in the database, and redirects to the FAQ list
      * with a success message.
      *
-     * @param  Request  $request  The HTTP request containing FAQ data.
+     * @param  FAQRequest  $request  The HTTP request containing FAQ data.
      * @return RedirectResponse A redirect response after storing the FAQ.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(FAQRequest $request): RedirectResponse
     {
-        $FAQ = $request->validate([
-            'question' => 'required|string|max:255',
-            'answer' => 'required|string|max:255',
-        ]);
-
-        FAQ::create($FAQ);
+        $this->faqService->storeFAQ($request->validated());
 
         return to_route('faq.index')->with('success', 'FAQ has been added');
     }
@@ -97,21 +92,13 @@ final class FAQController extends Controller
      * updates the specified FAQ record in the database, and redirects to the FAQ list
      * with a success message.
      *
-     * @param  Request  $request  The HTTP request containing updated FAQ data.
+     * @param  FAQRequest  $request  The HTTP request containing updated FAQ data.
      * @param  FAQ  $faq  The FAQ instance to be updated.
      * @return RedirectResponse A redirect response after updating the FAQ.
      */
-    public function update(Request $request, FAQ $faq): RedirectResponse
+    public function update(FAQRequest $request, FAQ $faq): RedirectResponse
     {
-
-        $this->authorize('admin', Auth::user());
-
-        $updateFAQ = $request->validate([
-            'question' => 'required|string|max:255',
-            'answer' => 'required|string|max:255',
-        ]);
-
-        $faq->update($updateFAQ);
+        $this->faqService->updateFAQ($request->validated(), $faq);
 
         return to_route('faq.index')->with('success', 'FAQ has been updated');
     }
@@ -127,7 +114,7 @@ final class FAQController extends Controller
      */
     public function destroy(FAQ $faq): RedirectResponse
     {
-        $faq->delete();
+        $this->faqService->destroyFAQ($faq);
 
         return to_route('faq.index')->with('success', 'FAQ has been deleted');
     }
