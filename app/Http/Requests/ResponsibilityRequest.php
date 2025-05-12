@@ -1,15 +1,12 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Http\Requests;
 
 use Illuminate\Auth\Access\Response;
-use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
 
-final class ProgramGroupRequest extends FormRequest
+class ResponsibilityRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,15 +19,14 @@ final class ProgramGroupRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, ValidationRule|array|string>
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
         return [
-            'title' => ['required', 'string', 'max:255'],
-            'description' => ['nullable', 'string', 'max:1000'],
-            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
-            'age_range' => ['nullable', 'string', 'max:255'],
+            'event_id' => ['required', 'exists:events,id'],
+            'staff_id' => ['required', 'exists:staff,id'],
+            'description' => ['required', 'string', 'max:500'],
         ];
     }
 }
