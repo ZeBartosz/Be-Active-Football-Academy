@@ -4,68 +4,53 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProgramGroupRequest;
 use App\Models\ProgramGroup;
+use App\Services\ProgramGroupService;
+use App\Services\ProgramService;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 use Inertia\Response;
+use Inertia\ResponseFactory;
 
 final class ProgramGroupController extends Controller
 {
     use AuthorizesRequests;
 
+    public function __construct(
+        private readonly ProgramGroupService $programGroupService,
+        private readonly ProgramService $programService
+    ) {
+    }
+
     /**
      * Displays a list of program groups.
-     *
-     * @return Response
      */
     public function index(): Response|ResponseFactory
     {
         return inertia('ProgramGroups/ProgramGroupIndex', [
-            'programGroups' => ProgramGroup::all(),
+            'programGroups' => $this->programGroupService->getProgramGroups(),
         ]);
     }
 
     /**
      * Displays a list of program groups.
-     *
-     * @return Response
      */
-    public function show(ProgramGroup $programGroup): Response|ResponseFactory
+    public function show(ProgramGroup $programGroup): ResponseFactory|Response
     {
         return inertia('ProgramGroups/ShowProgramGroup', [
             'programGroups' => $programGroup,
-            'programs' => $programGroup->programs,
+            'programs' => $this->programService->getPrograms($programGroup),
         ]);
     }
 
     /**
      * Stores a new program group.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(ProgramGroupRequest $request): RedirectResponse
     {
-
-        $this->authorize('admin', Auth::user());
-
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'age_range' => 'nullable|string|max:255',
-        ]);
-
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $extension = $file->getClientOriginalExtension();
-            $fileName = $validated['title'].'_'.$validated['age_range'].'.'.$extension;
-
-            Storage::disk('public')->putFileAs('program_groups', $file, $fileName);
-            $validated['image'] = "/storage/coaches/$fileName";
-        }
-
-        ProgramGroup::create($validated);
+        $this->programGroupService->storeProgramGroup($request->validated(), $request->file('image'));
 
         return to_route('home')->with('success', 'Program group created successfully.');
 
@@ -96,29 +81,9 @@ final class ProgramGroupController extends Controller
     /**
      * Updates an existing program group.
      */
-    public function update(Request $request, ProgramGroup $programGroup): RedirectResponse
+    public function update(ProgramGroupRequest $request, ProgramGroup $programGroup): RedirectResponse
     {
-        $this->authorize('admin', Auth::user());
-
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'age_range' => 'nullable|string|max:255',
-        ]);
-
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $extension = $file->getClientOriginalExtension();
-            $fileName = $validated['title'].'_'.$validated['age_range'].'.'.$extension;
-
-            Storage::disk('public')->putFileAs('program_groups', $file, $fileName);
-            $validated['image'] = "/storage/coaches/$fileName";
-        } else {
-            $validated['image'] = $programGroup->image;
-        }
-
-        $programGroup->update($validated);
+        $this->programGroupService->updateProgramGroup($programGroup, $request->validated(), $request->file('image'));
 
         return to_route('home')->with('success', 'Program group updated successfully.');
     }
@@ -130,7 +95,7 @@ final class ProgramGroupController extends Controller
     {
         $this->authorize('admin', Auth::user());
 
-        $programGroup->delete();
+        $this->programGroupService->deleteProgramGroup($programGroup);
 
         return to_route('home')->with('success', 'Program group deleted successfully.');
     }
