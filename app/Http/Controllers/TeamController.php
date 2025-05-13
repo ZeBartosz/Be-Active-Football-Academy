@@ -4,14 +4,16 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TeamRequest;
 use App\Models\Coach;
 use App\Models\Team;
+use App\Services\TeamService;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Response;
 use Inertia\ResponseFactory;
+use Throwable;
 
 /**
  * Class TeamController
@@ -24,26 +26,19 @@ final class TeamController extends Controller
 {
     use AuthorizesRequests;
 
+    public function __construct(private readonly TeamService $teamService)
+    {
+    }
+
     /**
      * Stores the team in the database.
+     * @throws Throwable
      */
-    public function store(Request $request): RedirectResponse
+    public function store(TeamRequest $request): RedirectResponse
     {
-        $this->authorize('admin', Auth::user());
+        $team = $this->teamService->storeTeam($request->validated());
 
-        $validated = $request->validate([
-            'team_name' => 'required|string|max:255|unique:teams,team_name',
-            'coach_id' => 'required|array',
-            'coach_id.*' => 'exists:coaches,id',
-        ]);
-
-        $team = Team::create([
-            'team_name' => $validated['team_name'],
-        ]);
-
-        $team->coaches()->sync($validated['coach_id']);
-
-        return to_route('admin.index')->with('success', "{$team['team_name']} created successfully}");
+        return to_route('admin.index')->with('success', "{$team->team_name} created successfully}");
     }
 
     /**
@@ -66,46 +61,37 @@ final class TeamController extends Controller
     public function edit(Team $team): Response|ResponseFactory
     {
         $this->authorize('admin', Auth::user());
-        $teamCoaches = $team->coaches()->pluck('coach_id')->toArray();
 
         $coaches = Coach::with('user')->get();
 
         return inertia('Admin/Team/EditTeam', [
             'team' => $team,
-            'teamCoaches' => $teamCoaches,
+            'teamCoaches' => $this->teamService->getCoachesForTeam($team),
             'coaches' => $coaches,
         ]);
     }
 
     /**
      * Updates the team in the database.
+     * @throws Throwable
      */
-    public function update(Request $request, Team $team): RedirectResponse
+    public function update(TeamRequest $request, Team $team): RedirectResponse
     {
-        $this->authorize('admin', Auth::user());
+        $team = $this->teamService->updateTeam($team, $request->validated());
 
-        $validated = $request->validate([
-            'team_name' => 'required|string|max:255|unique:teams,team_name',
-            'coach_id' => 'required|array',
-            'coach_id.*' => 'exists:coaches,id',
-        ]);
-
-        $team->update($validated['team_name']);
-
-        $team->coaches()->sync($validated['coach_id']);
-
-        return to_route('admin.index')->with('success', "{$team['team_name']} updated successfully}");
+        return to_route('admin.index')->with('success', "{$team->team_name} updated successfully}");
     }
 
     /**
      * Deletes the team from the database.
+     * @throws Throwable
      */
     public function destroy(Team $team): RedirectResponse
     {
         $this->authorize('admin', Auth::user());
 
-        $team->delete();
+        $this->teamService->deleteTeam($team);
 
-        return to_route('admin.index')->with('success', "{$team['team_name']} deleted successfully}");
+        return to_route('admin.index')->with('success', "{$team->team_name} deleted successfully}");
     }
 }
