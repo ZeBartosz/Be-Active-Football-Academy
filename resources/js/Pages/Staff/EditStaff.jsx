@@ -2,8 +2,8 @@ import { useForm } from "@inertiajs/react";
 import Background from "../Components/Background/Background.jsx";
 import { useState } from "react";
 
-export default function CreateStaff({ staff }) {
-    const { data, setData, put, processing, errors } = useForm({
+export default function EditStaff({ staff }) {
+    const { data, setData, post, processing, errors } = useForm({
         role: staff.role || "",
         about: staff.about || "",
         avatar: null,
@@ -40,7 +40,7 @@ export default function CreateStaff({ staff }) {
 
     function handleEditStaff(e) {
         e.preventDefault();
-        put(route("staff.update", { staff: staff.id }, data));
+        post(route("staff.update", { staff: staff.id }, data));
     }
 
     return (

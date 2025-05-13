@@ -4,51 +4,35 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StaffRequest;
 use App\Models\Staff;
 use App\Models\User;
+use App\Services\StaffService;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 use Inertia\Response;
 use Inertia\ResponseFactory;
+use Throwable;
 
 final class StaffController extends Controller
 {
     use AuthorizesRequests;
 
+    public function __construct(private readonly StaffService $staffService)
+    {
+    }
+
     /**
      * Store the data
      *
-     * @param  Request  $request
-     * @param  User  $user
-     * @return RedirectResponse
+     *
+     * @throws Throwable
      */
-    public function store(Request $request, User $user): RedirectResponse
+    public function store(StaffRequest $request, User $user): RedirectResponse
     {
-        $this->authorize('admin', Auth::user());
 
-        $validated = $request->validate([
-            'role' => 'required|string|max:255',
-            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:3000',
-            'about' => 'nullable|string|max:1000',
-            'skills' => 'nullable|array',
-            'skills.*' => 'nullable|string|max:255',
-        ]);
-
-        if ($request->hasFile('avatar')) {
-            $file = $request->file('avatar');
-            $extension = $file->getClientOriginalExtension();
-            $fileName = $staff->id.'_'.$staff->user_id.'.'.$extension;
-
-            Storage::disk('public')->putFileAs('$staff', $file, $fileName);
-            $validated['avatar'] = "/storage/staff/$fileName";
-        }
-
-        $user->staff()->create($validated);
-        $user->update(['is_staff' => true]);
-
+        $this->staffService->storeStaff($request->validated(), $user, $request->file('avatar'));
 
         return redirect()->route('admin.index')->with('success', 'Staff created successfully.');
     }
@@ -61,37 +45,6 @@ final class StaffController extends Controller
         $this->authorize('admin', Auth::user());
 
         return inertia('Staff/CreateStaff', ['user' => $user]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Staff $staff): RedirectResponse
-    {
-        $this->authorize('admin', Auth::user());
-
-        $validated = $request->validate([
-            'role' => 'required|string|max:255',
-            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:3000',
-            'about' => 'nullable|string|max:1000',
-            'skills' => 'nullable|array',
-            'skills.*' => 'nullable|string|max:255',
-        ]);
-
-        if ($request->hasFile('avatar')) {
-            $file = $request->file('avatar');
-            $extension = $file->getClientOriginalExtension();
-            $fileName = $staff->id.'_'.$staff->user_id.'.'.$extension;
-
-            Storage::disk('public')->putFileAs('$staff', $file, $fileName);
-            $validated['avatar'] = "/storage/staff/$fileName";
-        } else {
-            unset($validated['avatar']);
-        }
-
-        $staff->update($validated);
-
-        return redirect()->route('admin.index')->with('success', 'Staff updated successfully.');
     }
 
     /**
@@ -112,11 +65,21 @@ final class StaffController extends Controller
     public function destroy(User $user): RedirectResponse
     {
         $this->authorize('admin', Auth::user());
-        
-        $user->staff()->delete();
 
-        $user->update(['is_staff' => false]);
+        $this->staffService->destroyStaff($user);
 
         return redirect()->route('admin.index')->with('success', 'Staff deleted successfully.');
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @throws Throwable
+     */
+    public function update(StaffRequest $request, Staff $staff): RedirectResponse
+    {
+        $this->staffService->updateStaff($request->validated(), $staff, $request->file('avatar'));
+
+        return redirect()->route('admin.index')->with('success', 'Staff updated successfully.');
     }
 }

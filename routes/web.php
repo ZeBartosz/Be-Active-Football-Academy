@@ -117,7 +117,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/staff/create/{user}',
             [App\Http\Controllers\StaffController::class, 'store'])->name('staff.store');
         Route::get('/staff/update/{staff}', [App\Http\Controllers\StaffController::class, 'edit'])->name('staff.edit');
-        Route::put('/staff/update/{staff}',
+        Route::post('/staff/update/{staff}',
             [App\Http\Controllers\StaffController::class, 'update'])->name('staff.update');
         Route::delete('/staff/delete/{user}',
             [App\Http\Controllers\StaffController::class, 'destroy'])->name('staff.destroy');
