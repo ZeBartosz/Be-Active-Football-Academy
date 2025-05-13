@@ -21,7 +21,9 @@ final class ProgramGroupFactory extends Factory
         return [
             'title' => fake()->unique()->word(),
             'description' => fake()->sentence(),
-            'image' => fake()->imageUrl(500, 500, 'people'),
+            'image' => 'https://picsum.photos/seed/'
+                .fake()->unique()->uuid()
+                .'/300/300',
             'age_range' => fake()->randomElement(['adult', 'youth', 'junior']),
         ];
     }

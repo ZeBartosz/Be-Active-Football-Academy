@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,11 +18,13 @@ class StaffFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => \App\Models\User::factory()->create(['is_staff' => true]),
+            'user_id' => User::factory()->create(['is_staff' => true]),
             'role' => fake()->randomElement(['stuff', 'Upper']),
-            'avatar' => fake()->imageUrl(),
+            'avatar' => 'https://picsum.photos/seed/'
+                .fake()->unique()->uuid()
+                .'/300/300',
             'about' => fake()->paragraph(),
-            'skills' => json_encode(fake()->words(3, true)),
+            'skills' => fake()->words(3),
         ];
     }
 }
