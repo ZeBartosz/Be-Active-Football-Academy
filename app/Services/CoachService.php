@@ -8,11 +8,14 @@ use App\Models\Coach;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 use Throwable;
 
 final class CoachService
 {
+    public function __construct(private readonly ImageUploadService $imageUploadService)
+    {
+    }
+
     /**
      * Stores a coach record for a given user.
      *
@@ -55,17 +58,14 @@ final class CoachService
      */
     public function updateCoach(Request $request, Coach $coach, array $data): void
     {
-        if ($request->hasFile('avatar')) {
-            $file = $request->file('avatar');
-            $extension = $file->getClientOriginalExtension();
-            $fileName = $coach->id.'_'.$coach->user_id.'.'.$extension;
 
-            Storage::disk('public')->putFileAs('coaches', $file, $fileName);
-            $data['avatar'] = "/storage/coaches/$fileName";
+        if ($data['avatar']) {
+            $data['avatar'] = $this->imageUploadService->setImage($request->file('avatar'), 'coaches',
+                $data['first_name'], $data['last_name']);
         } else {
-            unset($data['avatar']);
+            $data['avatar'] = $coach->avatar;
         }
-
+     
         $coach->update($data);
     }
 

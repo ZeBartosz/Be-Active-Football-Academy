@@ -9,11 +9,14 @@ use App\Models\User;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 use Throwable;
 
 final class StaffService
 {
+    public function __construct(private readonly ImageUploadService $imageUploadService)
+    {
+    }
+
     /**
      * Get all staff with user
      */
@@ -33,8 +36,7 @@ final class StaffService
     {
 
         if ($image->isValid()) {
-            $data['avatar'] = $this->setImage($image, $data['role'], $user->id);
-
+            $data['avatar'] = $this->imageUploadService->setImage($image, 'staff', $data['role'], (string) $user->id);
         }
 
         DB::transaction(function () use ($user, $data) {
@@ -52,7 +54,8 @@ final class StaffService
     public function updateStaff(array $data, Staff $staff, ?UploadedFile $image): void
     {
         if ($image) {
-            $data['avatar'] = $this->setImage($image, $data['role'], $staff->user_id);
+            $data['avatar'] = $this->imageUploadService->setImage($image, 'staff', $data['role'],
+                (string) $staff->user_id);
         } else {
             $data['avatar'] = $staff->avatar;
         }
@@ -71,18 +74,4 @@ final class StaffService
         });
     }
 
-    /**
-     * sets the image for the staff.
-     */
-    private function setImage(UploadedFile $image, string $role, int $user_id): string
-    {
-
-        $file = $image;
-        $extension = $file->getClientOriginalExtension();
-        $fileName = $role.'_'.$user_id.'.'.$extension;
-
-        Storage::disk('public')->putFileAs('staff', $file, $fileName);
-
-        return "/storage/staff/$fileName";
-    }
 }

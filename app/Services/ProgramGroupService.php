@@ -7,10 +7,11 @@ namespace App\Services;
 use App\Models\ProgramGroup;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Storage;
 
 final class ProgramGroupService
 {
+    public function __construct(private readonly ImageUploadService $imageUploadService) {}
+
     /**
      * Retrieves all program groups.
      */
@@ -25,26 +26,11 @@ final class ProgramGroupService
     public function storeProgramGroup(array $data, ?UploadedFile $image): void
     {
         if ($image) {
-            $data['image'] = $this->setImage(($image), $data['title'], $data['age_range']);
+            $data['image'] = $this->imageUploadService->setImage($image, 'program_groups', $data['title'],
+                $data['age_range']);
         }
 
         ProgramGroup::create($data);
-    }
-
-    /**
-     * sets the image for the program group.
-     */
-    private function setImage(UploadedFile $image, string $title, string $age_range): string
-    {
-
-        $file = $image;
-        $extension = $file->getClientOriginalExtension();
-        $fileName = $title.'_'.$age_range.'.'.$extension;
-
-        Storage::disk('public')->putFileAs('program_groups', $file, $fileName);
-
-        return "/storage/program_groups/$fileName";
-
     }
 
     /**
@@ -52,9 +38,10 @@ final class ProgramGroupService
      */
     public function updateProgramGroup(ProgramGroup $programGroup, array $data, ?UploadedFile $image): void
     {
-        ;
+
         if ($image) {
-            $data['image'] = $this->setImage(($image), $data['title'], $data['age_range']);
+            $data['image'] = $this->imageUploadService->setImage(($image), 'program_groups', $data['title'],
+                $data['age_range']);
         } else {
             $data['image'] = $programGroup->image;
         }
