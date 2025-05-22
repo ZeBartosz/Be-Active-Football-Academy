@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="yellow"
+     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+     class="lucide lucide-map-pin h-6 w-6 mr-4 mt-1 text-team-secondary"
+     data-lov-id="src/components/ContactCTA.tsx:19:16" data-lov-name="MapPin"
+     data-component-path="src/components/ContactCTA.tsx" data-component-line="19" data-component-file="ContactCTA.tsx"
+     data-component-name="MapPin"
+     data-component-content="%7B%22className%22%3A%22h-6%20w-6%20mr-4%20mt-1%20text-team-secondary%22%7D">
+    <path
+        d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path>
+    <circle cx="12" cy="10" r="3"></circle>
+</svg>
