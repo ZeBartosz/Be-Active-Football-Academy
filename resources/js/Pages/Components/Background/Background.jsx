@@ -1,20 +1,20 @@
-export default function Background({ background }) {
-    let bgURL = background;
+import React, { useEffect, useState } from "react";
 
-    if (!bgURL) {
-        bgURL = "/storage/coaches/default_pfp.png";
-    }
+export default function Background({
+    background = "/storage/coaches/default_pfp.png",
+}) {
+    const [bgURL, setBgURL] = useState(background);
+    
+    useEffect(() => {
+        setBgURL(background || "/storage/coaches/default_pfp.png");
+    }, [background]);
 
     return (
-        <>
-            <div
-                className="absolute inset-0 bg-cover bg-center"
-                style={{
-                    backgroundImage: `url('${bgURL}')`,
-                }}
-            >
-                <div className="absolute inset-0 bg-[rgba(10,76,173,0.95)]"></div>
-            </div>
-        </>
+        <div
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: `url('${bgURL}')` }}
+        >
+            <div className="absolute inset-0 bg-[rgba(10,76,173,0.95)]" />
+        </div>
     );
 }

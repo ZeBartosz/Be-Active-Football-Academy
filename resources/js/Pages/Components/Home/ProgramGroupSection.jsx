@@ -28,28 +28,6 @@ function ProgramGroupSection({ programs }) {
                         child develops at their own pace, with programs designed
                         to match their physical and cognitive development.
                     </p>
-
-                    {authUser?.is_admin && (
-                        <Link
-                            href={route("program_group.create")}
-                            className="bg-secondary hover:bg-secondary/80 focus:ring-secondary/50 focus:ring-offset-primary mt-4 inline-flex items-center rounded-full px-6 py-2 text-lg font-medium text-black shadow-lg transition-all hover:shadow-xl focus:ring-2 focus:ring-offset-2 focus:outline-none"
-                        >
-                            <svg
-                                className="mr-2 h-5 w-5"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                                />
-                            </svg>
-                            Add Program Group
-                        </Link>
-                    )}
                 </div>
 
                 <div className="flex flex-col space-y-12">

@@ -14,7 +14,7 @@ function TopNavBar() {
                     <div className="flex items-center">
                         <Link
                             href={route("home")}
-                            className="flex items-center"
+                            className="items-cedevelopmentnter flex"
                         >
                             <img
                                 src="storage/assets/logo.png"

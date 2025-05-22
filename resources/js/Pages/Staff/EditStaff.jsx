@@ -25,6 +25,7 @@ export default function EditStaff({ staff }) {
             skills.map((skill) => skill.value),
         );
     };
+    x;
 
     const handleAddSkill = () => {
         if (skills.length < 5) {
