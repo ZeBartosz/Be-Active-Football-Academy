@@ -81,7 +81,7 @@ function ContactUsSection() {
                         <div className="overflow-hidden rounded-2xl shadow-[0_0_25px_rgba(0,0,0,0.3)]">
                             <img
                                 className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
-                                src="/storage/coaches/joinus.webp"
+                                src="/storage/assets/fieldbg.jpeg"
                                 alt="Join our football academy"
                             />
                         </div>

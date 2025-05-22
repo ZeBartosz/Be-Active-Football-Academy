@@ -14,16 +14,16 @@ function TopNavBar() {
                     <div className="flex items-center">
                         <Link
                             href={route("home")}
-                            className="items-cedevelopmentnter flex"
+                            className="flex items-center"
                         >
                             <img
                                 src="storage/assets/logo.png"
                                 alt="logo"
                                 className="h-10 w-auto"
                             />
-                            <span className="ml-3 hidden text-xl font-bold text-gray-800 md:block">
+                            <h1 className="ml-3 hidden text-lg font-bold text-gray-800 md:block md:text-xl">
                                 Be Active Football Academy
-                            </span>
+                            </h1>
                         </Link>
                     </div>
 

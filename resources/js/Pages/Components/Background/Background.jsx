@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 
 export default function Background({
-    background = "/storage/coaches/default_pfp.png",
+    background = "/storage/assets/logo.png",
 }) {
     const [bgURL, setBgURL] = useState(background);
-    
+
     useEffect(() => {
-        setBgURL(background || "/storage/coaches/default_pfp.png");
+        setBgURL(background || "/storage/assets/logo.png");
     }, [background]);
 
     return (
