@@ -12,6 +12,7 @@ use App\Models\Staff;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
@@ -29,6 +30,12 @@ final class DatabaseSeeder extends Seeder
         Staff::factory(4)->create();
         Event::factory(100)->create(['team_id' => 1]);
 
+
+        Role::create(['name' => 'admin']);
+        Role::create(['name' => 'coach']);
+        Role::create(['name' => 'staff']);
+
+
         $groups = ProgramGroup::factory(3)->create();
         $groups->each(function ($group) {
             \App\Models\Program::factory(3)
@@ -40,8 +47,9 @@ final class DatabaseSeeder extends Seeder
             'last_name' => 'Mart',
             'email' => 'a@a.com',
             'password' => bcrypt('123456'),
-            'is_admin' => true,
         ]);
+
+        $user->assignRole('admin');
 
         Player::factory(5)->create([
             'user_id' => $user->id,

@@ -18,11 +18,11 @@ class StaffFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => User::factory()->create(['is_staff' => true]),
+            'user_id' => User::factory(),
             'role' => fake()->randomElement(['stuff', 'Upper']),
             'avatar' => 'https://picsum.photos/seed/'
-                .fake()->unique()->uuid()
-                .'/300/300',
+                . fake()->unique()->uuid()
+                . '/300/300',
             'about' => fake()->paragraph(),
             'skills' => fake()->words(3),
         ];
