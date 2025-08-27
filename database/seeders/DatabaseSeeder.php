@@ -31,9 +31,9 @@ final class DatabaseSeeder extends Seeder
         Event::factory(100)->create(['team_id' => 1]);
 
 
-        Role::create(['name' => 'admin']);
-        Role::create(['name' => 'coach']);
-        Role::create(['name' => 'staff']);
+        Role::create(['name' => 'Admin']);
+        Role::create(['name' => 'Coach']);
+        Role::create(['name' => 'Staff']);
 
 
         $groups = ProgramGroup::factory(3)->create();

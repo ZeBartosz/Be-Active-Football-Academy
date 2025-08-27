@@ -22,10 +22,9 @@ final class BasePolicy
      */
     public function adminAndUser(User $user, Model $model): Response
     {
-        return ($user->is_admin === true || $user->id === $model->user_id)
+        return ($user->getRoleNames()->contains('Admin') || $user->id === $model->user_id)
             ? Response::allow()
             : Response::denyAsNotFound();
-
     }
 
     /**
@@ -37,7 +36,7 @@ final class BasePolicy
      */
     public function admin(User $user): Response
     {
-        return $user->is_admin === true
+        return $user->getRoleNames()->contains('Admin')
             ? Response::allow()
             : Response::denyAsNotFound();
     }

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 function TopNavBar() {
-    const { authUser } = usePage().props;
+    const { auth } = usePage().props;
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     return (
@@ -30,13 +30,13 @@ function TopNavBar() {
                     {/* Desktop Navigation */}
                     <div className="hidden md:block">
                         <div className="ml-10 flex items-center space-x-4">
-                            {authUser ? (
+                            {auth.user ? (
                                 <>
                                     <Link
                                         className="top_navbar_link"
                                         href={route("home")}
                                     >
-                                        {authUser.first_name}
+                                        {auth.user.first_name}
                                     </Link>
 
                                     <Link
@@ -53,7 +53,7 @@ function TopNavBar() {
                                         Dashboard
                                     </Link>
 
-                                    {authUser.is_admin && (
+                                    {auth.roles.includes('Admin') && (
                                         <Link
                                             className="top_navbar_link"
                                             href={route("admin.index")}
@@ -62,7 +62,7 @@ function TopNavBar() {
                                         </Link>
                                     )}
 
-                                    {authUser.is_coach && (
+                                    {auth.roles.includes('Coach') && (
                                         <Link
                                             className="top_navbar_link"
                                             href={route("coach.edit", {
