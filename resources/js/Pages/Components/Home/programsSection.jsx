@@ -1,6 +1,15 @@
 import { Link } from "@inertiajs/react";
+import { useState, useEffect } from "react";
 
-export default function ProgramsSection({ programGroups }) {
+export default function ProgramsSection() {
+    const [programGroups, setProgramGroups] = useState([]);
+
+    useEffect(() => {
+        axios.get(route("home.program.groups")).then((response) => {
+            setProgramGroups(response.data);
+        });
+    }, []);
+
     return (
         <>
             {programGroups.length > 0 && (

@@ -10,6 +10,7 @@ use App\Http\Controllers\FAQController;
 use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\ProgramGroupController;
+use App\Http\Controllers\StaffController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\UserController;
 use App\Models\Coach;
@@ -17,18 +18,11 @@ use App\Models\Staff;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    $staff = array_map(function ($modelClass) {
-        return $modelClass::with('user')->get();
-    }, [
-        'staff' => Staff::class,
-        'coaches' => Coach::class,
-    ]);
-
-    return inertia('Home', [
-        'programGroups' => App\Models\ProgramGroup::all(),
-        'staff' => $staff,
-    ]);
+    return inertia('Home');
 })->name('home');
+
+Route::get('/home/program/groups', [ProgramGroupController::class, 'getProgramGroups'])->name('home.program.groups');
+Route::get('/home/staff', [StaffController::class, 'getStaff'])->name('home.staff');
 
 Route::get('/faq', [FAQController::class, 'index'])->name('faq.index');
 Route::get('/program-group/{programGroup}',

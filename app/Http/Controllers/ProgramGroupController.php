@@ -99,4 +99,9 @@ final class ProgramGroupController extends Controller
 
         return to_route('home')->with('success', 'Program group deleted successfully.');
     }
+
+    public function getProgramGroups()
+    {
+        return ProgramGroup::take(6)->get();
+    }
 }

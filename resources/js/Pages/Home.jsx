@@ -4,12 +4,12 @@ import ProgramsSection from "./Components/Home/programsSection.jsx";
 import StaffSection from "./Components/Home/staffSection.jsx";
 import ActionSection from "./Components/Home/actionSection.jsx";
 
-export default function Home({ programGroups = [], staff = [] }) {
+export default function Home() {
     return (
         <>
             <Hero />
-            <ProgramsSection programGroups={programGroups} />
-            <StaffSection staff={staff} />
+            <ProgramsSection />
+            <StaffSection />
             <ActionSection />
             <ContactUsSection />
         </>

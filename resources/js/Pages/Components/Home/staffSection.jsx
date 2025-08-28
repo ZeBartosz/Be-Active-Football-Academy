@@ -1,8 +1,18 @@
-export default function StaffSection({ staff }) {
+import { useState, useEffect } from "react";
+
+export default function StaffSection() {
+    const [staff, setStaff] = useState([]);
+
+    useEffect(() => {
+        axios.get(route("home.staff")).then((response) => {
+            setStaff(response.data);
+        });
+    }, []);
+
     return (
         <>
             {/* Team Section */}
-            {staff.staff.length > 0 && (
+            {staff.length > 0 && (
                 <section className="mx-auto mt-24 max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="flex items-end justify-between">
                         <div>
@@ -17,7 +27,7 @@ export default function StaffSection({ staff }) {
                     </div>
 
                     <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                        {staff.staff.slice(0, 6).map((member) => (
+                        {staff.map((member) => (
                             <div
                                 key={member.id}
                                 className="group rounded-2xl bg-blue-900/30 p-5 ring-1 ring-blue-300/10 transition hover:ring-yellow-300/20"

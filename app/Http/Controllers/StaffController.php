@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StaffRequest;
+use App\Models\Coach;
 use App\Models\Staff;
 use App\Models\User;
 use App\Services\StaffService;
@@ -81,5 +82,13 @@ final class StaffController extends Controller
         $this->staffService->updateStaff($request->validated(), $staff, $request->file('avatar'));
 
         return redirect()->route('admin.index')->with('success', 'Staff updated successfully.');
+    }
+
+    public function getStaff()
+    {
+        $staff = Staff::with('user')->get()->toArray();
+        $coaches = Coach::with('user')->get()->toArray();
+
+        return array_merge($staff, $coaches);
     }
 }

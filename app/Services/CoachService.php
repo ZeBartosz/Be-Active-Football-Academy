@@ -26,7 +26,7 @@ final class CoachService
     public function makeCoach(User $user): void
     {
         DB::transaction(function () use ($user) {
-            $user->update(['is_coach' => true]);
+            $user->assignRole('Coach');
             $defaults = [
                 'about' => "Hello, my name is {$user->first_name} and I am a coach at BAFA.",
                 'avatar' => '/storage/coaches/default_pfp.png',
