@@ -1,95 +1,128 @@
-function ContactUsSection() {
+export default function ContactUsSection() {
+    const contact = {
+        email: "contact@beactivefa.co.uk",
+        phone: "+44 7700 900123",
+        addressLine1: "Peterborough",
+        addressLine2: "United Kingdom",
+    };
+
     return (
-        <section className="py-24 text-white">
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex flex-col gap-16 lg:flex-row lg:items-center">
-                    {/* Content Side */}
-                    <div className="lg:w-1/2">
-                        <div className="max-w-xl">
-                            <h2 className="text-4xl leading-tight font-bold sm:text-5xl md:text-6xl">
-                                Ready To{" "}
-                                <span className="text-secondary">Join Us?</span>
-                            </h2>
-                            <div className="bg-secondary mt-4 h-1 w-full rounded-full"></div>
+        <section className="mx-auto mt-24 max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="rounded-2xl bg-blue-900/30 p-6 ring-1 ring-blue-300/10">
+                <div className="grid gap-8 md:grid-cols-5">
+                    <div className="md:col-span-2">
+                        <h2 className="text-2xl font-bold text-white sm:text-3xl">
+                            Contact Us
+                        </h2>
+                        <p className="mt-2 text-blue-200/80">
+                            We love to hear from you. Reach out for any
+                            questions about programs, schedules, or
+                            partnerships.
+                        </p>
 
-                            <p className="mx-auto mt-6 max-w-3xl text-2xl leading-relaxed font-light text-white/80">
-                                Take the first step in your child's football
-                                journey. Contact us to arrange a free trial
-                                session or to learn more about our programs.
-                            </p>
-
-                            <div className="mt-10 space-y-6">
-                                <div className="flex items-start">
-                                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/10 p-3">
-                                        <img
-                                            src="/storage/assets/icons/location.svg"
-                                            alt="Location Icon"
-                                            className="h-6 w-6"
-                                        />
-                                    </div>
-                                    <div className="ml-4">
-                                        <h3 className="text-secondary text-xl font-semibold">
-                                            Location
-                                        </h3>
-                                        <p className="mt-1 text-lg font-light text-white/80">
-                                            Peterborough, UK
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div className="flex items-start">
-                                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/10 p-3">
-                                        <img
-                                            src="/storage/assets/icons/phone.svg"
-                                            alt="Phone Icon"
-                                            className="h-6 w-6"
-                                        />
-                                    </div>
-                                    <div className="ml-4">
-                                        <h3 className="text-secondary text-xl font-semibold">
-                                            Call us
-                                        </h3>
-                                        <p className="mt-1 text-lg font-light text-white/80">
-                                            1234567890
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div className="flex items-start">
-                                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/10 p-3">
-                                        <img
-                                            src="/storage/assets/icons/email.svg"
-                                            alt="Email Icon"
-                                            className="h-6 w-6"
-                                        />
-                                    </div>
-                                    <div className="ml-4">
-                                        <h3 className="text-secondary text-xl font-semibold">
-                                            Email
-                                        </h3>
-                                        <p className="mt-1 text-lg font-light text-white/80">
-                                            beActiveFootball@gmail.com
-                                        </p>
-                                    </div>
+                        <div className="mt-6 space-y-4 text-blue-100/90">
+                            <div className="flex items-center gap-3">
+                                <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-blue-900/30 ring-1 ring-blue-300/10">
+                                    <img
+                                        src="/storage/assets/icons/email.svg"
+                                        alt="Email"
+                                    />
+                                </span>
+                                <a
+                                    href={`mailto:${contact.email}`}
+                                    className="hover:text-yellow-300"
+                                >
+                                    {contact.email}
+                                </a>
+                            </div>
+                            <div className="flex items-center gap-3">
+                                <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-blue-900/30 ring-1 ring-blue-300/10">
+                                    <img
+                                        src="/storage/assets/icons/phone.svg"
+                                        alt="Phone"
+                                    />
+                                </span>
+                                <a
+                                    href={`tel:${contact.phone.replace(/\s/g, "")}`}
+                                    className="hover:text-yellow-300"
+                                >
+                                    {contact.phone}
+                                </a>
+                            </div>
+                            <div className="flex items-center gap-3">
+                                <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-blue-900/30 ring-1 ring-blue-300/10">
+                                    <img
+                                        src="/storage/assets/icons/location.svg"
+                                        alt="Location"
+                                    />
+                                </span>
+                                <div>
+                                    <p>{contact.addressLine1}</p>
+                                    <p className="text-blue-200/80">
+                                        {contact.addressLine2}
+                                    </p>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    {/* Image Side */}
-                    <div className="lg:w-1/2">
-                        <div className="overflow-hidden rounded-2xl shadow-[0_0_25px_rgba(0,0,0,0.3)]">
-                            <img
-                                className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
-                                src="/storage/assets/fieldbg.jpeg"
-                                alt="Join our football academy"
-                            />
-                        </div>
+                    <div className="md:col-span-3">
+                        <form
+                            className="grid grid-cols-1 gap-4 rounded-2xl bg-blue-900/30 p-6 ring-1 ring-blue-300/10 sm:grid-cols-2"
+                            onSubmit={(e) => e.preventDefault()}
+                        >
+                            <div className="sm:col-span-1">
+                                <label className="block text-sm font-medium text-blue-100/90">
+                                    First Name
+                                </label>
+                                <input
+                                    type="text"
+                                    className="mt-1 w-full rounded-lg border-0 bg-blue-950/60 p-3 text-white ring-1 ring-blue-300/10 ring-inset placeholder:text-blue-200/60 focus:ring-2 focus:ring-yellow-300/40"
+                                    placeholder="John"
+                                />
+                            </div>
+                            <div className="sm:col-span-1">
+                                <label className="block text-sm font-medium text-blue-100/90">
+                                    Last Name
+                                </label>
+                                <input
+                                    type="text"
+                                    className="mt-1 w-full rounded-lg border-0 bg-blue-950/60 p-3 text-white ring-1 ring-blue-300/10 ring-inset placeholder:text-blue-200/60 focus:ring-2 focus:ring-yellow-300/40"
+                                    placeholder="Doe"
+                                />
+                            </div>
+                            <div className="sm:col-span-2">
+                                <label className="block text-sm font-medium text-blue-100/90">
+                                    Email
+                                </label>
+                                <input
+                                    type="email"
+                                    className="mt-1 w-full rounded-lg border-0 bg-blue-950/60 p-3 text-white ring-1 ring-blue-300/10 ring-inset placeholder:text-blue-200/60 focus:ring-2 focus:ring-yellow-300/40"
+                                    placeholder="you@example.com"
+                                />
+                            </div>
+                            <div className="sm:col-span-2">
+                                <label className="block text-sm font-medium text-blue-100/90">
+                                    Message
+                                </label>
+                                <textarea
+                                    rows="4"
+                                    className="mt-1 w-full rounded-lg border-0 bg-blue-950/60 p-3 text-white ring-1 ring-blue-300/10 ring-inset placeholder:text-blue-200/60 focus:ring-2 focus:ring-yellow-300/40"
+                                    placeholder="How can we help?"
+                                />
+                            </div>
+                            <div className="sm:col-span-2">
+                                <button
+                                    type="submit"
+                                    className="inline-flex w-full items-center justify-center rounded-xl bg-gradient-to-r from-yellow-400 to-yellow-300 px-6 py-3 text-base font-semibold text-slate-900 shadow-sm transition hover:shadow-yellow-400/20 focus:ring-2 focus:ring-yellow-300/40 focus:outline-none"
+                                >
+                                    Send Message
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </section>
     );
 }
-
-export default ContactUsSection;
