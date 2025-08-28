@@ -23,18 +23,21 @@ final class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(100)->create();
-        Event::factory(100)->create();
-        FAQ::factory(5)->create();
-        Team::factory(5)->create();
-        Staff::factory(4)->create();
-        Event::factory(100)->create(['team_id' => 1]);
 
 
         Role::create(['name' => 'Admin']);
         Role::create(['name' => 'Coach']);
         Role::create(['name' => 'Staff']);
 
+        User::factory(100)->create();
+        Event::factory(100)->create();
+        FAQ::factory(5)->create();
+        Team::factory(5)->create();
+        $staff = Staff::factory(4)->create();
+        $staff->each(function ($staff) {
+            $staff->user->assignRole('Coach');
+        });
+        Event::factory(100)->create(['team_id' => 1]);
 
         $groups = ProgramGroup::factory(3)->create();
         $groups->each(function ($group) {

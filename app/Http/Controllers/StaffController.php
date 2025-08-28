@@ -14,6 +14,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Response;
 use Inertia\ResponseFactory;
+use Spatie\Permission\Models\Role;
 use Throwable;
 
 final class StaffController extends Controller
@@ -32,8 +33,15 @@ final class StaffController extends Controller
      */
     public function store(StaffRequest $request, User $user): RedirectResponse
     {
+        $validated = $request->validate([
+            'role' => ['required', 'string', 'max:255'],
+            'avatar' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:3000'],
+            'about' => ['nullable', 'string', 'max:1000'],
+            'skills' => ['nullable', 'array'],
+            'skills.*' => ['nullable', 'string', 'max:255'],
+        ]);
 
-        $this->staffService->storeStaff($request->validated(), $user, $request->file('avatar'));
+        $this->staffService->storeStaff($validated, $user, $request->file('avatar'));
 
         return redirect()->route('admin.index')->with('success', 'Staff created successfully.');
     }
@@ -86,9 +94,11 @@ final class StaffController extends Controller
 
     public function getStaff()
     {
-        $staff = Staff::with('user')->get()->toArray();
-        $coaches = Coach::with('user')->get()->toArray();
+        return Staff::with('user.roles')->get()->toArray();
+    }
 
-        return array_merge($staff, $coaches);
+    public function getStaffRoles()
+    {
+        return Role::where('name', '!=', 'Admin')->get()->toArray();
     }
 }

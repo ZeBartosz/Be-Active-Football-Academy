@@ -17,9 +17,9 @@ class StaffFactory extends Factory
      */
     public function definition(): array
     {
+
         return [
             'user_id' => User::factory(),
-            'role' => fake()->randomElement(['stuff', 'Upper']),
             'avatar' => 'https://picsum.photos/seed/'
                 . fake()->unique()->uuid()
                 . '/300/300',

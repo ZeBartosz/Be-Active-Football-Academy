@@ -51,9 +51,6 @@ Route::middleware('auth')->group(function () {
     Route::put('/player/update/{player}', [PlayerController::class, 'update'])->name('player.update');
     Route::delete('/player/delete/{player}', [PlayerController::class, 'destroy'])->name('player.destroy');
 
-    Route::post('/coach/update/{coach}', [CoachController::class, 'update'])->name('coach.update');
-    Route::get('/coach/edit/{user}', [CoachController::class, 'edit'])->name('coach.edit');
-
     Route::get('/event/{event}', [EventController::class, 'show'])->name('event.show');
 
     // Admin routes (only for authenticated admins)
@@ -62,10 +59,7 @@ Route::middleware('auth')->group(function () {
         Route::put('/admin/update/{user}', [AdminController::class, 'grantAdmin'])->name('admin.grant');
         Route::put('/admin/delete/{user}', [AdminController::class, 'revokeAdmin'])->name('admin.revoke');
 
-        // Coach routes
-        Route::post('/create/coach/{user}', [CoachController::class, 'store'])->name('coach.store');
-        Route::delete('/coach/delete/{user}', [CoachController::class, 'destroy'])->name('coach.destroy');
-
+        // Coach routesx
         // Team routes
         Route::get('/team', [TeamController::class, 'create'])->name('team.create');
         Route::post('/team', [TeamController::class, 'store'])->name('team.store');
@@ -115,6 +109,7 @@ Route::middleware('auth')->group(function () {
             [App\Http\Controllers\StaffController::class, 'update'])->name('staff.update');
         Route::delete('/staff/delete/{user}',
             [App\Http\Controllers\StaffController::class, 'destroy'])->name('staff.destroy');
+        Route::get('/staff/roles', [App\Http\Controllers\StaffController::class, 'getStaffRoles'])->name('staff.roles');
 
         // Responsibility routes
         Route::get('/responsibility/create/{event}',

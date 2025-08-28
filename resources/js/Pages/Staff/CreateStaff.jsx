@@ -1,13 +1,20 @@
 import { useForm } from "@inertiajs/react";
-import Background from "../Components/Background/Background.jsx";
+import { useEffect, useState } from "react";
 
 export default function CreateStaff({ user }) {
+    const [roles, setRoles] = useState([]);
     const { data, setData, post, processing, errors } = useForm({
         role: "",
         about: "",
         avatar: null,
         skills: [""],
     });
+
+    useEffect(() => {
+        axios.get(route("staff.roles")).then((response) => {
+            setRoles(response.data);
+        });
+    }, []);
 
     const handleValueChange = (index, e) => {
         const newSkills = [...data.skills];
@@ -35,9 +42,7 @@ export default function CreateStaff({ user }) {
 
     return (
         <div className="relative flex min-h-screen items-center justify-center">
-            <Background background={null} />
-
-            <div className="relative inset-10 w-full max-w-md rounded-lg border bg-white p-8 shadow-md">
+            <div className="relative inset-10 w-full max-w-md rounded-lg border p-8 shadow-md">
                 <h1 className="form-title">Create Staff</h1>
                 <form
                     onSubmit={handleStaffCreation}
@@ -46,16 +51,22 @@ export default function CreateStaff({ user }) {
                     {/* role */}
                     <div className="form-group">
                         <label htmlFor="role">Position:</label>
-                        <input
+                        <select
                             id="role"
-                            type="text"
                             name="role"
                             value={data.role}
                             onChange={(e) => setData("role", e.target.value)}
-                        />
-                        {errors.role && (
-                            <p className="form-error">{errors.role}</p>
-                        )}
+                        >
+                            <option value="">Select a role</option>
+                            {roles.map((role) => (
+                                <option key={role.id} value={role.name}>
+                                    {role.name}
+                                </option>
+                            ))}
+                            {errors.role && (
+                                <p className="form-error">{errors.role}</p>
+                            )}
+                        </select>
                     </div>
 
                     {/* About */}

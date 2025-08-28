@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Models\Coach;
 use App\Models\Event;
 use App\Models\Player;
 use App\Models\Staff;
 use App\Models\Team;
 use App\Models\User;
 use Carbon\Carbon;
+use Spatie\Permission\Models\Role;
 
 final class AdminService
 {
@@ -28,9 +28,8 @@ final class AdminService
     public function getAdminDashboardData(int $perPage): array
     {
         $users = User::paginate($perPage);
-        $coaches = Coach::with('user')->paginate($perPage);
         $staff = Staff::with('user')->paginate($perPage);
-        $teams = Team::with('coaches.user')
+        $teams = Team::with('staff.user')
             ->withCount(['players', 'events'])
             ->paginate($perPage);
         $players = Player::with(['user', 'team'])->paginate($perPage);
@@ -44,13 +43,12 @@ final class AdminService
 
         return [
             'users' => $users,
-            'coaches' => $coaches,
             'staff' => $staff,
             'teams' => $teams,
             'players' => $players,
             'events' => $events,
             'userCount' => $users->total(),
-            'coachCount' => $coaches->total(),
+            'coachCount' => Role::where('name', 'Coach')->count(),
             'playerCount' => $players->total(),
             'nextEvent' => $nextEvent,
         ];

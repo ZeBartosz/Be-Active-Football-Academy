@@ -19,7 +19,7 @@ final class CoachMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (! Auth::user()->is_coach) {
+        if (! Auth::user()->getRoleNames('Coach')) {
             return Inertia::location('/');
         }
 

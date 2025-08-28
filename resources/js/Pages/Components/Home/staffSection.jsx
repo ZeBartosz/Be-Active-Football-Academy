@@ -40,7 +40,7 @@ export default function StaffSection() {
                                         }
                                         alt={
                                             member.user?.first_name ||
-                                            member.role
+                                            member.user?.roles[0]?.name
                                         }
                                         className="h-16 w-16 rounded-xl object-cover ring-1 ring-blue-300/10"
                                     />
@@ -50,7 +50,7 @@ export default function StaffSection() {
                                             {member.user?.last_name}
                                         </h3>
                                         <p className="text-sm text-yellow-300/90">
-                                            {member.role}
+                                            {member.user?.roles[0]?.name}
                                         </p>
                                     </div>
                                 </div>

@@ -1,5 +1,4 @@
 import UserTable from "../Components/AdminComp/UserTable.jsx";
-import CoachTable from "../Components/AdminComp/CoachTable.jsx";
 import TeamTable from "../Components/AdminComp/TeamTable.jsx";
 import PlayerTable from "../Components/AdminComp/PlayerTable.jsx";
 import EventTable from "../Components/AdminComp/EventTable.jsx";
@@ -11,7 +10,6 @@ import StaffTable from "../Components/AdminComp/StaffTable.jsx";
 export default function AdminDashboard({ data }) {
     const {
         users,
-        coaches,
         staff,
         teams,
         players,
@@ -57,9 +55,9 @@ export default function AdminDashboard({ data }) {
     ];
 
     return (
-        <div className="font-display min-h-screen bg-gray-50 pb-12">
+        <div className="font-display min-h-screen pb-12">
             {/* Dashboard Header */}
-            <div className="bg-primary mb-8 px-6 py-10 shadow-md">
+            <div className="mb-8 px-6 py-10">
                 <div className="mx-auto max-w-7xl">
                     <h1 className="text-center text-4xl font-bold text-white md:text-5xl">
                         Admin Dashboard
@@ -127,11 +125,7 @@ export default function AdminDashboard({ data }) {
                         activeTab={activeTab}
                         tableId={"players"}
                     />
-                    <CoachTable
-                        coaches={coaches}
-                        activeTab={activeTab}
-                        tableId={"coaches"}
-                    />
+
                     <TeamTable
                         teams={teams}
                         activeTab={activeTab}

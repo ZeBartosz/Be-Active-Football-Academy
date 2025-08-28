@@ -26,9 +26,9 @@ class Team extends Model
         return $this->hasMany(Event::class);
     }
 
-    public function coaches(): BelongsToMany
+    public function staff(): BelongsToMany
     {
-        return $this->belongsToMany(Coach::class);
+        return $this->belongsToMany(Staff::class);
     }
 
 }

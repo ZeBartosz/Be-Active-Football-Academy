@@ -13,7 +13,6 @@ return new class extends Migration {
         Schema::create('staff', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users');
-            $table->string('role')->default('stuff');
             $table->string('avatar')->nullable();
             $table->longText('about')->nullable();
             $table->json('skills')->nullable();

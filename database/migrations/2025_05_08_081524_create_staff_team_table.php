@@ -10,14 +10,15 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('coaches', function (Blueprint $table) {
+        Schema::create('staff_team', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
-            $table->string('avatar')->nullable();
-            $table->longText('about')->nullable();
-            $table->json('skills')->nullable();
+            $table->foreignId('staff_id')
+                ->constrained()
+                ->cascadeOnDelete();
+            $table->foreignId('team_id')
+                ->constrained()
+                ->cascadeOnDelete();
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -26,6 +27,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('coaches');
+        Schema::dropIfExists('staff_team');
     }
 };

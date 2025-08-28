@@ -32,16 +32,24 @@ final class StaffService
      *
      * @throws Throwable
      */
-    public function storeStaff(array $data, User $user, UploadedFile $image): void
+    public function storeStaff(array $data, User $user, ?UploadedFile $image): void
     {
-
-        if ($image->isValid()) {
+        if ($image && $image->isValid()) {
             $data['avatar'] = $this->imageUploadService->setImage($image, 'staff', $data['role'], (string) $user->id);
+        } else {
+            $data['avatar'] = $data['avatar'] ?? null;
         }
 
         DB::transaction(function () use ($user, $data) {
-            $user->staff()->create($data);
-            $user->update(['is_staff' => true]);
+            $user->assignRole($data['role']);
+               
+            $user->staff()->create([
+                'avatar' => $data['avatar'],
+                'about' => $data['about'],
+                'skills' => $data['skills'],
+            ]);
+            
+            
         });
     }
 
