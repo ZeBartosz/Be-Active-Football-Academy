@@ -1,6 +1,6 @@
 function AboutUsSection() {
     return (
-        <section className="font-display bg-gray-50 py-24">
+        <section className="font-display py-24">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="mb-16 text-center">
                     <h2 className="text-primary mb-3 text-4xl leading-tight font-bold sm:text-5xl md:text-6xl">

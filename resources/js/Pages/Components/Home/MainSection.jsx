@@ -2,14 +2,11 @@ import Background from "../Background/Background.jsx";
 import { Link, usePage } from "@inertiajs/react";
 import { ArrowRightIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 
-function MainSection({ background }) {
+function MainSection({}) {
     const { authUser } = usePage().props;
 
     return (
-        <section className="relative h-screen">
-            <Background background={null} />
-            <div className="absolute inset-0 bg-black/30 backdrop-blur-sm"></div>
-
+        <section className="h-screen">
             <div className="relative z-10 mx-auto flex h-full max-w-6xl flex-col justify-center px-4 text-white sm:px-6 lg:px-8">
                 <div className="max-w-3xl">
                     <h1 className="mb-6 text-5xl font-bold sm:text-6xl md:text-7xl">

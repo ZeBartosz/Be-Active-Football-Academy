@@ -7,7 +7,7 @@ import ContactUsSection from "./Components/Home/ContactUsSection.jsx";
 export default function Home({ programGroups, staff }) {
     return (
         <>
-            <MainSection background={null} />
+            <MainSection />
             <AboutUsSection />
             <ProgramGroupSection programs={programGroups} />
             <MeetTheTeamSection staff={staff} />

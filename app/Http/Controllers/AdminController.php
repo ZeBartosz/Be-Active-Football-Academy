@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Services\AdminService;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Response;
 use Inertia\ResponseFactory;
 
@@ -30,7 +31,7 @@ final class AdminController extends Controller
      */
     public function __construct(private readonly AdminService $adminService)
     {
-        $this->authorize('admin', auth()->user());
+        $this->authorize('admin', Auth::user());
     }
 
     /**

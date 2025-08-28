@@ -17,7 +17,7 @@ function MeetTheTeamSection({ staff }) {
     ];
 
     return (
-        <section className="bg-gray-50 py-16">
+        <section className="py-16">
             <div className="container mx-auto max-w-7xl px-4">
                 <div className="mb-16 text-center">
                     <h1 className="text-primary mb-3 text-4xl leading-tight font-bold sm:text-5xl md:text-6xl">
