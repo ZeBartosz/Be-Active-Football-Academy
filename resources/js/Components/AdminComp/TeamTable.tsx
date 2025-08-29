@@ -1,8 +1,26 @@
 import { Link } from "@inertiajs/react";
 import ConfirmButton from "../Confirmation/ConfirmButton.jsx";
+import useData from "../../hooks/useData.tsx";
 
-export default function TeamTable({ teams, activeTab, tableId }) {
+interface TeamTableProps {
+    activeTab: string;
+    tableId: string;
+}
+
+export default function TeamTable({ activeTab, tableId }: TeamTableProps) {
+    const {
+        data: teams,
+        loading,
+        error,
+    } = useData<Pagination<Team>>(
+        route("api.admin.teams"),
+        activeTab === tableId,
+    );
+
     if (activeTab !== tableId) return null;
+    if (!teams && loading) return <div className="text-center">Loading...</div>;
+    if (!teams && error)
+        return <div className="text-center">Error: {error}</div>;
 
     return (
         <div>
@@ -18,25 +36,26 @@ export default function TeamTable({ teams, activeTab, tableId }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {teams.data.map((team) => (
+                        {teams?.data.map((team: Team) => (
                             <tr key={team.id}>
                                 <td>{team.team_name}</td>
                                 <td>{team.players_count}</td>
                                 <td>{team.events_count}</td>
                                 <td className="group relative px-3 py-2">
                                     <span className="cursor-default">
-                                        {team.coaches.length}
+                                        {team.staff?.length}
                                     </span>
-                                    {team.coaches.length > 0 && (
-                                        <div className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-2 hidden -translate-x-1/2 rounded bg-gray-800 px-2 py-1 text-xs whitespace-nowrap text-white shadow-lg group-hover:block">
-                                            {team.coaches.map((c) => (
-                                                <div key={c.id}>
-                                                    {c.user.first_name}{" "}
-                                                    {c.user.last_name}
-                                                </div>
-                                            ))}
-                                        </div>
-                                    )}
+                                    {team?.staff?.length &&
+                                        team?.staff.length > 0 && (
+                                            <div className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-2 hidden -translate-x-1/2 rounded bg-gray-800 px-2 py-1 text-xs whitespace-nowrap text-white shadow-lg group-hover:block">
+                                                {team.staff?.map((c) => (
+                                                    <div key={c.id}>
+                                                        {c.user.first_name}{" "}
+                                                        {c.user.last_name}
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
                                 </td>
                                 <td>
                                     <Link
@@ -63,7 +82,7 @@ export default function TeamTable({ teams, activeTab, tableId }) {
                     </tbody>
                 </table>
                 <div className="my-4 flex justify-center space-x-2">
-                    {teams.links.map((link, idx) => (
+                    {teams?.links?.map((link: Link, idx: number) => (
                         <Link
                             key={idx}
                             href={link.url || "#"}

@@ -1,7 +1,17 @@
 import { Link } from "@inertiajs/react";
+import useData from "../../hooks/useData.tsx";
 
-export default function NextEvents({ events }) {
-    if (!events.length) {
+export default function NextEvents() {
+    const {
+        data: events,
+        loading,
+        error,
+    } = useData<Event[]>(route("api.admin.next.events"), true);
+
+    if (loading) return <div className="text-center">Loading...</div>;
+    if (error) return <div className="text-center">Error: {error}</div>;
+
+    if (!events?.length) {
         return (
             <div className="flex flex-col items-center justify-center py-12">
                 <svg
@@ -37,7 +47,7 @@ export default function NextEvents({ events }) {
             </div>
 
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                {events.map((event) => (
+                {events?.map((event: Event) => (
                     <div
                         key={event.id}
                         className="group overflow-hidden rounded-xl bg-white shadow-md transition-all duration-300 hover:shadow-xl"
@@ -105,7 +115,7 @@ export default function NextEvents({ events }) {
                                         />
                                     </svg>
                                     <span className="text-gray-700">
-                                        {event.date}
+                                        {event.date.toString()}
                                     </span>
                                 </div>
 

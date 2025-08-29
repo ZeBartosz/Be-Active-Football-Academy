@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Response;
@@ -66,5 +67,12 @@ final class UserController extends Controller
     public function destroy(User $user)
     {
         //
+    }
+
+    public function getUsers(): JsonResponse
+    {
+        return response()->json(User::query()
+            ->with('roles')
+            ->paginate(10));
     }
 }

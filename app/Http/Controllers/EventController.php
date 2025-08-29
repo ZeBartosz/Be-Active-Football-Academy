@@ -10,6 +10,7 @@ use App\Models\Team;
 use App\Services\EventService;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Response;
@@ -123,4 +124,20 @@ final class EventController extends Controller
 
         return to_route('admin.index')->with('success', "Event {$event->title} deleted!");
     }
+
+    public function getAdminEvents(): JsonResponse
+    {
+        return response()->json(Event::query()
+            ->orderBy('date', 'asc')
+            ->paginate(10));
+    }
+
+    public function getNextFiveEvents(): JsonResponse {
+        return response()->json(Event::query()
+            ->where('date', '>=', now())
+            ->orderBy('date', 'asc')
+            ->take(5)
+            ->get());
+    }
 }
+    

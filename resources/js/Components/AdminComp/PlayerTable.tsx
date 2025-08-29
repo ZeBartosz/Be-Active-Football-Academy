@@ -1,8 +1,27 @@
 import { Link } from "@inertiajs/react";
 import ConfirmButton from "../Confirmation/ConfirmButton.jsx";
+import useData from "../../hooks/useData.tsx";
 
-export default function PlayerTable({ players, activeTab, tableId }) {
+interface PlayerTableProps {
+    activeTab: string;
+    tableId: string;
+}
+
+export default function PlayerTable({ activeTab, tableId }: PlayerTableProps) {
+    const {
+        data: players,
+        loading,
+        error,
+    } = useData<Pagination<Player>>(
+        route("api.admin.players"),
+        activeTab === tableId,
+    );
+
     if (activeTab !== tableId) return null;
+    if (!players && loading)
+        return <div className="text-center">Loading...</div>;
+    if (!players && error)
+        return <div className="text-center">Error: {error}</div>;
 
     return (
         <div>
@@ -10,8 +29,8 @@ export default function PlayerTable({ players, activeTab, tableId }) {
                 <table className="admin-table">
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Surname</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
                             <th>DoB</th>
                             <th>Address</th>
                             <th>Post Code</th>
@@ -21,11 +40,11 @@ export default function PlayerTable({ players, activeTab, tableId }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {players.data.map((player) => (
+                        {players?.data.map((player: Player) => (
                             <tr key={player.id}>
                                 <td>{player.first_name}</td>
                                 <td>{player.last_name}</td>
-                                <td>{player.date_of_birth}</td>
+                                <td>{player.date_of_birth.toString()}</td>
                                 <td>{player.address}</td>
                                 <td>{player.post_code}</td>
                                 <td>{player.team.team_name}</td>
@@ -56,7 +75,7 @@ export default function PlayerTable({ players, activeTab, tableId }) {
                     </tbody>
                 </table>
                 <div className="my-4 flex justify-center space-x-2">
-                    {players.links.map((link, idx) => (
+                    {players?.links.map((link: Link, idx: number) => (
                         <Link
                             key={idx}
                             href={link.url || "#"}

@@ -6,9 +6,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\TeamRequest;
 use App\Models\Coach;
+use App\Models\Staff;
 use App\Models\Team;
 use App\Services\TeamService;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Response;
@@ -48,7 +50,12 @@ final class TeamController extends Controller
     {
         $this->authorize('admin', Auth::user());
 
-        $coaches = Coach::with('user')->get();
+        $coaches = Staff::query()
+            ->whereHas('user.roles', function ($query) {
+                $query->where('name', 'Coach');
+            })
+            ->with('user:id,first_name,last_name')
+            ->get();
 
         return inertia('Admin/Team/CreateTeam', [
             'coaches' => $coaches,
@@ -62,7 +69,12 @@ final class TeamController extends Controller
     {
         $this->authorize('admin', Auth::user());
 
-        $coaches = Coach::with('user')->get();
+        $coaches = Staff::query()
+            ->whereHas('user.roles', function ($query) {
+                $query->where('name', 'Coach');
+            })
+            ->with('user:id,first_name,last_name')
+            ->get();
 
         return inertia('Admin/Team/EditTeam', [
             'team' => $team,
@@ -93,5 +105,14 @@ final class TeamController extends Controller
         $this->teamService->deleteTeam($team);
 
         return to_route('admin.index')->with('success', "{$team->team_name} deleted successfully}");
+    }
+
+    public function getTeams(): JsonResponse
+    {
+        return response()->json(Team::query()
+            ->withCount('players')
+            ->withCount('events')
+            ->with('staff.user.roles: name: Coach')
+            ->paginate(10));
     }
 }

@@ -10,6 +10,7 @@ use App\Models\Staff;
 use App\Models\User;
 use App\Services\StaffService;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Response;
@@ -92,13 +93,25 @@ final class StaffController extends Controller
         return redirect()->route('admin.index')->with('success', 'Staff updated successfully.');
     }
 
-    public function getStaff()
+    public function getStaff(): JsonResponse
     {
-        return Staff::with('user.roles')->get()->toArray();
+        return response()->json(Staff::query()
+            ->with('user:id,first_name,last_name')
+            ->with('user.roles')
+            ->get()
+        );
     }
 
-    public function getStaffRoles()
+    public function getStaffRoles(): JsonResponse
     {
-        return Role::where('name', '!=', 'Admin')->get()->toArray();
+        return response()->json(Role::query()->where('name', '!=', 'Admin')->get());
+    }
+
+    public function getStaffPaginated(): JsonResponse
+    {
+        return response()->json(Staff::query()
+            ->with('user:id,first_name,last_name')
+            ->with('user.roles')
+            ->paginate(10));
     }
 }

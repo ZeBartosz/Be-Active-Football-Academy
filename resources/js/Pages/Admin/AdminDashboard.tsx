@@ -7,18 +7,16 @@ import TotalCount from "../../Components/AdminComp/TotalCount.tsx";
 import NextEvents from "../../Components/AdminComp/NextEvents.tsx";
 import StaffTable from "../../Components/AdminComp/StaffTable.tsx";
 
-export default function AdminDashboard({ data }) {
-    const {
-        users,
-        staff,
-        teams,
-        players,
-        events,
-        userCount,
-        coachCount,
-        playerCount,
-        nextEvent,
-    } = data;
+interface AdminDashboardProps {
+    data: {
+        userCount: number;
+        coachCount: number;
+        playerCount: number;
+    };
+}
+
+export default function AdminDashboard({ data }: AdminDashboardProps) {
+    const { userCount, coachCount, playerCount } = data;
     const [activeTab, setActiveTab] = useState("users");
 
     const tabs = [
@@ -31,11 +29,6 @@ export default function AdminDashboard({ data }) {
             key: "stuff",
             label: "Staff",
             icon: "M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z",
-        },
-        {
-            key: "coaches",
-            label: "Coaches",
-            icon: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z",
         },
         {
             key: "players",
@@ -77,7 +70,7 @@ export default function AdminDashboard({ data }) {
                         />
                     </div>
                     <div className="lg:col-span-2">
-                        <NextEvents events={nextEvent} />
+                        <NextEvents />
                     </div>
                 </div>
 
@@ -115,32 +108,11 @@ export default function AdminDashboard({ data }) {
 
                 {/* Table Container */}
                 <div className="rounded-xl bg-white shadow-md">
-                    <UserTable
-                        users={users}
-                        activeTab={activeTab}
-                        tableId={"users"}
-                    />
-                    <PlayerTable
-                        players={players}
-                        activeTab={activeTab}
-                        tableId={"players"}
-                    />
-
-                    <TeamTable
-                        teams={teams}
-                        activeTab={activeTab}
-                        tableId={"teams"}
-                    />
-                    <EventTable
-                        events={events}
-                        activeTab={activeTab}
-                        tableId={"events"}
-                    />
-                    <StaffTable
-                        staff={staff}
-                        activeTab={activeTab}
-                        tableId={"stuff"}
-                    />
+                    <UserTable activeTab={activeTab} tableId={"users"} />
+                    <PlayerTable activeTab={activeTab} tableId={"players"} />
+                    <TeamTable activeTab={activeTab} tableId={"teams"} />
+                    <EventTable activeTab={activeTab} tableId={"events"} />
+                    <StaffTable activeTab={activeTab} tableId={"stuff"} />
                 </div>
             </div>
         </div>

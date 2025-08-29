@@ -1,8 +1,27 @@
 import { Link } from "@inertiajs/react";
 import ConfirmButton from "../Confirmation/ConfirmButton.jsx";
+import useData from "../../hooks/useData.tsx";
 
-export default function StaffTable({ staff, activeTab, tableId }) {
+interface StaffTableProps {
+    activeTab: string;
+    tableId: string;
+}
+
+export default function StaffTable({ activeTab, tableId }: StaffTableProps) {
+    const {
+        data: staff,
+        loading,
+        error,
+    } = useData<Pagination<Staff>>(
+        route("api.admin.staff"),
+        activeTab === tableId,
+    );
+
     if (activeTab !== tableId) return null;
+    if (!staff && loading) return <div className="text-center">Loading...</div>;
+    if (!staff && error)
+        return <div className="text-center">Error: {error}</div>;
+
     return (
         <div>
             <div className="admin-table-container">
@@ -19,7 +38,7 @@ export default function StaffTable({ staff, activeTab, tableId }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {staff.data.map((item) => (
+                        {staff?.data.map((item) => (
                             <tr key={item.id}>
                                 <td>
                                     <img
@@ -28,7 +47,7 @@ export default function StaffTable({ staff, activeTab, tableId }) {
                                         className="mx-auto h-12 w-12 rounded-full object-cover"
                                     />
                                 </td>
-                                <td>{item.role}</td>
+                                <td>{item.user.roles?.[0]?.name}</td>
                                 <td>{item.user.first_name}</td>
                                 <td>{item.user.last_name}</td>
                                 <td>{item.user.email}</td>
@@ -43,7 +62,7 @@ export default function StaffTable({ staff, activeTab, tableId }) {
                                         Edit
                                     </Link>
                                     <ConfirmButton
-                                        id={item.user_id}
+                                        id={item.user.id}
                                         routeName="staff.destroy"
                                         routeParamKey="user"
                                         className="btn-sm btn-red"
@@ -57,7 +76,7 @@ export default function StaffTable({ staff, activeTab, tableId }) {
                     </tbody>
                 </table>
                 <div className="my-4 flex justify-center space-x-2">
-                    {staff.links.map((link, idx) => (
+                    {staff?.links.map((link: Link, idx: number) => (
                         <Link
                             key={idx}
                             href={link.url || "#"}

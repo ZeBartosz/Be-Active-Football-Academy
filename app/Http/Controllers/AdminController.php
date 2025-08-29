@@ -55,7 +55,7 @@ final class AdminController extends Controller
     public function index(): Response|ResponseFactory
     {
         return inertia('Admin/AdminDashboard', [
-            'data' => $this->adminService->getAdminDashboardData(10),
+            'data' => $this->adminService->getAdminDashboardData(),
         ]);
     }
 

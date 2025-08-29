@@ -7,7 +7,7 @@ export default function ProgramsSection() {
     const [programGroups, setProgramGroups] = useState([]);
 
     useEffect(() => {
-        axios.get(route("home.program.groups")).then((response) => {
+        axios.get(route("api.home.program.groups")).then((response) => {
             setProgramGroups(response.data);
         });
     }, []);

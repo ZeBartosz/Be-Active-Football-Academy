@@ -1,8 +1,28 @@
 import { Link } from "@inertiajs/react";
-import ConfirmButton from "../Confirmation/ConfirmButton.jsx";
+import ConfirmButton from "../Confirmation/ConfirmButton.tsx";
+import useData from "../../hooks/useData.tsx";
 
-export default function EventTable({ events, activeTab, tableId }) {
+interface EventTableProps {
+    activeTab: string;
+    tableId: string;
+}
+
+export default function EventTable({ activeTab, tableId }: EventTableProps) {
+    const {
+        data: events,
+        loading,
+        error,
+    } = useData<Pagination<Event>>(
+        route("api.admin.events"),
+        activeTab === tableId,
+    );
+
     if (activeTab !== tableId) return null;
+    if (!events && loading)
+        return <div className="text-center">Loading...</div>;
+    if (!events && error)
+        return <div className="text-center">Error: {error}</div>;
+
     return (
         <div>
             <div className="admin-table-container">
@@ -21,7 +41,7 @@ export default function EventTable({ events, activeTab, tableId }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {events.data.map((event) => (
+                        {events?.data.map((event) => (
                             <tr key={event.id}>
                                 <td>{event.title}</td>
                                 <td>{event.description}</td>
@@ -31,7 +51,7 @@ export default function EventTable({ events, activeTab, tableId }) {
                                         ? event.team.team_name
                                         : "Everyone"}
                                 </td>
-                                <td>{event.date}</td>
+                                <td>{event.date.toString()}</td>
                                 <td>{event.time}</td>
                                 <td>{event.address}</td>
                                 <td>{event.post_code}</td>
@@ -73,7 +93,7 @@ export default function EventTable({ events, activeTab, tableId }) {
                     </tbody>
                 </table>
                 <div className="my-4 flex justify-center space-x-2">
-                    {events.links.map((link, idx) => (
+                    {events?.links?.map((link: Link, idx: number) => (
                         <Link
                             key={idx}
                             href={link.url || "#"}

@@ -21,8 +21,7 @@ Route::get('/', function () {
     return inertia('Home');
 })->name('home');
 
-Route::get('/home/program/groups', [ProgramGroupController::class, 'getProgramGroups'])->name('home.program.groups');
-Route::get('/home/staff', [StaffController::class, 'getStaff'])->name('home.staff');
+
 
 Route::get('/faq', [FAQController::class, 'index'])->name('faq.index');
 Route::get('/program-group/{programGroup}',

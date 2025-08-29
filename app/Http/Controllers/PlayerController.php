@@ -9,6 +9,7 @@ use App\Models\Player;
 use App\Services\PlayerService;
 use App\Services\TeamService;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Response;
@@ -107,5 +108,13 @@ final class PlayerController extends Controller
         $this->playerService->deletePlayer($player);
 
         return to_route('user.index')->with('message', 'Player updated');
+    }
+
+    public function getAdminPlayers(): JsonResponse
+    {
+        return response()->json(Player::query()
+            ->with('team:id,team_name')
+            ->with('user:id,first_name,last_name')
+            ->paginate(10));
     }
 }

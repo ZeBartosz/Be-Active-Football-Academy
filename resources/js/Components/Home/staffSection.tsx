@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 export default function StaffSection() {
     const [staff, setStaff] = useState([]);
 
     useEffect(() => {
-        axios.get(route("home.staff")).then((response) => {
+        axios.get(route("api.home.staff")).then((response) => {
             setStaff(response.data);
         });
     }, []);

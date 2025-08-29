@@ -25,32 +25,13 @@ final class AdminService
      * @param  int  $perPage  The number of items to display per page.
      * @return array An array containing the paginated data and counts.
      */
-    public function getAdminDashboardData(int $perPage): array
+    public function getAdminDashboardData(): array
     {
-        $users = User::paginate($perPage);
-        $staff = Staff::with('user')->paginate($perPage);
-        $teams = Team::with('staff.user')
-            ->withCount(['players', 'events'])
-            ->paginate($perPage);
-        $players = Player::with(['user', 'team'])->paginate($perPage);
-        $events = Event::paginate($perPage);
-
-        $nextEvent = Event::where('date', '>', Carbon::now())
-            ->with('team')
-            ->orderBy('date')
-            ->limit(5)
-            ->get();
 
         return [
-            'users' => $users,
-            'staff' => $staff,
-            'teams' => $teams,
-            'players' => $players,
-            'events' => $events,
-            'userCount' => $users->total(),
+            'userCount' => User::count(),
             'coachCount' => Role::where('name', 'Coach')->count(),
-            'playerCount' => $players->total(),
-            'nextEvent' => $nextEvent,
+            'playerCount' => Player::count(),        
         ];
     }
 

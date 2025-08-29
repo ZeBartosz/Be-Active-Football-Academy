@@ -1,34 +1,27 @@
-import { Link, useForm, usePage } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 import ConfirmButton from "../Confirmation/ConfirmButton.jsx";
+import useData from "../../hooks/useData.tsx";
 
-export default function UserTable({ users, activeTab, tableId }) {
-    const { authUser } = usePage().props;
+interface UserTableProps {
+    activeTab: string;
+    tableId: string;
+}
+
+export default function UserTable({ activeTab, tableId }: UserTableProps) {
+    const { auth } = usePage().props;
     const {
-        post: postCoach,
-        delete: deleteCoach,
-        put: putAdmin,
-        processing,
-    } = useForm();
-
-    function handleCoachPost(user, e) {
-        e.preventDefault();
-        postCoach(
-            route("coach.store", { user: user.id }),
-            {},
-            { preserveScroll: false },
-        );
-    }
-
-    function handleCoachDelete(user, e) {
-        e.preventDefault();
-        deleteCoach(
-            route("coach.destroy", { user: user.id }),
-            {},
-            { preserveScroll: false },
-        );
-    }
+        data: users,
+        loading,
+        error,
+    } = useData<Pagination<User>>(
+        route("api.admin.users"),
+        activeTab === tableId,
+    );
 
     if (activeTab !== tableId) return null;
+    if (!users && loading) return <div className="text-center">Loading...</div>;
+    if (!users && error)
+        return <div className="text-center">Error: {error}</div>;
 
     return (
         <div>
@@ -45,23 +38,24 @@ export default function UserTable({ users, activeTab, tableId }) {
                             <th>Post Code</th>
                             <th>Admin</th>
                             <th>Staff</th>
-                            <th>Coach</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {users.data.map((user) => (
+                        {users?.data.map((user) => (
                             <tr key={user.id}>
                                 <td>{user.first_name}</td>
                                 <td>{user.last_name}</td>
                                 <td>{user.email}</td>
                                 <td>{user.number}</td>
-                                <td>{user.date_of_birth}</td>
+                                <td>{user.date_of_birth.toString()}</td>
                                 <td>{user.address}</td>
                                 <td>{user.post_code}</td>
 
                                 {/* Admin toggle */}
                                 <td>
-                                    {!user.is_admin ? (
+                                    {!user.roles?.some(
+                                        (role) => role.name === "Admin",
+                                    ) ? (
                                         <ConfirmButton
                                             id={user.id}
                                             routeName="admin.grant"
@@ -71,7 +65,7 @@ export default function UserTable({ users, activeTab, tableId }) {
                                             children="Grant"
                                             message="Are you sure you want to grant admin status?"
                                         />
-                                    ) : authUser.id === user.id ? (
+                                    ) : auth?.user?.id === user.id ? (
                                         <button className="btn-sm btn-gray">
                                             You
                                         </button>
@@ -89,7 +83,9 @@ export default function UserTable({ users, activeTab, tableId }) {
                                 </td>
 
                                 <td>
-                                    {!user.is_staff ? (
+                                    {!user.roles?.some(
+                                        (role) => role.name === "Staff",
+                                    ) ? (
                                         <Link
                                             href={route("staff.create", {
                                                 user: user.id,
@@ -98,7 +94,7 @@ export default function UserTable({ users, activeTab, tableId }) {
                                         >
                                             Make
                                         </Link>
-                                    ) : authUser.id === user.id ? (
+                                    ) : auth?.user.id === user.id ? (
                                         <button className="btn-sm btn-gray">
                                             You
                                         </button>
@@ -114,40 +110,12 @@ export default function UserTable({ users, activeTab, tableId }) {
                                         />
                                     )}
                                 </td>
-
-                                <td>
-                                    {!user.is_coach ? (
-                                        <ConfirmButton
-                                            id={user.id}
-                                            routeName="coach.store"
-                                            routeParamKey="user"
-                                            className="btn-sm btn-yellow"
-                                            method="post"
-                                            children="Make"
-                                            message="Are you sure you want to make coach?"
-                                        />
-                                    ) : authUser.id === user.id ? (
-                                        <button className="btn-sm btn-gray">
-                                            You
-                                        </button>
-                                    ) : (
-                                        <ConfirmButton
-                                            id={user.id}
-                                            routeName="coach.destroy"
-                                            routeParamKey="user"
-                                            className="btn-sm btn-red"
-                                            method="delete"
-                                            children="Remove"
-                                            message="Are you sure you want to remove coach?"
-                                        />
-                                    )}
-                                </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
                 <div className="my-4 flex justify-center space-x-2">
-                    {users.links.map((link, idx) => (
+                    {users?.links.map((link: Link, idx: number) => (
                         <Link
                             key={idx}
                             href={link.url || "#"}
