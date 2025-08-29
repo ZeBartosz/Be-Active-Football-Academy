@@ -112,7 +112,7 @@
 
     /* Admin */
     .admin-table-container {
-        @apply mt-5 overflow-x-auto rounded-xl border border-white/10 bg-white/5 text-white shadow-lg backdrop-blur-md;
+        @apply mt-5 overflow-x-auto rounded-xl border border-blue-300/30 bg-gradient-to-br from-blue-500/20 via-indigo-500/10 to-transparent text-white shadow-lg backdrop-blur-md;
     }
 
     .admin-table {
@@ -120,7 +120,7 @@
     }
 
     .admin-table thead {
-        @apply bg-white/10 backdrop-blur-md;
+        @apply bg-blue-500/20 backdrop-blur-md;
     }
 
     .admin-table th {
@@ -129,7 +129,7 @@
     }
 
     .admin-table tbody tr {
-        @apply border-b border-white/10 transition hover:bg-white/5;
+        @apply border-b border-white/10 transition hover:bg-blue-500/10;
     }
 
     .admin-table td {
@@ -180,5 +180,18 @@
 
     .glass-icon {
         @apply rounded-full border border-white/10 bg-white/10 p-3 shadow backdrop-blur-md;
+    }
+
+    /* Admin Tabs */
+    .admin-tabs {
+        @apply inline-flex min-w-full rounded-xl border border-blue-300/30 bg-gradient-to-br from-blue-500/20 via-indigo-500/10 to-transparent p-1 shadow-lg backdrop-blur-md;
+    }
+
+    .admin-tab-btn {
+        @apply flex items-center rounded-lg px-4 py-3 text-sm font-medium whitespace-nowrap text-white/80 transition hover:bg-blue-500/10 hover:text-white md:text-base;
+    }
+
+    .admin-tab-btn.active {
+        @apply bg-blue-600/30 text-white shadow ring-1 ring-blue-300/40;
     }
 }

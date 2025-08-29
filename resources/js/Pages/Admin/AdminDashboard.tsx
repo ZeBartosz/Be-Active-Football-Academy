@@ -76,16 +76,12 @@ export default function AdminDashboard({ data }: AdminDashboardProps) {
 
                 {/* Tabs Navigation */}
                 <div className="mb-8 overflow-x-auto">
-                    <div className="inline-flex min-w-full rounded-lg bg-white p-1 shadow-sm">
+                    <div className="admin-tabs">
                         {tabs.map(({ key, label, icon }) => (
                             <button
                                 key={key}
                                 onClick={() => setActiveTab(key)}
-                                className={`flex items-center rounded-lg px-4 py-3 text-sm font-medium whitespace-nowrap transition-all md:text-base ${
-                                    activeTab === key
-                                        ? "bg-primary text-white shadow-sm"
-                                        : "text-gray-700 hover:bg-gray-100"
-                                }`}
+                                className={`admin-tab-btn ${activeTab === key ? "active" : ""}`}
                             >
                                 <svg
                                     className="mr-2 h-5 w-5"
@@ -107,7 +103,7 @@ export default function AdminDashboard({ data }: AdminDashboardProps) {
                 </div>
 
                 {/* Table Container */}
-                <div className="rounded-xl bg-white shadow-md">
+                <div className="rounded-xl">
                     <UserTable activeTab={activeTab} tableId={"users"} />
                     <PlayerTable activeTab={activeTab} tableId={"players"} />
                     <TeamTable activeTab={activeTab} tableId={"teams"} />
