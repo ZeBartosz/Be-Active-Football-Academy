@@ -1,3 +1,10 @@
+import { Inertia } from "@inertiajs/inertia";
+
+interface Auth {
+    user: Inertia.Page<User>;
+    roles: Inertia.Page<Role>[];
+}
+
 interface User {
     id: number;
     first_name: string;

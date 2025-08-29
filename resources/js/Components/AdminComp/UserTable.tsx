@@ -1,6 +1,12 @@
 import { Link, usePage } from "@inertiajs/react";
 import ConfirmButton from "../Confirmation/ConfirmButton.jsx";
 import useData from "../../hooks/useData.tsx";
+import type {
+    Auth,
+    User,
+    Pagination,
+    Link as LinkType,
+} from "../../types/index";
 
 interface UserTableProps {
     activeTab: string;
@@ -8,7 +14,8 @@ interface UserTableProps {
 }
 
 export default function UserTable({ activeTab, tableId }: UserTableProps) {
-    const { auth } = usePage().props;
+    const { props } = usePage();
+    const { auth } = props as unknown as { auth: Auth };
     const {
         data: users,
         loading,
@@ -65,7 +72,7 @@ export default function UserTable({ activeTab, tableId }: UserTableProps) {
                                             children="Grant"
                                             message="Are you sure you want to grant admin status?"
                                         />
-                                    ) : auth?.user?.id === user.id ? (
+                                    ) : auth.user.id === user.id ? (
                                         <button className="btn-sm btn-gray">
                                             You
                                         </button>
@@ -115,7 +122,7 @@ export default function UserTable({ activeTab, tableId }: UserTableProps) {
                     </tbody>
                 </table>
                 <div className="my-4 flex justify-center space-x-2">
-                    {users?.links.map((link: Link, idx: number) => (
+                    {users?.links.map((link: LinkType, idx: number) => (
                         <Link
                             key={idx}
                             href={link.url || "#"}
