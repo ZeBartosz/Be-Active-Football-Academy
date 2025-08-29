@@ -112,25 +112,24 @@
 
     /* Admin */
     .admin-table-container {
-        @apply mt-5 overflow-x-auto rounded-lg text-white shadow-lg;
-        background-color: var(--color-primary);
+        @apply mt-5 overflow-x-auto rounded-xl border border-white/10 bg-white/5 text-white shadow-lg backdrop-blur-md;
     }
 
     .admin-table {
-        @apply min-w-full table-auto divide-y divide-[rgba(255,255,255,0.2)];
+        @apply min-w-full table-auto divide-y divide-white/10;
     }
 
     .admin-table thead {
-        background-color: var(--color-secondary);
+        @apply bg-white/10 backdrop-blur-md;
     }
 
     .admin-table th {
         @apply px-6 py-3 text-left text-lg font-semibold tracking-wider uppercase;
-        color: black;
+        color: white;
     }
 
     .admin-table tbody tr {
-        @apply border-b border-[rgba(255,255,255,0.2)] transition hover:bg-[rgba(255,255,255,0.1)];
+        @apply border-b border-white/10 transition hover:bg-white/5;
     }
 
     .admin-table td {
@@ -167,10 +166,19 @@
     }
 
     .total-container {
-        @apply bg-primary my-4 rounded-lg border p-4 shadow-md;
+        @apply my-4 rounded-xl border border-white/10 bg-white/5 p-5 shadow-lg backdrop-blur-md transition hover:bg-white/10 hover:shadow-xl;
     }
 
     .total-subTitle {
         @apply text-secondary text-3xl font-bold;
+    }
+
+    /* Glass Utilities */
+    .glass-card {
+        @apply rounded-xl border border-white/10 bg-white/5 p-5 shadow-lg backdrop-blur-md transition hover:bg-white/10 hover:shadow-xl;
+    }
+
+    .glass-icon {
+        @apply rounded-full border border-white/10 bg-white/10 p-3 shadow backdrop-blur-md;
     }
 }
