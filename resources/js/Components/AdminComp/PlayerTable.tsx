@@ -8,11 +8,7 @@ interface PlayerTableProps {
 }
 
 export default function PlayerTable({ activeTab, tableId }: PlayerTableProps) {
-    const {
-        data: players,
-        loading,
-        error,
-    } = useData<Pagination<Player>>(
+    const { data: players, loading, error, setUrl } = useData<Pagination<Player>>(
         route("api.admin.players"),
         activeTab === tableId,
     );
@@ -76,21 +72,23 @@ export default function PlayerTable({ activeTab, tableId }: PlayerTableProps) {
                 </table>
                 <div className="my-4 flex justify-center space-x-2">
                     {players?.links.map((link: Link, idx: number) => (
-                        <Link
+                        <button
                             key={idx}
-                            href={link.url || "#"}
+                            type="button"
+                            disabled={!link.url}
+                            onClick={() => link.url && setUrl(link.url)}
                             className={`rounded px-3 py-1 ${
                                 link.active
                                     ? "bg-secondary text-black"
-                                    : "bg-primary hover:bg-secondary text-white hover:text-black"
+                                    : link.url
+                                        ? "bg-primary hover:bg-secondary text-white hover:text-black"
+                                        : "bg-gray-300 text-gray-500 cursor-not-allowed"
                             }`}
-                            preserveState
                         >
-                            {/* link.label comes as "&laquo; Previous", page numbers, "Next &raquo;" */}
                             <span
                                 dangerouslySetInnerHTML={{ __html: link.label }}
                             />
-                        </Link>
+                        </button>
                     ))}
                 </div>
             </div>

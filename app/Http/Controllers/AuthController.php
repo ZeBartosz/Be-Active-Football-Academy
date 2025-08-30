@@ -9,6 +9,7 @@ use App\Http\Requests\AuthRegisterRequest;
 use App\Services\AuthService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 use Inertia\Response;
 use Inertia\ResponseFactory;
 
@@ -73,7 +74,7 @@ final class AuthController extends Controller
      */
     public function register(): Response|ResponseFactory
     {
-        return inertia('Auth/Register');
+        return Inertia::render('Auth/Register');
     }
 
     /**
@@ -85,7 +86,7 @@ final class AuthController extends Controller
      */
     public function login(): Response|ResponseFactory
     {
-        return inertia('Auth/Login');
+        return Inertia::render('Auth/Login');
     }
 
     /**
