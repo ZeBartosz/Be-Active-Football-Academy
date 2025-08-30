@@ -22,9 +22,6 @@ return new class extends Migration {
             $table->longText('address');
             $table->string('post_code');
             $table->date('date_of_birth');
-            $table->boolean('is_admin')->default(false);
-            $table->boolean('is_coach')->default(false);
-            $table->boolean('is_staff')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });
