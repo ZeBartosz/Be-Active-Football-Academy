@@ -1,4 +1,4 @@
-import { Link, router, usePage } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 import { useState } from "react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
@@ -98,16 +98,12 @@ function TopNavBar() {
                                             Programs
                                         </Link>
 
-                                        <button
-                                            onClick={() =>
-                                                router.visit(
-                                                    route("auth.login"),
-                                                )
-                                            }
+                                        <Link
+                                            href={route("auth.login")}
                                             className="rounded-md bg-gradient-to-r from-yellow-400 to-yellow-300 px-4 py-2 text-sm font-semibold text-slate-900 shadow-sm transition hover:shadow-yellow-400/20 focus:ring-2 focus:ring-yellow-300/40 focus:outline-none"
                                         >
                                             Join Now
-                                        </button>
+                                        </Link>
                                     </>
                                 )}
                             </div>
