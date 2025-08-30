@@ -8,6 +8,7 @@ use App\Models\Coach;
 use App\Models\User;
 use App\Policies\BasePolicy;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
 final class AppServiceProvider extends ServiceProvider
@@ -25,7 +26,9 @@ final class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        if (config('app.env') === 'production') {
+            URL::forceScheme('https');
+        }
         Gate::policy(User::class, BasePolicy::class);
-        Gate::policy(Coach::class, BasePolicy::class);
     }
 }
