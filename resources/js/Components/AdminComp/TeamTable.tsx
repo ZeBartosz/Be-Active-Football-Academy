@@ -1,6 +1,7 @@
 import { Link } from "@inertiajs/react";
 import ConfirmButton from "../Confirmation/ConfirmButton.jsx";
 import useData from "../../hooks/useData.tsx";
+import type { Pagination, Team, Link as LinkType } from "../../types/index";
 
 interface TeamTableProps {
     activeTab: string;
@@ -12,6 +13,7 @@ export default function TeamTable({ activeTab, tableId }: TeamTableProps) {
         data: teams,
         loading,
         error,
+        setUrl,
     } = useData<Pagination<Team>>(
         route("api.admin.teams"),
         activeTab === tableId,
@@ -82,22 +84,24 @@ export default function TeamTable({ activeTab, tableId }: TeamTableProps) {
                     </tbody>
                 </table>
                 <div className="my-4 flex justify-center space-x-2">
-                    {teams?.links?.map((link: Link, idx: number) => (
-                        <Link
+                    {teams?.links?.map((link: LinkType, idx: number) => (
+                        <button
                             key={idx}
-                            href={link.url || "#"}
+                            type="button"
+                            disabled={!link.url}
+                            onClick={() => link.url && setUrl(link.url)}
                             className={`rounded px-3 py-1 ${
                                 link.active
                                     ? "bg-secondary text-black"
-                                    : "bg-primary hover:bg-secondary text-white hover:text-black"
+                                    : link.url
+                                      ? "bg-primary hover:bg-secondary text-white hover:text-black"
+                                      : "cursor-not-allowed bg-gray-300 text-gray-500"
                             }`}
-                            preserveState
                         >
-                            {/* link.label comes as "&laquo; Previous", page numbers, "Next &raquo;" */}
                             <span
                                 dangerouslySetInnerHTML={{ __html: link.label }}
                             />
-                        </Link>
+                        </button>
                     ))}
                 </div>
             </div>

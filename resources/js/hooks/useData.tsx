@@ -2,38 +2,65 @@ import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 
 export default function useData<T>(url: string, enabled: boolean) {
-    const dataRef = useRef<T | null>(null);
-    const [loading, setLoading] = useState(true);
+    const [requestUrl, setRequestUrl] = useState<string>(url);
+    const [data, setData] = useState<T | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
+    const dataRef = useRef<Record<string, T>>({});
+
+    useEffect(() => {
+        setRequestUrl(url);
+    }, [url]);
 
     useEffect(() => {
         if (!enabled) return;
-        if (dataRef.current !== null) return;
 
-        let ignore = false;
+        const cached = dataRef.current[requestUrl];
+        if (cached) {
+            setData(cached);
+            setLoading(false);
+            setError(null);
+            return;
+        }
+
+        let isCancelled = false;
         setLoading(true);
         setError(null);
+
         axios
-            .get(url)
+            .get(requestUrl)
             .then((response) => {
-                if (!ignore) {
-                    dataRef.current = response.data;
+                if (!isCancelled) {
+                    dataRef.current[requestUrl] = response.data;
+                    setData(response.data);
                 }
             })
-            .catch((error) => {
-                setError(error.response.data);
+            .catch((err) => {
+                if (!isCancelled) {
+                    const message =
+                        err?.response?.data ?? "Failed to load data";
+                    setError(
+                        typeof message === "string"
+                            ? message
+                            : JSON.stringify(message),
+                    );
+                }
             })
             .finally(() => {
-                setLoading(false);
+                if (!isCancelled) {
+                    setLoading(false);
+                }
             });
+
         return () => {
-            ignore = true;
+            isCancelled = true;
         };
-    }, [url, enabled]);
+    }, [requestUrl, enabled]);
 
     return {
-        data: dataRef.current,
+        data,
         loading,
         error,
+        setUrl: setRequestUrl,
     };
 }

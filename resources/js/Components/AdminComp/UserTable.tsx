@@ -20,6 +20,7 @@ export default function UserTable({ activeTab, tableId }: UserTableProps) {
         data: users,
         loading,
         error,
+        setUrl,
     } = useData<Pagination<User>>(
         route("api.admin.users"),
         activeTab === tableId,
@@ -123,23 +124,25 @@ export default function UserTable({ activeTab, tableId }: UserTableProps) {
                 </table>
                 <div className="my-4 flex justify-center space-x-2">
                     {users?.links.map((link: LinkType, idx: number) => (
-                        <Link
+                        <button
                             key={idx}
-                            href={link.url || "#"}
+                            type="button"
+                            disabled={!link.url}
+                            onClick={() => link.url && setUrl(link.url)}
                             className={`rounded px-3 py-1 ${
                                 link.active
                                     ? "bg-secondary text-black"
-                                    : "bg-primary hover:bg-secondary text-white hover:text-black"
+                                    : link.url
+                                      ? "bg-primary hover:bg-secondary text-white hover:text-black"
+                                      : "cursor-not-allowed bg-gray-300 text-gray-500"
                             }`}
-                            preserveState
                         >
-                            {/* link.label comes as "&laquo; Previous", page numbers, "Next &raquo;" */}
                             <span
                                 dangerouslySetInnerHTML={{
                                     __html: link.label,
                                 }}
                             />
-                        </Link>
+                        </button>
                     ))}
                 </div>
             </div>
