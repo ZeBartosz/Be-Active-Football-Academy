@@ -1,8 +1,10 @@
-import { Inertia } from "@inertiajs/inertia";
+import { PageProps } from "@inertiajs/inertia";
+
+export type AuthSharedProps = PageProps<Auth>;
 
 interface Auth {
-    user: Inertia.Page<User>;
-    roles: Inertia.Page<Role>[];
+    user: User;
+    roles: Roles[];
 }
 
 interface User {
@@ -15,7 +17,7 @@ interface User {
     post_code: string;
     date_of_birth: Date;
     remember_token: string;
-    roles?: Role[];
+    roles?: Roles[];
     created_at: Date;
     updated_at: Date;
 }
@@ -23,14 +25,14 @@ interface User {
 interface Staff {
     id: number;
     user: User;
-    roles: Role[];
+    roles: Roles[];
     about: string;
     avatar: string;
     created_at: Date;
     updated_at: Date;
 }
 
-interface Role {
+interface Roles {
     id: number;
     name: string;
     created_at: Date;
@@ -70,6 +72,18 @@ interface Team {
     players_count?: number;
     events_count?: number;
     staff?: Staff[];
+    created_at: Date;
+    updated_at: Date;
+}
+
+interface programGroup {
+    id: number;
+    title: string;
+    description: string;
+    image: string;
+    age_range: string;
+    program_type: string;
+    program_type: string;
     created_at: Date;
     updated_at: Date;
 }

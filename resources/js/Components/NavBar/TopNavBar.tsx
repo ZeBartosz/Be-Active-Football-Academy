@@ -1,9 +1,10 @@
 import { Link, usePage } from "@inertiajs/react";
 import { useState } from "react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import type { AuthSharedProps } from "../../types";
 
 function TopNavBar() {
-    const { auth } = usePage().props;
+    const { auth } = usePage<AuthSharedProps>().props;
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     return (
@@ -31,7 +32,7 @@ function TopNavBar() {
                         {/* Desktop Navigation */}
                         <div className="hidden md:block">
                             <div className="ml-10 flex items-center space-x-4">
-                                {auth.user ? (
+                                {auth?.user ? (
                                     <>
                                         <Link
                                             className="rounded-md px-3 py-2 text-sm font-medium text-white/90 ring-1 ring-transparent transition hover:bg-blue-900/30 hover:text-white hover:ring-white/10"
@@ -54,7 +55,7 @@ function TopNavBar() {
                                             Dashboard
                                         </Link>
 
-                                        {auth.roles.includes("Admin") && (
+                                        {auth?.roles?.includes("Admin") && (
                                             <Link
                                                 className="rounded-md px-3 py-2 text-sm font-medium text-white/90 ring-1 ring-transparent transition hover:bg-blue-900/30 hover:text-white hover:ring-white/10"
                                                 href={route("admin.index")}
@@ -63,11 +64,11 @@ function TopNavBar() {
                                             </Link>
                                         )}
 
-                                        {auth.roles.includes("Coach") && (
+                                        {auth?.roles?.includes("Coach") && (
                                             <Link
                                                 className="rounded-md px-3 py-2 text-sm font-medium text-white/90 ring-1 ring-transparent transition hover:bg-blue-900/30 hover:text-white hover:ring-white/10"
                                                 href={route("coach.edit", {
-                                                    user: auth.user.id,
+                                                    user: auth?.user?.id,
                                                 })}
                                             >
                                                 Coach Profile
