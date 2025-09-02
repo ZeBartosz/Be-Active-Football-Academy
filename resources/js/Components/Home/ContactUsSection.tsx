@@ -1,24 +1,48 @@
+import { Link } from "@inertiajs/react";
+import { useEffect, useState } from "react";
+
 export default function ContactUsSection() {
-    const contact = {
-        email: "contact@beactivefa.co.uk",
-        phone: "+44 7700 900123",
-        addressLine1: "Peterborough",
-        addressLine2: "United Kingdom",
-    };
+    const [contact, setContact] = useState({
+        id: 0,
+        description: "",
+        email: "",
+        number: "",
+        address_line1: "",
+        address_line2: "",
+    });
+
+    useEffect(() => {
+        fetch(route("api.home.contact"))
+            .then((res) => res.json())
+            .then((data) => {
+                if (data) setContact(data);
+            })
+            .catch(() => {});
+    }, []);
 
     return (
         <section className="mx-auto mt-24 max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="rounded-2xl bg-blue-900/30 p-6 ring-1 ring-blue-300/10">
                 <div className="grid gap-8 md:grid-cols-5">
                     <div className="md:col-span-2">
-                        <h2 className="text-2xl font-bold text-white sm:text-3xl">
-                            Contact Us
-                        </h2>
-                        <p className="mt-2 text-blue-200/80">
-                            We love to hear from you. Reach out for any
-                            questions about programs, schedules, or
-                            partnerships.
-                        </p>
+                        <div className="flex justify-between gap-2">
+                            <h2 className="text-2xl font-bold text-white sm:text-3xl">
+                                Contact Us
+                            </h2>
+                            <Link
+                                href={route("contact-info.update", {
+                                    contactInfo: contact?.id,
+                                })}
+                                className="mr-2 inline-flex items-center rounded-xl bg-gradient-to-r from-yellow-400 to-yellow-300 px-4 py-2 text-sm font-semibold text-slate-900 shadow-sm transition hover:shadow-yellow-400/20 focus:ring-2 focus:ring-yellow-300/40 focus:outline-none"
+                            >
+                                Update
+                            </Link>
+                        </div>
+                        {contact.description && (
+                            <p className="mt-2 text-blue-200/80">
+                                {contact.description}
+                            </p>
+                        )}
 
                         <div className="mt-6 space-y-4 text-blue-100/90">
                             <div className="flex items-center gap-3">
@@ -43,10 +67,10 @@ export default function ContactUsSection() {
                                     />
                                 </span>
                                 <a
-                                    href={`tel:${contact.phone.replace(/\s/g, "")}`}
+                                    href={`tel:${contact.number?.replace?.(/\s/g, "")}`}
                                     className="hover:text-yellow-300"
                                 >
-                                    {contact.phone}
+                                    {contact.number}
                                 </a>
                             </div>
                             <div className="flex items-center gap-3">
@@ -57,9 +81,9 @@ export default function ContactUsSection() {
                                     />
                                 </span>
                                 <div>
-                                    <p>{contact.addressLine1}</p>
+                                    <p>{contact.address_line1}</p>
                                     <p className="text-blue-200/80">
-                                        {contact.addressLine2}
+                                        {contact.address_line2}
                                     </p>
                                 </div>
                             </div>

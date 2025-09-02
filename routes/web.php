@@ -10,6 +10,7 @@ use App\Http\Controllers\FAQController;
 use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\ProgramGroupController;
+use App\Http\Controllers\ContactInfoController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\UserController;
@@ -71,6 +72,13 @@ Route::middleware('auth')->group(function () {
         Route::post('/event', [EventController::class, 'store'])->name('event.store');
         Route::get('/event/update/{event}', [EventController::class, 'edit'])->name('event.edit');
         Route::put('/event/update/{event}', [EventController::class, 'update'])->name('event.update');
+        
+        // Contact info routes
+        Route::get('/contact-info/create', [ContactInfoController::class, 'create'])->name('contact-info.create');
+        Route::post('/contact-info', [ContactInfoController::class, 'store'])->name('contact-info.store');
+        Route::get('/contact-info/update/{contactInfo}', [ContactInfoController::class, 'edit'])->name('contact-info.edit');
+        Route::put('/contact-info/update/{contactInfo}', [ContactInfoController::class, 'update'])->name('contact-info.update');
+        Route::delete('/contact-info/delete/{contactInfo}', [ContactInfoController::class, 'destroy'])->name('contact-info.destroy');
         Route::delete('/event/delete/{event}', [EventController::class, 'destroy'])->name('event.destroy');
 
         // FAQ routes

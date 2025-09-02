@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Seeders;
 
+use App\Models\ContactInfo;
 use App\Models\Event;
 use App\Models\FAQ;
 use App\Models\Player;
@@ -65,5 +66,13 @@ final class DatabaseSeeder extends Seeder
             'email' => 'b@b.com',
             'password' => bcrypt('123456'),
         ]);
+
+        ContactInfo::factory()->create([
+                'description' => 'We love to hear from you. Reach out for any questions.',
+                'email' => 'contact@beactivefa.co.uk',
+                'number' => '+44 7700 900123',
+                'address_line1' => 'Peterborough',
+                'address_line2' => 'United Kingdom',
+            ]);
     }
 }

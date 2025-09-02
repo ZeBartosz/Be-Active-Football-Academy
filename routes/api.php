@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\ContactInfoController;
 use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\ProgramGroupController;
 use App\Http\Controllers\StaffController;
@@ -16,6 +17,7 @@ Route::get('/user', function (Request $request) {
 // Home
 Route::get('/home/program/groups', [ProgramGroupController::class, 'getProgramGroups'])->name('api.home.program.groups');
 Route::get('/home/staff', [StaffController::class, 'getStaff'])->name('api.home.staff');
+Route::get('/home/contact', [ContactInfoController::class, 'getContactInfo'])->name('api.home.contact');
 
 // Admin
 Route::get('/admin/events', [EventController::class, 'getAdminEvents'])->name('api.admin.events');
