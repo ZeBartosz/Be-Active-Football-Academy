@@ -1,7 +1,9 @@
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 import { useEffect, useState } from "react";
+import type { AuthSharedProps } from "../../types";
 
 export default function ContactUsSection() {
+    const { auth } = usePage<AuthSharedProps>().props;
     const [contact, setContact] = useState({
         id: 0,
         description: "",
@@ -29,14 +31,16 @@ export default function ContactUsSection() {
                             <h2 className="text-2xl font-bold text-white sm:text-3xl">
                                 Contact Us
                             </h2>
-                            <Link
-                                href={route("contact-info.update", {
-                                    contactInfo: contact?.id,
-                                })}
-                                className="mr-2 inline-flex items-center rounded-xl bg-gradient-to-r from-yellow-400 to-yellow-300 px-4 py-2 text-sm font-semibold text-slate-900 shadow-sm transition hover:shadow-yellow-400/20 focus:ring-2 focus:ring-yellow-300/40 focus:outline-none"
-                            >
-                                Update
-                            </Link>
+                            {auth?.roles?.includes("Admin") && (
+                                <Link
+                                    href={route("contact-info.update", {
+                                        contactInfo: contact?.id,
+                                    })}
+                                    className="mr-2 inline-flex items-center rounded-xl bg-gradient-to-r from-yellow-400 to-yellow-300 px-4 py-2 text-sm font-semibold text-slate-900 shadow-sm transition hover:shadow-yellow-400/20 focus:ring-2 focus:ring-yellow-300/40 focus:outline-none"
+                                >
+                                    Update
+                                </Link>
+                            )}
                         </div>
                         {contact.description && (
                             <p className="mt-2 text-blue-200/80">
