@@ -1,6 +1,7 @@
 import { Link } from "@inertiajs/react";
 import ConfirmButton from "../Confirmation/ConfirmButton.jsx";
 import useData from "../../hooks/useData.tsx";
+import type { Link as LinkType, Pagination, Player } from "../../types/index";
 
 interface PlayerTableProps {
     activeTab: string;
@@ -8,7 +9,12 @@ interface PlayerTableProps {
 }
 
 export default function PlayerTable({ activeTab, tableId }: PlayerTableProps) {
-    const { data: players, loading, error, setUrl } = useData<Pagination<Player>>(
+    const {
+        data: players,
+        loading,
+        error,
+        setUrl,
+    } = useData<Pagination<Player>>(
         route("api.admin.players"),
         activeTab === tableId,
     );
@@ -71,7 +77,7 @@ export default function PlayerTable({ activeTab, tableId }: PlayerTableProps) {
                     </tbody>
                 </table>
                 <div className="my-4 flex justify-center space-x-2">
-                    {players?.links.map((link: Link, idx: number) => (
+                    {players?.links.map((link: LinkType, idx: number) => (
                         <button
                             key={idx}
                             type="button"
@@ -81,8 +87,8 @@ export default function PlayerTable({ activeTab, tableId }: PlayerTableProps) {
                                 link.active
                                     ? "bg-secondary text-black"
                                     : link.url
-                                        ? "bg-primary hover:bg-secondary text-white hover:text-black"
-                                        : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                                      ? "bg-primary hover:bg-secondary text-white hover:text-black"
+                                      : "cursor-not-allowed bg-gray-300 text-gray-500"
                             }`}
                         >
                             <span

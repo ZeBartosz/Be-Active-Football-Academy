@@ -1,5 +1,6 @@
 import { Link } from "@inertiajs/react";
 import useData from "../../hooks/useData.tsx";
+import type { Event } from "../../types/index";
 
 export default function NextEvents() {
     const {

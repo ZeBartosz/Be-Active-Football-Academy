@@ -1,6 +1,16 @@
 import { Link } from "@inertiajs/react";
 
-export default function TotalCount({ userCount, coachCount, playerCount }) {
+interface TotalCountProps {
+    userCount: number;
+    coachCount: number;
+    playerCount: number;
+}
+
+export default function TotalCount({
+    userCount,
+    coachCount,
+    playerCount,
+}: TotalCountProps) {
     return (
         <div className="rounded-xl bg-white p-6 shadow-md">
             <div className="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
