@@ -26,9 +26,7 @@ final class EventController extends Controller
 {
     use AuthorizesRequests;
 
-    public function __construct(private readonly EventService $eventService)
-    {
-    }
+    public function __construct(private readonly EventService $eventService) {}
 
     /**
      * Display a listing of the events.
@@ -73,10 +71,6 @@ final class EventController extends Controller
 
     /**
      * redirects an admin to the edit page of the event
-     *
-     * @param  Event  $event
-     *
-     * @return Response|ResponseFactory
      */
     public function edit(Event $event): Response|ResponseFactory
     {
@@ -95,8 +89,6 @@ final class EventController extends Controller
      * checks if the user is an admin, validates the incoming request
      * on successful validates store the data
      *
-     * @param  EventRequest  $request
-     * @param  Event  $event
      *
      * @throws AuthorizationException
      */
@@ -111,10 +103,6 @@ final class EventController extends Controller
      * deletes the event
      * checks if the user is an admin, validates the incoming request
      * on successful validates store the data
-     *
-     * @param  Event  $event
-     *
-     * @return RedirectResponse
      */
     public function destroy(Event $event): RedirectResponse
     {
@@ -132,7 +120,8 @@ final class EventController extends Controller
             ->paginate(10));
     }
 
-    public function getNextFiveEvents(): JsonResponse {
+    public function getNextFiveEvents(): JsonResponse
+    {
         return response()->json(Event::query()
             ->where('date', '>=', now())
             ->orderBy('date', 'asc')
@@ -140,4 +129,3 @@ final class EventController extends Controller
             ->get());
     }
 }
-    

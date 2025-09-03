@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Carbon\Carbon;
@@ -8,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Event extends Model
+final class Event extends Model
 {
     use HasFactory;
 
@@ -25,13 +27,12 @@ class Event extends Model
 
     protected $casts = [
         'date' => 'date',
-        'time' => 'datetime:H:i'
+        'time' => 'datetime:H:i',
     ];
 
     /**
      * Formats date of birth into d-m-y
      *
-     * @param $value
      * @return string
      */
     public function getDateAttribute($value)

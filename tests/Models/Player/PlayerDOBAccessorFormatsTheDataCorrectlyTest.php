@@ -22,5 +22,3 @@ test('date_of_birth accessor returns formatted date', function () {
 
     expect($player->date_of_birth)->toBe($expected);
 });
-
-

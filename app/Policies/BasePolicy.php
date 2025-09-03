@@ -16,9 +16,7 @@ final class BasePolicy
     /**
      * Checks if a user is an admin or the owner of the given model
      *
-     * @param  User  $user
      * @param  Model  $model  A model instance that has a `user_id` property
-     * @return Response
      */
     public function adminAndUser(User $user, Model $model): Response
     {
@@ -29,10 +27,6 @@ final class BasePolicy
 
     /**
      * Checks if a user is an admin
-     *
-     * @param  User  $user
-     * @return Response
-     *
      */
     public function admin(User $user): Response
     {

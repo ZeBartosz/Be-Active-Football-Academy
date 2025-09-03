@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use App\Models\ContactInfo;
@@ -8,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends Factory<ContactInfo>
  */
-class ContactInfoFactory extends Factory
+final class ContactInfoFactory extends Factory
 {
     protected $model = ContactInfo::class;
 
@@ -23,5 +25,3 @@ class ContactInfoFactory extends Factory
         ];
     }
 }
-
-

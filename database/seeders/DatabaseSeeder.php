@@ -25,7 +25,6 @@ final class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-
         Role::create(['name' => 'Admin']);
         Role::create(['name' => 'Coach']);
         Role::create(['name' => 'Staff']);
@@ -68,11 +67,11 @@ final class DatabaseSeeder extends Seeder
         ]);
 
         ContactInfo::factory()->create([
-                'description' => 'We love to hear from you. Reach out for any questions.',
-                'email' => 'contact@beactivefa.co.uk',
-                'number' => '+44 7700 900123',
-                'address_line1' => 'Peterborough',
-                'address_line2' => 'United Kingdom',
-            ]);
+            'description' => 'We love to hear from you. Reach out for any questions.',
+            'email' => 'contact@beactivefa.co.uk',
+            'number' => '+44 7700 900123',
+            'address_line1' => 'Peterborough',
+            'address_line2' => 'United Kingdom',
+        ]);
     }
 }

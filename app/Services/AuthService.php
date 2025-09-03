@@ -14,8 +14,6 @@ final class AuthService
      * Authenticates a user with the provided credentials.
      *
      * @param  array<string, string>  $credentials
-     * @param  Request  $request
-     * @return bool
      */
     public function authenticate(array $credentials, Request $request): bool
     {
@@ -32,7 +30,6 @@ final class AuthService
      * Registers a new user with the provided credentials.
      *
      * @param  array<string, string>  $credentials
-     * @return void
      */
     public function register(array $credentials): void
     {
@@ -42,8 +39,6 @@ final class AuthService
 
     /**
      * Logs out the currently authenticated user.
-     *
-     * @return void
      */
     public function logout(Request $request): void
     {

@@ -23,14 +23,10 @@ final class ResponsibilityController extends Controller
     public function __construct(
         private readonly ResponsibilityService $responsibilityService,
         private readonly StaffService $staffService
-    ) {
-    }
+    ) {}
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  ResponsibilityRequest  $request
-     * @return RedirectResponse
      */
     public function store(ResponsibilityRequest $request): RedirectResponse
     {
@@ -40,12 +36,8 @@ final class ResponsibilityController extends Controller
             'Responsibility created.');
     }
 
-
     /**
      * Show the form for creating a new resource.
-     *
-     * @param  Event  $event
-     * @return Response|ResponseFactory
      */
     public function create(Event $event): Response|ResponseFactory
     {
@@ -59,9 +51,6 @@ final class ResponsibilityController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  Responsibility  $responsibility
-     * @return Response|ResponseFactory
      */
     public function edit(Responsibility $responsibility): Response|ResponseFactory
     {
@@ -77,8 +66,6 @@ final class ResponsibilityController extends Controller
      * Update the specified resource in storage.
      *
      * @param  Request  $request
-     * @param  Responsibility  $responsibility
-     * @return RedirectResponse
      */
     public function update(ResponsibilityRequest $request, Responsibility $responsibility): RedirectResponse
     {
@@ -90,9 +77,6 @@ final class ResponsibilityController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  Responsibility  $responsibility
-     * @return RedirectResponse
      */
     public function destroy(Responsibility $responsibility): RedirectResponse
     {

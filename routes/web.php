@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CoachController;
+use App\Http\Controllers\ContactInfoController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\FAQController;
 use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\ProgramGroupController;
-use App\Http\Controllers\ContactInfoController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\UserController;
@@ -21,8 +20,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return inertia('Home');
 })->name('home');
-
-
 
 Route::get('/faq', [FAQController::class, 'index'])->name('faq.index');
 Route::get('/program-group/{programGroup}',
@@ -72,7 +69,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/event', [EventController::class, 'store'])->name('event.store');
         Route::get('/event/update/{event}', [EventController::class, 'edit'])->name('event.edit');
         Route::put('/event/update/{event}', [EventController::class, 'update'])->name('event.update');
-        
+
         // Contact info routes
         Route::get('/contact-info/create', [ContactInfoController::class, 'create'])->name('contact-info.create');
         Route::post('/contact-info', [ContactInfoController::class, 'store'])->name('contact-info.store');
@@ -108,15 +105,15 @@ Route::middleware('auth')->group(function () {
 
         // Staff routes
         Route::get('/staff/create/{user}',
-            [App\Http\Controllers\StaffController::class, 'create'])->name('staff.create');
+            [StaffController::class, 'create'])->name('staff.create');
         Route::post('/staff/create/{user}',
-            [App\Http\Controllers\StaffController::class, 'store'])->name('staff.store');
-        Route::get('/staff/update/{staff}', [App\Http\Controllers\StaffController::class, 'edit'])->name('staff.edit');
+            [StaffController::class, 'store'])->name('staff.store');
+        Route::get('/staff/update/{staff}', [StaffController::class, 'edit'])->name('staff.edit');
         Route::post('/staff/update/{staff}',
-            [App\Http\Controllers\StaffController::class, 'update'])->name('staff.update');
+            [StaffController::class, 'update'])->name('staff.update');
         Route::delete('/staff/delete/{user}',
-            [App\Http\Controllers\StaffController::class, 'destroy'])->name('staff.destroy');
-        Route::get('/staff/roles', [App\Http\Controllers\StaffController::class, 'getStaffRoles'])->name('staff.roles');
+            [StaffController::class, 'destroy'])->name('staff.destroy');
+        Route::get('/staff/roles', [StaffController::class, 'getStaffRoles'])->name('staff.roles');
 
         // Responsibility routes
         Route::get('/responsibility/create/{event}',

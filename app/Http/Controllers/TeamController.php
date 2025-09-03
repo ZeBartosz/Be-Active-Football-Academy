@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TeamRequest;
-use App\Models\Coach;
 use App\Models\Staff;
 use App\Models\Team;
 use App\Services\TeamService;
@@ -28,12 +27,11 @@ final class TeamController extends Controller
 {
     use AuthorizesRequests;
 
-    public function __construct(private readonly TeamService $teamService)
-    {
-    }
+    public function __construct(private readonly TeamService $teamService) {}
 
     /**
      * Stores the team in the database.
+     *
      * @throws Throwable
      */
     public function store(TeamRequest $request): RedirectResponse
@@ -85,6 +83,7 @@ final class TeamController extends Controller
 
     /**
      * Updates the team in the database.
+     *
      * @throws Throwable
      */
     public function update(TeamRequest $request, Team $team): RedirectResponse
@@ -96,6 +95,7 @@ final class TeamController extends Controller
 
     /**
      * Deletes the team from the database.
+     *
      * @throws Throwable
      */
     public function destroy(Team $team): RedirectResponse

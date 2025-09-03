@@ -13,9 +13,7 @@ use Throwable;
 
 final class StaffService
 {
-    public function __construct(private readonly ImageUploadService $imageUploadService)
-    {
-    }
+    public function __construct(private readonly ImageUploadService $imageUploadService) {}
 
     /**
      * Get all staff with user
@@ -42,14 +40,13 @@ final class StaffService
 
         DB::transaction(function () use ($user, $data) {
             $user->assignRole($data['role']);
-               
+
             $user->staff()->create([
                 'avatar' => $data['avatar'],
                 'about' => $data['about'],
                 'skills' => $data['skills'],
             ]);
-            
-            
+
         });
     }
 
@@ -81,5 +78,4 @@ final class StaffService
             $user->update(['is_staff' => false]);
         });
     }
-
 }

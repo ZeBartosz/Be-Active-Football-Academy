@@ -10,12 +10,8 @@ use Illuminate\Support\Collection;
 
 final class ProgramService
 {
-
     /**
      * Get all programs in the specified program group.
-     *
-     * @param  ProgramGroup  $programGroup
-     * @return Collection
      */
     public function getPrograms(ProgramGroup $programGroup): Collection
     {
@@ -24,10 +20,6 @@ final class ProgramService
 
     /**
      * Store a newly created program in the specified program group.
-     *
-     * @param  array  $data
-     * @param  ProgramGroup  $programGroup
-     * @return void
      */
     public function storeProgram(array $data, ProgramGroup $programGroup): void
     {
@@ -36,10 +28,6 @@ final class ProgramService
 
     /**
      * Update the specified program in the specified program group.
-     *
-     * @param  array  $data
-     * @param  Program  $program
-     * @return void
      */
     public function updateProgram(array $data, Program $program): void
     {
@@ -48,9 +36,6 @@ final class ProgramService
 
     /**
      * Delete the specified program.
-     *
-     * @param  Program  $program
-     * @return void
      */
     public function deleteProgram(Program $program): void
     {

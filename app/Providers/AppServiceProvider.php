@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
-use App\Models\Coach;
 use App\Models\User;
 use App\Policies\BasePolicy;
 use Illuminate\Support\Facades\Gate;

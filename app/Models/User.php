@@ -18,7 +18,7 @@ final class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> HasRoles<\Spatie\Premisssion\Traits\HasRoles>
      *
      */
-    use HasFactory, Notifiable, HasRoles;
+    use HasFactory, HasRoles, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -36,7 +36,7 @@ final class User extends Authenticatable
         'date_of_birth',
         'is_admin',
         'is_coach',
-        'is_staff'
+        'is_staff',
     ];
 
     /**
@@ -48,6 +48,7 @@ final class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
     /**
      * Get the attributes that should be cast.
      *

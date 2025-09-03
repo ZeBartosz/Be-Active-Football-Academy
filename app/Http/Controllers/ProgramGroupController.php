@@ -21,8 +21,7 @@ final class ProgramGroupController extends Controller
     public function __construct(
         private readonly ProgramGroupService $programGroupService,
         private readonly ProgramService $programService
-    ) {
-    }
+    ) {}
 
     /**
      * Displays a list of program groups.

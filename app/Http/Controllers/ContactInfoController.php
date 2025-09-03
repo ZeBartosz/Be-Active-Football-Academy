@@ -18,13 +18,12 @@ final class ContactInfoController extends Controller
 {
     use AuthorizesRequests;
 
-    public function __construct(private readonly ContactInfoService $service)
-    {
-    }
+    public function __construct(private readonly ContactInfoService $service) {}
 
     public function create(): Response|ResponseFactory
     {
         $this->authorize('admin', Auth::user());
+
         return inertia('ContactInfo/Create');
     }
 
@@ -32,12 +31,14 @@ final class ContactInfoController extends Controller
     {
         $this->authorize('admin', Auth::user());
         $this->service->store($request->validated());
+
         return to_route('home')->with('success', 'Contact info created');
     }
 
     public function edit(ContactInfo $contactInfo): Response|ResponseFactory
     {
         $this->authorize('admin', Auth::user());
+
         return inertia('ContactInfo/Edit', [
             'contact' => $contactInfo,
         ]);
@@ -47,6 +48,7 @@ final class ContactInfoController extends Controller
     {
         $this->authorize('admin', Auth::user());
         $this->service->update($contactInfo, $request->validated());
+
         return to_route('home')->with('success', 'Contact info updated');
     }
 
@@ -54,14 +56,14 @@ final class ContactInfoController extends Controller
     {
         $this->authorize('admin', Auth::user());
         $this->service->destroy($contactInfo);
+
         return to_route('home')->with('success', 'Contact info deleted');
     }
 
     public function getContactInfo(): JsonResponse
     {
         $contact = $this->service->getFirst();
+
         return response()->json($contact);
     }
 }
-
-

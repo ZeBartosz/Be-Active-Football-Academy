@@ -1,7 +1,9 @@
 <?php
 
-use App\Http\Controllers\EventController;
+declare(strict_types=1);
+
 use App\Http\Controllers\ContactInfoController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\ProgramGroupController;
 use App\Http\Controllers\StaffController;

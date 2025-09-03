@@ -7,14 +7,11 @@ namespace App\Services;
 use App\Models\Event;
 use App\Models\Player;
 use App\Models\Staff;
-use App\Models\Team;
 use App\Models\User;
-use Carbon\Carbon;
 use Spatie\Permission\Models\Role;
 
 final class AdminService
 {
-
     /**
      * Retrieves data for the admin dashboard.
      *
@@ -31,7 +28,7 @@ final class AdminService
         return [
             'userCount' => User::count(),
             'coachCount' => Role::where('name', 'Coach')->count(),
-            'playerCount' => Player::count(),        
+            'playerCount' => Player::count(),
         ];
     }
 

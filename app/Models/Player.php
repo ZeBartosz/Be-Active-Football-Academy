@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Carbon\Carbon;
@@ -7,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Player extends Model
+final class Player extends Model
 {
     /** @use HasFactory<\Database\Factories\PlayerFactory> */
     use HasFactory;
@@ -29,7 +31,6 @@ class Player extends Model
     /**
      * Formats date of birth into d-m-y
      *
-     * @param $value
      * @return string
      */
     public function getDateOfBirthAttribute($value)

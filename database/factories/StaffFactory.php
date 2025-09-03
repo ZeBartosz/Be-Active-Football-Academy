@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use App\Models\User;
@@ -8,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Staff>
  */
-class StaffFactory extends Factory
+final class StaffFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -21,8 +23,8 @@ class StaffFactory extends Factory
         return [
             'user_id' => User::factory(),
             'avatar' => 'https://picsum.photos/seed/'
-                . fake()->unique()->uuid()
-                . '/300/300',
+                .fake()->unique()->uuid()
+                .'/300/300',
             'about' => fake()->paragraph(),
             'skills' => fake()->words(3),
         ];

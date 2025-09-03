@@ -24,5 +24,3 @@ final class ContactInfoRequest extends FormRequest
         ];
     }
 }
-
-

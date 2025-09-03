@@ -17,7 +17,7 @@ final class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!Auth::user()?->getRoleNames()->contains('Admin')) {
+        if (! Auth::user()?->getRoleNames()->contains('Admin')) {
 
             return Inertia::location('/');
         }

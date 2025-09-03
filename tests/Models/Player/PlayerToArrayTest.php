@@ -8,8 +8,8 @@ use App\Models\User;
 
 test('to array returns the expected keys', function () {
 
-    $user = App\Models\User::factory()->create();
-    $team = App\Models\Team::factory()->create();
+    $user = User::factory()->create();
+    $team = Team::factory()->create();
 
     $player = Player::factory()->create([
         'user_id' => $user->id,

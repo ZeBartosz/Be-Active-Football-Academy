@@ -34,5 +34,3 @@ final class ContactInfoService
         $contactInfo->delete();
     }
 }
-
-

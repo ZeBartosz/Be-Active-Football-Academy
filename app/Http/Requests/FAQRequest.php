@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Requests;
 
 use Illuminate\Auth\Access\Response;
@@ -8,14 +10,12 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
-class FAQRequest extends FormRequest
+final class FAQRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
      * This method checks if the user has the 'admin' permission
-     *
-     * @return Response
      */
     public function authorize(): Response
     {

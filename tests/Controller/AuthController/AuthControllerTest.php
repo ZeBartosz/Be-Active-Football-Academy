@@ -30,11 +30,11 @@ test('Registering a user', function () {
     $this->post('/register', $data)
         ->assertStatus(302)
         ->assertRedirect('/');
-    
+
     $this->assertDatabaseHas('users', [
         'first_name' => 'first',
         'last_name' => 'second',
-        'email' => 'email@email.com'
+        'email' => 'email@email.com',
     ]);
 });
 

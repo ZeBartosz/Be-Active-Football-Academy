@@ -8,13 +8,10 @@ use App\Models\Player;
 
 final class PlayerService
 {
-
     /**
      * Store a new player in the database.
      *
      * @param  array  $data  The data to create the player with.
-     *
-     * @return void
      */
     public function storePlayer(array $data): void
     {
@@ -37,11 +34,9 @@ final class PlayerService
      * Delete a player from the database.
      *
      * @param  Player  $player  The player instance to delete.
-     * @return void
      */
     public function deletePlayer(Player $player): void
     {
         $player->delete();
     }
-
 }

@@ -19,17 +19,12 @@ final class ProgramController extends Controller
 {
     use AuthorizesRequests;
 
-    public function __construct(private readonly ProgramService $programService)
-    {
-    }
-
+    public function __construct(private readonly ProgramService $programService) {}
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  Request  $request
-     * @param  ProgramGroup  $programGroup
-     * @return RedirectResponse
      */
     public function store(ProgramRequest $request, ProgramGroup $programGroup): RedirectResponse
     {
@@ -40,9 +35,6 @@ final class ProgramController extends Controller
 
     /**
      * Display a listing of the resource.
-     *
-     * @param  ProgramGroup  $programGroup
-     * @return Response|ResponseFactory
      */
     public function create(ProgramGroup $programGroup): Response|ResponseFactory
     {
@@ -55,9 +47,6 @@ final class ProgramController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  Program  $program
-     * @return Response|ResponseFactory
      */
     public function edit(Program $program): Response|ResponseFactory
     {
@@ -70,10 +59,6 @@ final class ProgramController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  ProgramRequest  $request
-     * @param  Program  $program
-     * @return RedirectResponse
      */
     public function update(ProgramRequest $request, Program $program): RedirectResponse
     {
@@ -84,9 +69,6 @@ final class ProgramController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  Program  $program
-     * @return RedirectResponse
      */
     public function destroy(Program $program): RedirectResponse
     {
@@ -96,6 +78,4 @@ final class ProgramController extends Controller
 
         return to_route('home')->with('success', 'Program deleted successfully.');
     }
-
-
 }

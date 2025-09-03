@@ -19,5 +19,3 @@ final class ContactInfo extends Model
         'address_line2',
     ];
 }
-
-

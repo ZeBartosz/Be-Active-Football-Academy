@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StaffRequest;
-use App\Models\Coach;
 use App\Models\Staff;
 use App\Models\User;
 use App\Services\StaffService;
@@ -22,9 +21,7 @@ final class StaffController extends Controller
 {
     use AuthorizesRequests;
 
-    public function __construct(private readonly StaffService $staffService)
-    {
-    }
+    public function __construct(private readonly StaffService $staffService) {}
 
     /**
      * Store the data
