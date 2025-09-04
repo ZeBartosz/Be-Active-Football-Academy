@@ -17,7 +17,7 @@ export default function ProgramsSection() {
     return (
         <>
             {programGroups.length > 0 && (
-                <section className="mx-auto mt-24 max-w-7xl px-4 sm:px-6 lg:px-8">
+                <section className="mx-auto mt-24 max-w-7xl overflow-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex items-end justify-between">
                         <div>
                             <h2 className="text-2xl font-bold text-white sm:text-3xl">
