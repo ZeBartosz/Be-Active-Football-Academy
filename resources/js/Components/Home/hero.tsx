@@ -56,11 +56,11 @@ export default function Hero() {
                     </div>
                 </div>
             </div>
-            <div className="overflow-auto rounded-3xl bg-blue-900/30 shadow-2xl ring-1 ring-blue-300/10 backdrop-blur-md">
+            <div className="overflow-auto rounded-sm bg-blue-900/30 shadow-2xl ring-1 ring-blue-300/10 backdrop-blur-md">
                 <img
                     src="storage/assets/fieldbg.jpeg"
                     alt="Be Active Football Academy training"
-                    className="min-h-[720px] min-w-[1280px] rounded-2xl object-cover"
+                    className="min-h-[720px] min-w-[1280px] rounded-sm object-cover"
                 />
             </div>
         </section>
