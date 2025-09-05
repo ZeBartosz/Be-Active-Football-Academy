@@ -11,7 +11,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
-use Inertia\ResponseFactory;
 
 /**
  * Class AuthController
@@ -67,25 +66,16 @@ final class AuthController extends Controller
 
     /**
      * Redirects the guest to the registration page.
-     *
-     * This action returns an Inertia response that renders the "Auth/Register" page.
-     *
-     * @return Response|ResponseFactory An Inertia response instance containing the registration view.
      */
-    public function register(): Response|ResponseFactory
+    public function register(): Response
     {
         return Inertia::render('Auth/Register');
     }
 
     /**
      * Redirects the guest to the login page.
-     *
-     * This action returns an Inertia response that renders the "Auth/Login" page.
-     *
-     * @return Response|ResponseFactory An Inertia response instance containing the login view.
      */
-    public function login(): Response|ResponseFactory
-    {
+    public function login(): Response    {
         return Inertia::render('Auth/Login');
     }
 
