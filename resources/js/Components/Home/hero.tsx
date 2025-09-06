@@ -2,7 +2,7 @@ import { Link } from '@inertiajs/react';
 
 export default function Hero() {
   return (
-    <section className="relative mx-auto min-h-svh max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section className="relative mx-auto min-h-svh max-w-10/12 px-4 sm:px-6 lg:px-8">
       <div className="py-[104px]">
         <div className="flex flex-col items-center justify-center">
           <div className="inline-flex items-center space-x-2 rounded-full bg-blue-900/40 px-3 py-1 leading-none ring-1 ring-blue-300/20">
@@ -15,21 +15,18 @@ export default function Hero() {
             Elevate Your Game
             <span className="block bg-gradient-to-r from-yellow-300 to-yellow-500 bg-clip-text text-transparent">
               Be Active Be Healthy
-              <br /> Be Happy!
             </span>
+            Be Happy!
           </h1>
-          <p className="text-1xl max-w-xl text-center leading-normal text-blue-100/90">
+          <p className="max-w-xl text-center text-lg leading-normal text-blue-200/60">
             World‑class coaching, elite training programs, and a culture of
             excellence for all ages and abilities.
           </p>
           <div className="flex flex-col gap-3 py-[32px] sm:flex-row">
-            <Link href={route('program_group.index')} className="btn-yellow">
+            <Link href={route('program_group.index')} className="btn-primary">
               Explore Programs
             </Link>
-            <Link
-              href={route('faq.index')}
-              className="font-display inline-flex items-center justify-center rounded-xl bg-blue-900/30 px-6 py-3 text-base font-semibold tracking-wider text-white/90 ring-1 ring-blue-300/10 backdrop-blur-md transition hover:bg-blue-900/50"
-            >
+            <Link href={route('faq.index')} className="btn-secondary">
               FAQs
             </Link>
           </div>
@@ -57,7 +54,7 @@ export default function Hero() {
         <img
           src="storage/assets/fieldbg.jpeg"
           alt="Be Active Football Academy training"
-          className="min-h-[720px] min-w-[1280px] rounded-sm object-cover"
+          className="min-w-full rounded-sm object-cover"
         />
       </div>
     </section>

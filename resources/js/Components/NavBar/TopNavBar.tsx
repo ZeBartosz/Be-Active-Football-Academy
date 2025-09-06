@@ -96,7 +96,7 @@ function TopNavBar() {
                       Programs
                     </Link>
 
-                    <Link href={route('auth.login')} className="btn-yellow">
+                    <Link href={route('auth.login')} className="btn-primary">
                       Join Now
                     </Link>
                   </>
