@@ -1,230 +1,196 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Montserrat:wght@400;700&display=swap");
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Montserrat:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=DM+Serif+Display:ital@0;1&display=swap');
+@import 'tailwindcss';
+@plugin 'tailwindcss-motion';
 
-@plugin "tailwindcss-motion";
+@theme {
+  --font-primary: 'DM Sans', sans-serif;
+  --font-display: 'DM Serif Display', serif;
 
-@theme static {
-    --font-sans: "Inter", "sans-serif";
-    --font-display: "Montserrat", "sans-serif";
-
-    --color-primary: oklch(0.44 0.1672 259.63);
-    --color-secondary: oklch(0.89 0.182186 95.3305);
-    --color-accent: oklch(1 0 0deg);
+  --color-primary: oklch(0.44 0.1672 259.63);
+  --color-secondary: oklch(0.89 0.182186 95.3305);
+  --color-accent: oklch(1 0 0deg);
 }
 
 :root {
-    --font-sans: "Inter", sans-serif;
-    --font-display: "Montserrat", sans-serif;
+  --font-primary: 'DM Sans', sans-serif;
+  --font-display: 'DM Serif Display', serif;
+
+  --color-primary: oklch(0.44 0.1672 259.63);
+  --color-secondary: oklch(0.89 0.182186 95.3305);
+  --color-accent: oklch(1 0 0deg);
 }
 
 @layer base {
-    body {
-        @apply m-0 p-0 font-sans font-normal;
-    }
+  body {
+    @apply font-primary m-0 p-0 text-base leading-normal font-normal;
+  }
 }
 
 @layer components {
-    input,
-    textarea {
-        @apply w-full appearance-none rounded border border-gray-300 px-4 py-3 text-base leading-tight text-gray-700 focus:border-blue-300 focus:ring focus:outline-none;
-    }
+  input,
+  textarea {
+    @apply w-full appearance-none rounded border border-gray-300 px-4 py-3 text-base leading-tight text-gray-700 focus:border-blue-300 focus:ring focus:outline-none;
+  }
 
-    input[type="radio"] {
-        @apply h-5 w-5 cursor-pointer appearance-none rounded-full border-2 border-gray-300 bg-white align-middle transition-colors duration-150;
-    }
+  input[type='radio'] {
+    @apply h-5 w-5 cursor-pointer appearance-none rounded-full border-2 border-gray-300 bg-white align-middle transition-colors duration-150;
+  }
 
-    input[type="radio"]:checked {
-        @apply border-transparent bg-blue-600;
-    }
+  input[type='radio']:checked {
+    @apply border-transparent bg-blue-600;
+  }
 
-    input[type="radio"]:focus {
-        @apply ring-2 ring-blue-300 outline-none;
-    }
+  input[type='radio']:focus {
+    @apply ring-2 ring-blue-300 outline-none;
+  }
 
-    form {
-        @apply w-full max-w-xl rounded-lg bg-white p-10 shadow-md;
-    }
+  form {
+    @apply w-full max-w-xl rounded-lg bg-white p-10 shadow-md;
+  }
 
-    label {
-        @apply mb-2 block text-2xl text-base font-bold text-gray-900;
-    }
+  label {
+    @apply mb-2 block text-base font-bold text-gray-900;
+  }
 
-    /* NavBar */
-    .top_navbar_link {
-        @apply rounded-md px-3 py-2 text-lg font-medium text-black hover:bg-gray-100 hover:text-gray-900;
-    }
+  /* Form */
+  .form-container {
+    @apply font-display mx-auto flex min-h-screen flex-col items-center justify-center p-3 sm:p-4;
+  }
 
-    .top_navbar_link_mobile {
-        @apply block rounded-md px-3 py-2 text-lg font-medium text-black hover:bg-gray-100 hover:text-gray-900;
-    }
+  .form-title {
+    @apply text-center text-3xl font-bold sm:text-4xl;
+  }
 
-    /* Footer */
-    .footer_containers {
-        @apply flex max-w-sm flex-col gap-1 p-2;
-    }
+  .form-group {
+    @apply mb-4 sm:mb-6;
+  }
 
-    .social_icon {
-        @apply hover:bg-primary m-2 inline-flex h-14 w-14 items-center rounded-full border p-2.5 text-center text-sm font-medium transition focus:ring-2 focus:outline-none;
-    }
+  .form-error {
+    @apply mt-1 text-xs text-red-500 italic;
+  }
 
-    /* Home */
-    .home_container {
-        @apply font-display m-auto flex h-full w-[70%] justify-center p-2;
-    }
+  .form-button {
+    @apply w-full rounded bg-blue-700 p-3 font-bold text-white hover:bg-blue-500 sm:p-4;
+  }
 
-    /* About */
-    .about_container {
-        @apply overflow-hidden rounded-xl bg-white shadow-md transition-shadow duration-300 hover:shadow-lg;
-    }
+  /* border */
+  .btn-sm {
+    @apply rounded px-3 py-1 text-xl font-medium transition;
+  }
 
-    .about_icon_container {
-        @apply bg-primary/10 mb-6 flex h-14 w-14 items-center justify-center rounded-full;
-    }
+  .btn-yellow {
+    @apply font-display inline-flex items-center justify-center rounded-xl bg-gradient-to-tr from-yellow-400 to-yellow-300 px-5 py-2 text-base font-semibold tracking-wider text-slate-950 shadow-sm transition hover:shadow-yellow-400/70 focus:ring-2 focus:ring-yellow-300/40 focus:outline-none;
+  }
 
-    .about_title {
-        @apply text-primary mb-4 text-4xl font-bold;
-    }
+  .btn-red {
+    background-color: var(--color-accent);
+    color: black;
+  }
 
-    .about_text {
-        @apply text-2xl leading-relaxed font-normal text-gray-900;
-    }
+  .btn-red:hover {
+    background-color: color-mix(in srgb, var(--color-accent) 90%, white);
+  }
 
-    /* Form */
-    .form-container {
-        @apply font-display mx-auto flex min-h-screen flex-col items-center justify-center p-3 sm:p-4;
-    }
+  .btn-gray {
+    @apply cursor-not-allowed opacity-50;
+    background-color: var(--color-secondary);
+    color: black;
+  }
 
-    .form-title {
-        @apply text-center text-3xl font-bold sm:text-4xl;
-    }
+  /* NavBar */
+  .top_navbar_link {
+    @apply rounded-md px-3 py-2 text-lg font-medium text-black hover:bg-gray-100 hover:text-gray-900;
+  }
 
-    .form-group {
-        @apply mb-4 sm:mb-6;
-    }
+  .top_navbar_link_mobile {
+    @apply block rounded-md px-3 py-2 text-lg font-medium text-black hover:bg-gray-100 hover:text-gray-900;
+  }
 
-    .form-error {
-        @apply mt-1 text-xs text-red-500 italic;
-    }
+  /* Footer */
+  .footer_containers {
+    @apply flex max-w-sm flex-col gap-1 p-2;
+  }
 
-    .form-button {
-        @apply w-full rounded bg-blue-700 p-3 font-bold text-white hover:bg-blue-500 sm:p-4;
-    }
+  .social_icon {
+    @apply hover:bg-primary m-2 inline-flex h-14 w-14 items-center rounded-full border p-2.5 text-center text-sm font-medium transition focus:ring-2 focus:outline-none;
+  }
 
-    /* Admin */
-    .admin-table-container {
-        @apply mt-5 overflow-x-auto rounded-xl border border-blue-300/30 bg-gradient-to-br from-blue-500/20 via-indigo-500/10 to-transparent text-white shadow-lg backdrop-blur-md;
-    }
+  /* Home */
+  .home_container {
+    @apply font-display m-auto flex h-full w-[70%] justify-center p-2;
+  }
 
-    .admin-table {
-        @apply min-w-full table-auto divide-y divide-white/10;
-    }
+  /* About */
+  .about_container {
+    @apply overflow-hidden rounded-xl bg-white shadow-md transition-shadow duration-300 hover:shadow-lg;
+  }
 
-    .admin-table thead {
-        @apply bg-blue-500/20 backdrop-blur-md;
-    }
+  .about_icon_container {
+    @apply bg-primary/10 mb-6 flex h-14 w-14 items-center justify-center rounded-full;
+  }
 
-    .admin-table th {
-        @apply px-6 py-3 text-left text-lg font-semibold tracking-wider uppercase;
-        color: white;
-    }
+  .about_title {
+    @apply text-primary mb-4 text-4xl font-bold;
+  }
 
-    .admin-table tbody tr {
-        @apply border-b border-white/10 transition hover:bg-blue-500/10;
-    }
+  .about_text {
+    @apply text-2xl leading-relaxed font-normal text-gray-900;
+  }
 
-    .admin-table td {
-        @apply px-6 py-4 text-2xl whitespace-nowrap text-white;
-    }
+  /* Admin */
+  .admin-table-container {
+    @apply mt-5 overflow-x-auto rounded-xl border border-blue-300/30 bg-gradient-to-br from-blue-500/20 via-indigo-500/10 to-transparent text-white shadow-lg backdrop-blur-md;
+  }
 
-    .btn-sm {
-        @apply rounded px-3 py-1 text-xl font-medium transition;
-    }
+  .admin-table {
+    @apply min-w-full table-auto divide-y divide-white/10;
+  }
 
-    .btn-yellow {
-        background-color: var(--color-secondary);
-        letter-spacing: 1px;
-        color: black;
-        margin: 4px;
-        font-weight: 700;
-        font-size: 1.25rem;
-        padding: 0.5rem 1rem;
-        border-radius: 0.5rem;
-        transition: background-color 0.3s ease;
-        border: 1px solid var(--color-secondary);
-        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
-        cursor: pointer;
-        text-decoration: none;
-        display: inline-block;
-        text-align: center;
-        vertical-align: middle;
-        user-select: none;
-        touch-action: manipulation;
-        white-space: nowrap;
-        font-family: var(--font-sans);
-        font-weight: 700;
-        font-size: 1.25rem;
-        padding: 0.5rem 1rem;
-        border-radius: 0.5rem;
-        transition: background-color 0.3s ease;
-        border: 1px solid var(--color-secondary);
-        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
-        cursor: pointer;
-        text-decoration: none;
-        display: inline-block;
-        text-align: center;
-        vertical-align: middle;
-        user-select: none;
-        touch-action: manipulation;
-        white-space: nowrap;
-        font-family: var(--font-sans);
-    }
+  .admin-table thead {
+    @apply bg-blue-500/20 backdrop-blur-md;
+  }
 
-    .btn-yellow:hover {
-        background-color: color-mix(in srgb, var(--color-secondary) 90%, white);
-    }
+  .admin-table th {
+    @apply px-6 py-3 text-left text-lg font-semibold tracking-wider uppercase;
+    color: white;
+  }
 
-    .btn-red {
-        background-color: var(--color-accent);
-        color: black;
-    }
+  .admin-table tbody tr {
+    @apply border-b border-white/10 transition hover:bg-blue-500/10;
+  }
 
-    .btn-red:hover {
-        background-color: color-mix(in srgb, var(--color-accent) 90%, white);
-    }
+  .admin-table td {
+    @apply px-6 py-4 text-2xl whitespace-nowrap text-white;
+  }
 
-    .btn-gray {
-        @apply cursor-not-allowed opacity-50;
-        background-color: var(--color-secondary);
-        color: black;
-    }
+  .total-container {
+    @apply my-4 rounded-xl border border-white/10 bg-white/5 p-5 shadow-lg backdrop-blur-md transition hover:bg-white/10 hover:shadow-xl;
+  }
 
-    .total-container {
-        @apply my-4 rounded-xl border border-white/10 bg-white/5 p-5 shadow-lg backdrop-blur-md transition hover:bg-white/10 hover:shadow-xl;
-    }
+  .total-subTitle {
+    @apply text-secondary text-3xl font-bold;
+  }
 
-    .total-subTitle {
-        @apply text-secondary text-3xl font-bold;
-    }
+  /* Glass Utilities */
+  .glass-card {
+    @apply rounded-xl border border-white/10 bg-white/5 p-5 shadow-lg backdrop-blur-md transition hover:bg-white/10 hover:shadow-xl;
+  }
 
-    /* Glass Utilities */
-    .glass-card {
-        @apply rounded-xl border border-white/10 bg-white/5 p-5 shadow-lg backdrop-blur-md transition hover:bg-white/10 hover:shadow-xl;
-    }
+  .glass-icon {
+    @apply rounded-full border border-white/10 bg-white/10 p-3 shadow backdrop-blur-md;
+  }
 
-    .glass-icon {
-        @apply rounded-full border border-white/10 bg-white/10 p-3 shadow backdrop-blur-md;
-    }
+  /* Admin Tabs */
+  .admin-tabs {
+    @apply inline-flex min-w-full rounded-xl border border-blue-300/30 bg-gradient-to-br from-blue-500/20 via-indigo-500/10 to-transparent p-1 shadow-lg backdrop-blur-md;
+  }
 
-    /* Admin Tabs */
-    .admin-tabs {
-        @apply inline-flex min-w-full rounded-xl border border-blue-300/30 bg-gradient-to-br from-blue-500/20 via-indigo-500/10 to-transparent p-1 shadow-lg backdrop-blur-md;
-    }
+  .admin-tab-btn {
+    @apply flex items-center rounded-lg px-4 py-3 text-sm font-medium whitespace-nowrap text-white/80 transition hover:bg-blue-500/10 hover:text-white md:text-base;
+  }
 
-    .admin-tab-btn {
-        @apply flex items-center rounded-lg px-4 py-3 text-sm font-medium whitespace-nowrap text-white/80 transition hover:bg-blue-500/10 hover:text-white md:text-base;
-    }
-
-    .admin-tab-btn.active {
-        @apply bg-blue-600/30 text-white shadow ring-1 ring-blue-300/40;
-    }
+  .admin-tab-btn.active {
+    @apply bg-blue-600/30 text-white shadow ring-1 ring-blue-300/40;
+  }
 }

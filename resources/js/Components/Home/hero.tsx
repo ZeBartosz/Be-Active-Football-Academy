@@ -1,4 +1,4 @@
-import { Link } from "@inertiajs/react";
+import { Link } from '@inertiajs/react';
 
 export default function Hero() {
   return (
@@ -23,15 +23,12 @@ export default function Hero() {
             excellence for all ages and abilities.
           </p>
           <div className="flex flex-col gap-3 py-[32px] sm:flex-row">
-            <Link
-              href={route("program_group.index")}
-              className="inline-flex items-center justify-center rounded-xl bg-gradient-to-tr from-yellow-400 to-yellow-300 px-6 py-3 text-base font-semibold tracking-wider text-slate-900 shadow-sm transition hover:shadow-yellow-400/20 focus:ring-2 focus:ring-yellow-300/40 focus:outline-none"
-            >
+            <Link href={route('program_group.index')} className="btn-yellow">
               Explore Programs
             </Link>
             <Link
-              href={route("faq.index")}
-              className="inline-flex items-center justify-center rounded-xl bg-blue-900/30 px-6 py-3 text-base font-semibold tracking-wider text-white/90 ring-1 ring-blue-300/10 backdrop-blur-md transition hover:bg-blue-900/50"
+              href={route('faq.index')}
+              className="font-display inline-flex items-center justify-center rounded-xl bg-blue-900/30 px-6 py-3 text-base font-semibold tracking-wider text-white/90 ring-1 ring-blue-300/10 backdrop-blur-md transition hover:bg-blue-900/50"
             >
               FAQs
             </Link>
@@ -56,7 +53,7 @@ export default function Hero() {
           </div>
         </div>
       </div>
-      <div className="overflow-auto rounded-sm bg-blue-900/30 shadow-2xl ring-1 ring-blue-300/10 backdrop-blur-md">
+      <div className="overflow-hidden rounded-sm bg-blue-900/30 shadow-2xl ring-1 ring-blue-300/10 backdrop-blur-md">
         <img
           src="storage/assets/fieldbg.jpeg"
           alt="Be Active Football Academy training"
